@@ -16,6 +16,7 @@
 #include "chartview.h"
 #include "plotms.h"
 #include "dialog.h"
+#include "treetab_2.h"
 
 class Controller : public QMainWindow
 {
@@ -38,7 +39,6 @@ private slots:
 private:
     void connectActions();
     void initializeTreeWidget();
-    void AddChild (QTreeWidgetItem *parent,QString childName,int childData);
     void newDataLoaded(std::vector<GCData*> data);
 
 private:
@@ -53,6 +53,7 @@ private:
 	QGraphicsScene * grpcs_2 = new QGraphicsScene();
     plotTIC mytic;
 	plotMS myMS;
+    treeTab_2 treetab;
     Dialog* progressbar_2 = new Dialog();
 
 protected:

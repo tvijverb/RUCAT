@@ -136,20 +136,8 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 void Controller::initializeTreeWidget()
 {
     // Qt treeWidget for displaying GC-MS files
-	QTreeWidget * tree = view->ui->treeWidget;
-    QTreeWidgetItem * topLevel = new QTreeWidgetItem();
-    topLevel->setText(0, "GC-MS files");
-    tree->addTopLevelItem(topLevel);
-}
-
-void Controller::AddChild (QTreeWidgetItem *parent,QString childName,int childData)
-{
-   // Adds childeren to the treeViewModel
-   QTreeWidgetItem *item = new QTreeWidgetItem();
-   item->setText(0,childName);
-   item->setData(1,0,QVariant(childData));
-   parent->addChild(item);
-   parent->setExpanded(true);
+    QTreeWidget * tree = view->ui->treeWidget;
+    treetab.initializeTreeView(tree);
 }
 
 std::vector<GCData*> Controller::getGCData()
@@ -171,7 +159,7 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     GCData * lastdata = data.back();
     std::string fileName;
     fileName = lastdata->getName();
-    AddChild(view->ui->treeWidget->topLevelItem(0),QString::fromStdString(fileName),data.size());
+    treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size());
 }
 
 void Controller::redrawTIC()
