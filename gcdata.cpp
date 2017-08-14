@@ -230,6 +230,11 @@ void GCData::setMSData(MSData * msdata)
 	this->msdata = msdata;
 }
 
+int GCData::getScan_n()
+{
+    return this->scan_tic.size();
+}
+
 std::vector<int> GCData::getScanRT_i()
 {
 	return scan_rt_i;

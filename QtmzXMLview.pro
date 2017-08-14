@@ -7,6 +7,8 @@
 
 QT       += core gui charts widgets
 
+QMAKE_CXXFLAGS += -/MP
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 
 TARGET = QtmzXMLview
@@ -27,7 +29,8 @@ SOURCES += main.cpp\
     plottic.cpp \
     plotms.cpp \
     qcustomplot.cpp \
-    dialog.cpp
+    dialog.cpp \
+    treetab_2.cpp
 
 HEADERS  += mainwindow.h \
     chartview.h \
@@ -38,7 +41,8 @@ HEADERS  += mainwindow.h \
     plottic.h \
     plotms.h \
     qcustomplot.h \
-    dialog.h
+    dialog.h \
+    treetab_2.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

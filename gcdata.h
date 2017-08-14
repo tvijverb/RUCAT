@@ -63,8 +63,7 @@ public: // Functions
 	MSData getMSData();
 	void setMSData(MSData * msdata);
 
-	std::vector<int> getScan_n();
-	void setScan_n(std::vector<int>);
+    int getScan_n();
 
 	std::vector<int> getScanRT_i();
 	void setScanRT_i(std::vector<int>);

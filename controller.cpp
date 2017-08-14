@@ -159,7 +159,7 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     GCData * lastdata = data.back();
     std::string fileName;
     fileName = lastdata->getName();
-    treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size());
+    treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());
 }
 
 void Controller::redrawTIC()

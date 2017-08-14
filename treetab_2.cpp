@@ -12,7 +12,7 @@ void treeTab_2::initializeTreeView(QTreeWidget * Tree)
     Tree->addTopLevelItem(topLevel);
 }
 
-void treeTab_2::topAddChild (QTreeWidget * Tree, QString childName,int childData)
+void treeTab_2::topAddChild (QTreeWidget * Tree, QString childName,int childData, GCData* data)
 {
    // Adds childeren to the treeViewModel
    QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -21,4 +21,16 @@ void treeTab_2::topAddChild (QTreeWidget * Tree, QString childName,int childData
    QTreeWidgetItem * parent = Tree->topLevelItem(0);
    parent->addChild(item);
    parent->setExpanded(true);
+   addChildInfo(Tree,item,data);
 }
+
+void treeTab_2::addChildInfo(QTreeWidget * Tree, QTreeWidgetItem * item, GCData* data)
+{
+    QTreeWidgetItem * scans = new QTreeWidgetItem();
+    QString gclength = QString::number(data->getScan_n());
+    scans->setText(0,"chromatogram data length: " + gclength);
+    scans->setData(1,0,QVariant(data->getScan_n()));
+    item->addChild(scans);
+}
+
+
