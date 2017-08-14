@@ -47,10 +47,11 @@ private:
     QTreeWidgetItem * topLevel;
     QTreeWidget * tree;
     QLineSeries * series = new QLineSeries();
-	ChartView * mychartView;
+    ChartView * mychartView;
+    QGraphicsScene * grpcs = new QGraphicsScene(this);
+    QChart * mychart = new QChart();
+    QChartView * qmychartView = new QChartView(mychart,this);
 	ChartView * myBarChartView;
-    QGraphicsScene * grpcs = new QGraphicsScene();
-	QGraphicsScene * grpcs_2 = new QGraphicsScene();
     plotTIC mytic;
 	plotMS myMS;
     treeTab_2 treetab;

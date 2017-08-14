@@ -14,6 +14,34 @@ void plotTIC::setLineChartIsInit(bool chartstate)
     this->lineChartIsInit = chartstate;
 }
 
+int plotTIC::getClickedPointIndex(QAbstractSeries * myseries, QPointF clickedPoint)
+{
+    QLineSeries * mylineseries = (QLineSeries *)myseries;
+
+    QPointF closest(INT_MAX, INT_MAX);
+    // process items in numerical order by index
+    // do something with "list[i]";
+    qreal distance(INT_MAX);
+
+    int j = 0;
+    int k = 0;
+    foreach(QPointF currentPoint, mylineseries->points()) {
+        qreal currentDistance = qSqrt((currentPoint.x() - clickedPoint.x())
+            * (currentPoint.x() - clickedPoint.x())
+            + (2 - 1)
+            * (2 - 1));
+        if (currentDistance < distance) {
+            distance = currentDistance;
+            closest = currentPoint;
+            k = j;
+        }
+        j++;
+    }
+    return k;
+}
+
+
+
 ChartView * plotTIC::clearLineChart()
 {
     this->chart = new QChart();

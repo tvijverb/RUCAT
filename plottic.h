@@ -14,8 +14,10 @@
 #include <QGraphicsItem>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QAbstractSeries>
 #include <QDateTime>
 #include <QDebug>
+#include <QtMath>
 
 #include "chart.h"
 #include "chartview.h"
@@ -28,6 +30,7 @@ public:
 
     bool getLineChartIsInit();
     void setLineChartIsInit(bool chartstate);
+    int getClickedPointIndex(QAbstractSeries *, QPointF);
 
 	ChartView * clearLineChart();
     ChartView * plotsingleTIC(GCData * data, QRect graphicsViewRect);

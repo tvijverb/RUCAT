@@ -7,7 +7,7 @@
 
 QT       += core gui charts widgets
 
-QMAKE_CXXFLAGS += -/MP
+QMAKE_CXXFLAGS += /MP
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 

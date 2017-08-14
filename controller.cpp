@@ -8,10 +8,12 @@ Controller::Controller(MainWindow * view)
     view->ui->tabWidget->setCurrentIndex(0);
 
     // TABWIDGET HORROR
+    /*
     qDebug() << "Controller.cpp";
     qDebug() << "tabWidget Geometry: " << view->ui->tabWidget->geometry();
     qDebug() << "tab Geometry" << view->ui->tab->geometry();
     qDebug() << "tab_2 Geometry" << view->ui->tab_2->geometry();
+    */
 }
 
 void Controller::connectActions()
@@ -31,45 +33,12 @@ void Controller::getlineChartClicked(QPointF qpoint)
 	// Get closest point from click to chartView
 	QChart * mychart = mychartView->chart();
 	QList<QAbstractSeries *> myseries = mychart->series();
+    int index = mytic.getClickedPointIndex(myseries[0],qpoint);
 
-	QPointF clickedPoint = qpoint;
-	
-	std::vector<QPointF> vec_closest;
-	std::vector<int> vec_closest_index;
-
-	for (int i = 0; i < myseries.count(); ++i)
-	{
-		QPointF closest(INT_MAX, INT_MAX);
-		// process items in numerical order by index
-		// do something with "list[i]";
-		qreal distance(INT_MAX);
-
-		QLineSeries * mylineseries = (QLineSeries *)myseries[i];
-		int j = 0;
-		int k = 0;
-		foreach(QPointF currentPoint, mylineseries->points()) {
-			qreal currentDistance = qSqrt((currentPoint.x() - clickedPoint.x())
-				* (currentPoint.x() - clickedPoint.x())
-				+ (2 - 1)
-				* (2 - 1));
-			if (currentDistance < distance) {
-				distance = currentDistance;
-				closest = currentPoint;
-				k = j;
-			}
-			j++;
-		}
-		vec_closest.push_back(closest);
-		vec_closest_index.push_back(k);
-		//+(currentPoint.y() - clickedPoint.y())
-		//	* (currentPoint.y() - clickedPoint.y()))
-		qDebug() << "Closest point to click on LineChart is:";
-		qDebug() << closest;
-	}
 	// DoubleClick on TreeWidget adds barChart to graphicsView_2
 	//QRect graphics_2ViewRect = view->ui->graphicsView_2->frameRect();
     QCustomPlot *customPlot = view->ui->qcWidget;
-    customPlot = myMS.plotsingleMS(data, vec_closest, vec_closest_index,customPlot);
+    customPlot = myMS.plotsingleMS(data, index,customPlot);
 	view->ui->qcWidget = customPlot;
 	view->ui->qcWidget->repaint();
 	view->ui->qcWidget->replot();

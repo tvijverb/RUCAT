@@ -37,7 +37,7 @@ ChartView * plotMS::redrawBarChart(QRect graphicsViewRect)
 	return chartView;
 }
 
-QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, std::vector<QPointF> clickedPoints, std::vector<int> clickedPoints_index, QCustomPlot *customPlot)
+QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_index, QCustomPlot *customPlot)
 {
     // Debugging info
     qDebug() << QString("GCData length sent to plotsingMS");
@@ -49,46 +49,18 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, std::vector<QPoint
 	QVector<MSData> mymsdata;
 	QVector<Scan> scans;
 
-	for (int datalen = 0; datalen < data.size(); datalen++) {
-		// Only take chromatogram `1  for now
-		
-		mymsdata.append(data.at(datalen)->getMSData());
-		MSData d = (mymsdata.at(datalen));
-		scans.append(d.getScan(clickedPoints_index.at(datalen)));
-
-	}
-
-	//demoName = "Bar Chart Demo";
-	// set dark background gradient:
-    //QLinearGradient gradient(0, 0, 0, 400);
-    //gradient.setColorAt(0, QColor(90, 90, 90));
-    //gradient.setColorAt(0.38, QColor(105, 105, 105));
-    //gradient.setColorAt(1, QColor(70, 70, 70));
-    //customPlot->setBackground(QBrush(gradient));
+    mymsdata.append(data.at(0)->getMSData());
+    MSData d = (mymsdata.at(0));
+    scans.append(d.getScan(clickedPoints_index));
 
 	// create empty bar chart objects:
 	QCPBars *bar1 = new QCPBars(customPlot->xAxis, customPlot->yAxis);
-	QCPBars *bar2 = new QCPBars(customPlot->xAxis, customPlot->yAxis);
-	QCPBars *bar3 = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 	bar1->setAntialiased(false); // gives more crisp, pixel aligned bar borders
-	bar2->setAntialiased(false);
-	bar3->setAntialiased(false);
-	//bar1->setStackingGap(1);
-	//bar2->setStackingGap(1);
-	//bar3->setStackingGap(1);
+
 	// set names and colors:
-	bar3->setName("bar3 fuels");
-	bar3->setPen(QPen(QColor(111, 9, 176).lighter(170)));
-	bar3->setBrush(QColor(111, 9, 176));
-	bar2->setName("bar2");
-	bar2->setPen(QPen(QColor(250, 170, 20).lighter(150)));
-	bar2->setBrush(QColor(250, 170, 20));
 	bar1->setName("bar1erative");
 	bar1->setPen(QPen(QColor(0, 168, 140).lighter(130)));
 	bar1->setBrush(QColor(0, 168, 140));
-	// stack bars on top of each other:
-	//bar2->moveAbove(bar3);
-	//bar1->moveAbove(bar2);
 
 	// prepare x axis with labels:
 	// x1:
@@ -176,8 +148,6 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, std::vector<QPoint
 	double upperrangex = doubleVec.back();
 	QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
 	textTicker->addTicks(ticks, labels);
-	textTicker->addTicks(ticks2, labels2);
-	textTicker->addTicks(ticks3, labels3);
 
 	customPlot->xAxis->setTicker(textTicker);
 	customPlot->xAxis->setTickLabelRotation(60);
@@ -194,20 +164,10 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, std::vector<QPoint
 	customPlot->yAxis->grid()->setSubGridPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
 
 	// Add data:
-	QVector<double> bar3Data, bar2Data, bar1Data;
+    QVector<double> bar1Data;
 	QVector<double> qYVec = QVector<double>::fromStdVector(doubleYVec);
 	bar1Data << qYVec;
 	bar1->setData(ticks, bar1Data);
 
-	if (data.size() > 1) {
-		QVector<double> qYVec2 = QVector<double>::fromStdVector(doubleYVec2);
-		bar2Data << qYVec2;
-		bar2->setData(ticks, bar2Data);
-	}
-	if (data.size() > 2) {
-		QVector<double> qYVec3 = QVector<double>::fromStdVector(doubleYVec3);
-		bar3Data << qYVec3;
-		bar3->setData(ticks3, bar3Data);
-	}
 return customPlot;
 }

@@ -26,7 +26,7 @@ public:
 
 	ChartView * clearBarChart();
 	ChartView * redrawBarChart(QRect graphicsViewRect);
-    QCustomPlot * plotsingleMS(std::vector<GCData*> data, std::vector<QPointF> clickedPoints, std::vector<int>, QCustomPlot *customPlot);
+    QCustomPlot * plotsingleMS(std::vector<GCData*> data, int, QCustomPlot *customPlot);
 
 private:
     bool barChartIsInit = false;
