@@ -7,6 +7,7 @@ Controller::Controller(MainWindow * view)
     initializeTreeWidget();
     view->ui->tabWidget->setCurrentIndex(0);
     view->ui->ticplot->setChart(mychart);
+	//view->ui->ticplot->installEventFilter(mychartView);
 
     // TABWIDGET HORROR
     /*
@@ -26,13 +27,11 @@ void Controller::connectActions()
 	QObject::connect(view->ui->splitter, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
 	QObject::connect(view->ui->splitter_2, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
 	QObject::connect(view->ui->splitter_3, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
-	QObject::connect(view, &MainWindow::MainWindowResized, this, &Controller::resizeEvent);
 }
 
 void Controller::getlineChartClicked(QPointF qpoint)
 {
 	// Get closest point from click to chartView
-	QChart * mychart = mychartView->chart();
 	QList<QAbstractSeries *> myseries = mychart->series();
     int index = mytic.getClickedPointIndex(myseries[0],qpoint);
 
@@ -43,14 +42,6 @@ void Controller::getlineChartClicked(QPointF qpoint)
 	view->ui->qcWidget = customPlot;
 	view->ui->qcWidget->repaint();
 	view->ui->qcWidget->replot();
-}
-
-void Controller::resizeEvent(QResizeEvent *event)
-{
-	view->ui->treeView->setGeometry(view->ui->tab->geometry());
-	view->ui->treeWidget->setGeometry(view->ui->tab_2->geometry());
-	//view->ui->graphicsView_2->updateGeometry();
-	on_splitter_moved();
 }
 
 void Controller::on_splitter_moved()

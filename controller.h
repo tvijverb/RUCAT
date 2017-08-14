@@ -6,6 +6,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QObject>
+#include <QEvent>
 #include <QDebug>
 
 #include "gcdata.h"
@@ -33,7 +34,6 @@ private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 	void on_splitter_moved();
     void redrawTIC();
-	void resizeEvent(QResizeEvent *event);
 	void getlineChartClicked(QPointF qpoint);
 
 private:
@@ -47,7 +47,7 @@ private:
     QTreeWidgetItem * topLevel;
     QTreeWidget * tree;
     QLineSeries * series = new QLineSeries();
-    ChartView * mychartView;
+	ChartView * mychartView;
     QGraphicsScene * grpcs = new QGraphicsScene(this);
     QChart * mychart = new QChart();
     plotTIC mytic;
