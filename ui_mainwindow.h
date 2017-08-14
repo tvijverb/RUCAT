@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.9.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -28,7 +27,9 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <QChartView>
 #include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
@@ -54,10 +55,15 @@ public:
     QSplitter *splitter;
     QTabWidget *tabWidget;
     QWidget *tab;
+    QVBoxLayout *verticalLayout;
     QTreeView *treeView;
     QWidget *tab_2;
+    QVBoxLayout *verticalLayout_2;
     QTreeWidget *treeWidget;
-    QGraphicsView *graphicsView;
+    QDockWidget *dockWidget_2;
+    QWidget *dockWidgetContents_3;
+    QHBoxLayout *horizontalLayout_3;
+    QChartView *ticplot;
     QSplitter *splitter_2;
     QListView *listView_2;
     QDockWidget *dockWidget;
@@ -75,7 +81,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1041, 563);
+        MainWindow->resize(724, 580);
         QPalette palette;
         QBrush brush(QColor(255, 255, 255, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -157,7 +163,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setVerticalSpacing(0);
         gridLayout->setContentsMargins(-1, 0, -1, 0);
         splitter_3 = new QSplitter(centralWidget);
         splitter_3->setObjectName(QStringLiteral("splitter_3"));
@@ -173,9 +178,14 @@ public:
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
+        verticalLayout = new QVBoxLayout(tab);
+        verticalLayout->setSpacing(4);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
+        verticalLayout->setContentsMargins(4, 4, 4, 4);
         treeView = new QTreeView(tab);
         treeView->setObjectName(QStringLiteral("treeView"));
-        treeView->setGeometry(QRect(0, 0, 391, 221));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::Base, brush);
         palette2.setBrush(QPalette::Active, QPalette::Highlight, brush);
@@ -230,37 +240,48 @@ public:
 "  image: url(:/Resources/icons/branch-open.png);\n"
 "  image-position: top;\n"
 "}"));
+        treeView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        treeView->setAutoScrollMargin(5);
+
+        verticalLayout->addWidget(treeView);
+
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
+        verticalLayout_2 = new QVBoxLayout(tab_2);
+        verticalLayout_2->setSpacing(4);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setSizeConstraint(QLayout::SetNoConstraint);
+        verticalLayout_2->setContentsMargins(4, 4, 4, 4);
         treeWidget = new QTreeWidget(tab_2);
         QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         treeWidget->setHeaderItem(__qtreewidgetitem);
         treeWidget->setObjectName(QStringLiteral("treeWidget"));
-        treeWidget->setGeometry(QRect(-5, 1, 401, 221));
         treeWidget->header()->setVisible(false);
+
+        verticalLayout_2->addWidget(treeWidget);
+
         tabWidget->addTab(tab_2, QString());
         splitter->addWidget(tabWidget);
-        graphicsView = new QGraphicsView(splitter);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setMinimumSize(QSize(450, 250));
-        QPalette palette3;
-        QBrush brush6(QColor(168, 168, 168, 255));
-        brush6.setStyle(Qt::SolidPattern);
-        palette3.setBrush(QPalette::Active, QPalette::Midlight, brush6);
-        palette3.setBrush(QPalette::Inactive, QPalette::Midlight, brush6);
-        palette3.setBrush(QPalette::Disabled, QPalette::Midlight, brush6);
-        graphicsView->setPalette(palette3);
-        graphicsView->setAutoFillBackground(true);
-        graphicsView->setFrameShape(QFrame::NoFrame);
-        graphicsView->setFrameShadow(QFrame::Plain);
-        graphicsView->setLineWidth(0);
-        graphicsView->setDragMode(QGraphicsView::NoDrag);
-        graphicsView->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
-        graphicsView->setRubberBandSelectionMode(Qt::ContainsItemShape);
-        graphicsView->setOptimizationFlags(QGraphicsView::DontAdjustForAntialiasing|QGraphicsView::DontClipPainter|QGraphicsView::DontSavePainterState|QGraphicsView::IndirectPainting);
-        splitter->addWidget(graphicsView);
+        dockWidget_2 = new QDockWidget(splitter);
+        dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
+        dockWidget_2->setMinimumSize(QSize(450, 300));
+        dockWidgetContents_3 = new QWidget();
+        dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
+        horizontalLayout_3 = new QHBoxLayout(dockWidgetContents_3);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(1, 1, 1, 1);
+        ticplot = new QChartView(dockWidgetContents_3);
+        ticplot->setObjectName(QStringLiteral("ticplot"));
+
+        horizontalLayout_3->addWidget(ticplot);
+
+        dockWidget_2->setWidget(dockWidgetContents_3);
+        splitter->addWidget(dockWidget_2);
         splitter_3->addWidget(splitter);
         splitter_2 = new QSplitter(splitter_3);
         splitter_2->setObjectName(QStringLiteral("splitter_2"));
@@ -275,6 +296,7 @@ public:
         splitter_2->addWidget(listView_2);
         dockWidget = new QDockWidget(splitter_2);
         dockWidget->setObjectName(QStringLiteral("dockWidget"));
+        dockWidget->setMinimumSize(QSize(450, 200));
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
         horizontalLayout_2 = new QHBoxLayout(dockWidgetContents_2);
@@ -296,17 +318,17 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1041, 21));
-        QPalette palette4;
-        QBrush brush7(QColor(160, 160, 160, 255));
-        brush7.setStyle(Qt::SolidPattern);
-        palette4.setBrush(QPalette::Active, QPalette::Light, brush7);
-        palette4.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette4.setBrush(QPalette::Inactive, QPalette::Light, brush7);
-        palette4.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette4.setBrush(QPalette::Disabled, QPalette::Light, brush7);
-        palette4.setBrush(QPalette::Disabled, QPalette::Base, brush5);
-        menuBar->setPalette(palette4);
+        menuBar->setGeometry(QRect(0, 0, 724, 21));
+        QPalette palette3;
+        QBrush brush6(QColor(160, 160, 160, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette3.setBrush(QPalette::Active, QPalette::Light, brush6);
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush6);
+        palette3.setBrush(QPalette::Inactive, QPalette::Light, brush6);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush6);
+        palette3.setBrush(QPalette::Disabled, QPalette::Light, brush6);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush5);
+        menuBar->setPalette(palette3);
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuTools = new QMenu(menuBar);
@@ -340,8 +362,9 @@ public:
         mainToolBar->addAction(actionSave);
 
         retranslateUi(MainWindow);
+        QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -349,24 +372,24 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionOpen_file->setText(QApplication::translate("MainWindow", "Open file", 0));
-        actionBatch_Open->setText(QApplication::translate("MainWindow", "Batch Open", 0));
-        actionSave->setText(QApplication::translate("MainWindow", "Save", 0));
-        actionExit->setText(QApplication::translate("MainWindow", "Exit", 0));
-        actionConcentration_Timeline->setText(QApplication::translate("MainWindow", "Align Chromatograms", 0));
-        actionPeak_Pick_Chromatograms->setText(QApplication::translate("MainWindow", "Peak Pick Chromatograms", 0));
-        actionIntegrate_Peaks->setText(QApplication::translate("MainWindow", "Integrate Peaks", 0));
-        actionPCA_Analysis->setText(QApplication::translate("MainWindow", "PCA Analysis", 0));
-        actionGenerate_CSV_integrated_peaklist->setText(QApplication::translate("MainWindow", "Generate .CSV integrated peaklist", 0));
-        actionTechnical_Support->setText(QApplication::translate("MainWindow", "Technical Support", 0));
-        actionReport_A_Bug->setText(QApplication::translate("MainWindow", "Report A Bug", 0));
-        actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "File Browser", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "GC-MS files", 0));
-        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
-        menuTools->setTitle(QApplication::translate("MainWindow", "Tools", 0));
-        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        actionOpen_file->setText(QApplication::translate("MainWindow", "Open file", Q_NULLPTR));
+        actionBatch_Open->setText(QApplication::translate("MainWindow", "Batch Open", Q_NULLPTR));
+        actionSave->setText(QApplication::translate("MainWindow", "Save", Q_NULLPTR));
+        actionExit->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
+        actionConcentration_Timeline->setText(QApplication::translate("MainWindow", "Align Chromatograms", Q_NULLPTR));
+        actionPeak_Pick_Chromatograms->setText(QApplication::translate("MainWindow", "Peak Pick Chromatograms", Q_NULLPTR));
+        actionIntegrate_Peaks->setText(QApplication::translate("MainWindow", "Integrate Peaks", Q_NULLPTR));
+        actionPCA_Analysis->setText(QApplication::translate("MainWindow", "PCA Analysis", Q_NULLPTR));
+        actionGenerate_CSV_integrated_peaklist->setText(QApplication::translate("MainWindow", "Generate .CSV integrated peaklist", Q_NULLPTR));
+        actionTechnical_Support->setText(QApplication::translate("MainWindow", "Technical Support", Q_NULLPTR));
+        actionReport_A_Bug->setText(QApplication::translate("MainWindow", "Report A Bug", Q_NULLPTR));
+        actionAbout->setText(QApplication::translate("MainWindow", "About", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "File Browser", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "GC-MS files", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
+        menuTools->setTitle(QApplication::translate("MainWindow", "Tools", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
     } // retranslateUi
 
 };

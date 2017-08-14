@@ -6,6 +6,7 @@ Controller::Controller(MainWindow * view)
     connectActions();
     initializeTreeWidget();
     view->ui->tabWidget->setCurrentIndex(0);
+    view->ui->ticplot->setChart(mychart);
 
     // TABWIDGET HORROR
     /*
@@ -54,52 +55,48 @@ void Controller::resizeEvent(QResizeEvent *event)
 
 void Controller::on_splitter_moved()
 {
-    qDebug() << "Controller.cpp";
-    qDebug() << "tabWidget Geometry: " << view->ui->tabWidget->geometry();
-    qDebug() << "tab Geometry" << view->ui->tab->geometry();
-    qDebug() << "tab_2 Geometry" << view->ui->tab_2->geometry();
 	if (grpcs->isActive())
 	{
 		// Update LineSeries plotting at graphicsView
 		// Redrawing required after splitter movement
 		if (mytic.getLineChartIsInit()) {
-			QRect graphicsViewRect = view->ui->graphicsView->frameRect();
-			mychartView = mytic.redrawLineChart(graphicsViewRect);
-			view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
+            //QRect graphicsViewRect = view->ui->graphicsView->frameRect();
+            //mychartView = mytic.redrawLineChart(graphicsViewRect);
+            //view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
 			grpcs->setSceneRect(mychartView->sceneRect());
-			view->ui->graphicsView->repaint();
+            //view->ui->graphicsView->repaint();
 		}
 
 		// Update BarSeries plotting at graphicsView
 		// Redrawing required after splitter movement
 	}
-	view->ui->treeView->setGeometry(view->ui->tab->geometry());
-	view->ui->treeWidget->setGeometry(view->ui->tab_2->geometry());
+    //view->ui->treeView->setGeometry(view->ui->tab->geometry());
+    //view->ui->treeWidget->setGeometry(view->ui->tab_2->geometry());
 }
 
 void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
 	// Generating generic variables needed for plotting
 	QString itemclicked = item->text(1);
-	QRect graphicsViewRect = view->ui->graphicsView->frameRect();
+    //QRect graphicsViewRect = view->ui->graphicsView->frameRect();
 	GCData * mydata = data.at(itemclicked.toInt() - 1);
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
-    mychartView = mytic.plotsingleTIC(mydata,graphicsViewRect);
+    //mychartView = mytic.plotsingleTIC(mydata,graphicsViewRect);
 
 	// Add chartview to the graphicsscene 
 	// Connect clickactions on chartview
 	if (!mytic.getLineChartIsInit())
 	{
 		grpcs->addWidget(mychartView);
-		view->ui->graphicsView->setScene(grpcs);
+        //view->ui->graphicsView->setScene(grpcs);
 		QObject::connect(mychartView, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
 		mytic.setLineChartIsInit(true);
 	}
-	mychartView = mytic.redrawLineChart(graphicsViewRect);
-	view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
+    //mychartView = mytic.redrawLineChart(graphicsViewRect);
+    //view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
 	grpcs->setSceneRect(mychartView->sceneRect());
-	view->ui->graphicsView->repaint();
+    //view->ui->graphicsView->repaint();
 }
 
 void Controller::initializeTreeWidget()
@@ -117,9 +114,9 @@ std::vector<GCData*> Controller::getGCData()
 void Controller::treeViewUpdate()
 {
     //Treeview Geometry updater
-    view->ui->treeView->updateGeometry();
-    view->ui->treeView->resizeColumnToContents(0);
-    view->ui->treeView->resizeColumnToContents(1);
+    //view->ui->treeView->updateGeometry();
+   // view->ui->treeView->resizeColumnToContents(0);
+    //view->ui->treeView->resizeColumnToContents(1);
 }
 
 void Controller::newDataLoaded(std::vector<GCData*> data)

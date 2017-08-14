@@ -50,8 +50,6 @@ private:
     ChartView * mychartView;
     QGraphicsScene * grpcs = new QGraphicsScene(this);
     QChart * mychart = new QChart();
-    QChartView * qmychartView = new QChartView(mychart,this);
-	ChartView * myBarChartView;
     plotTIC mytic;
 	plotMS myMS;
     treeTab_2 treetab;
