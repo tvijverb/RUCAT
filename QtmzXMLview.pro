@@ -42,7 +42,10 @@ HEADERS  += mainwindow.h \
     plotms.h \
     qcustomplot.h \
     dialog.h \
-    treetab_2.h
+    treetab_2.h \
+    ui_mainwindow.h \
+    ui_mainwindow.h \
+    ui_dialog.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

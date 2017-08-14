@@ -63,7 +63,7 @@ void Controller::on_splitter_moved()
             //QRect graphicsViewRect = view->ui->graphicsView->frameRect();
             //mychartView = mytic.redrawLineChart(graphicsViewRect);
             //view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
-			grpcs->setSceneRect(mychartView->sceneRect());
+            //grpcs->setSceneRect(mychartView->sceneRect());
             //view->ui->graphicsView->repaint();
 		}
 
@@ -78,25 +78,20 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 {
 	// Generating generic variables needed for plotting
 	QString itemclicked = item->text(1);
-    //QRect graphicsViewRect = view->ui->graphicsView->frameRect();
 	GCData * mydata = data.at(itemclicked.toInt() - 1);
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
-    //mychartView = mytic.plotsingleTIC(mydata,graphicsViewRect);
+    mychart = mytic.plotsingleTIC(mydata,mychart);
 
 	// Add chartview to the graphicsscene 
 	// Connect clickactions on chartview
 	if (!mytic.getLineChartIsInit())
 	{
-		grpcs->addWidget(mychartView);
+        //grpcs->addWidget(mychartView);
         //view->ui->graphicsView->setScene(grpcs);
-		QObject::connect(mychartView, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
-		mytic.setLineChartIsInit(true);
+        //QObject::connect(mychartView, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
+        mytic.setLineChartIsInit(true);
 	}
-    //mychartView = mytic.redrawLineChart(graphicsViewRect);
-    //view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
-	grpcs->setSceneRect(mychartView->sceneRect());
-    //view->ui->graphicsView->repaint();
 }
 
 void Controller::initializeTreeWidget()

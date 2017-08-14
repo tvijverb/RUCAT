@@ -59,7 +59,7 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 	return chartView;
 }
 
-ChartView * plotTIC::plotsingleTIC(GCData * data, QRect graphicsViewRect){
+QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     // Get graphics scene from GCData file
     
     std::vector<int> ScanRT_i;
@@ -108,7 +108,7 @@ ChartView * plotTIC::plotsingleTIC(GCData * data, QRect graphicsViewRect){
 		chart->removeSeries(series3);
 		data->setLineSeriesOnChart(false);
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
-		return chartView;
+        return chart;
 	}
 
     //std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() <<std::endl;
@@ -123,7 +123,6 @@ ChartView * plotTIC::plotsingleTIC(GCData * data, QRect graphicsViewRect){
     //chart->layout()->setContentsMargins(0,0,0,0);
     chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
     chart->setPlotAreaBackgroundVisible(true);
-    chart->setGeometry(graphicsViewRect);	
     QList<QAbstractSeries*> series2 = chart->series();
 
     chart->axisY(series2.front())->setTitleText(QString("Reconstructed Ion Count (RIC)"));
@@ -137,13 +136,8 @@ ChartView * plotTIC::plotsingleTIC(GCData * data, QRect graphicsViewRect){
     chart->addAxis(axisX, Qt::AlignBottom);
     series2.front()->attachAxis(axisX);
 
-	if (!lineChartIsInit)
-	{
-		this->chartView = new ChartView(chart);
-		chartView->setRenderHint(QPainter::Antialiasing);
-	}
     //QGraphicsScene * grpcs;
     //grpcs = new QGraphicsScene();
     //grpcs->addWidget(chartView);
-    return chartView;
+    return chart;
 }

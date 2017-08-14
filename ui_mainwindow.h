@@ -29,7 +29,7 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <QChartView>
+#include <qchartview.h>
 #include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
@@ -179,11 +179,11 @@ public:
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         verticalLayout = new QVBoxLayout(tab);
-        verticalLayout->setSpacing(4);
+        verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
-        verticalLayout->setContentsMargins(4, 4, 4, 4);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         treeView = new QTreeView(tab);
         treeView->setObjectName(QStringLiteral("treeView"));
         QPalette palette2;
@@ -249,11 +249,11 @@ public:
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         verticalLayout_2 = new QVBoxLayout(tab_2);
-        verticalLayout_2->setSpacing(4);
+        verticalLayout_2->setSpacing(0);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setSizeConstraint(QLayout::SetNoConstraint);
-        verticalLayout_2->setContentsMargins(4, 4, 4, 4);
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         treeWidget = new QTreeWidget(tab_2);
         QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
         __qtreewidgetitem->setText(0, QStringLiteral("1"));

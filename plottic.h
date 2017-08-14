@@ -33,7 +33,7 @@ public:
     int getClickedPointIndex(QAbstractSeries *, QPointF);
 
 	ChartView * clearLineChart();
-    ChartView * plotsingleTIC(GCData * data, QRect graphicsViewRect);
+    QChart * plotsingleTIC(GCData * data, QChart *);
 	ChartView * redrawLineChart(QRect graphicsViewRect);
 
 public:
