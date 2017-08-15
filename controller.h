@@ -56,6 +56,7 @@ private:
 	plotMS myMS;
     treeTab_2 treetab;
     Dialog* progressbar_2 = new Dialog();
+    QCustomPlot *customPlot;
 
 protected:
 	//void resizeEvent(QResizeEvent *event);

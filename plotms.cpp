@@ -1,6 +1,7 @@
 #include "plotms.h"
 
 #include <qvector.h>
+#include <iterator>
 
 #include <qvalueaxis.h>
 
@@ -37,11 +38,60 @@ ChartView * plotMS::redrawBarChart(QRect graphicsViewRect)
 	return chartView;
 }
 
+std::vector<int> plotMS::getGCDataOnChart(std::vector<GCData*> vecdata)
+{
+	std::vector<int> onChart;
+	for (int i = 0; i < vecdata.size(); i++)
+	{
+		GCData *data = vecdata.at(i);
+		if (data->getLineSeriesOnChart() == false)
+		{
+			onChart.push_back(0);
+		}
+		else
+		{
+			onChart.push_back(1);
+		}
+	}
+	return(onChart);
+}
+
 QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_index, QCustomPlot *customPlot)
 {
+
+	//Input
+	assert(data.size() != 0);
+
+
     // Debugging info
-    qDebug() << QString("GCData length sent to plotsingMS");
-    qDebug() << data.size();
+	std::vector<int> onChart = getGCDataOnChart(data);
+	int sum_of_elems = 0;
+	int first_plotted_data = 0;
+	int first_plotted_data_isset = 0;
+
+	for (int index = 0; index < onChart.size(); index++)
+	{
+		sum_of_elems += onChart[index];
+		if (onChart[index] == 1 && first_plotted_data_isset == 0)
+		{
+			first_plotted_data = index;
+			first_plotted_data_isset = 1;
+		}
+	}
+
+	qDebug() << "Number of QLineSeries on TIC: " << sum_of_elems;
+	qDebug() << "Showing plot:" << first_plotted_data << "from treeview.";
+
+	if (sum_of_elems > 1)
+	{
+		qDebug() << "Multiple charts are in TIC plot, Mass Spectrum plot only supports one plot.";
+		qDebug() << "Showing MS from top (visible) TIC @ TreeView: " << first_plotted_data;
+	}
+
+	if (sum_of_elems == 0)
+	{
+		return customPlot;
+	}
 
     // Clear MS plot
 	customPlot->clearPlottables();
@@ -49,7 +99,7 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 	QVector<MSData> mymsdata;
 	QVector<Scan> scans;
 
-    mymsdata.append(data.at(0)->getMSData());
+    mymsdata.append(data.at(first_plotted_data)->getMSData());
     MSData d = (mymsdata.at(0));
     scans.append(d.getScan(clickedPoints_index));
 
@@ -66,18 +116,31 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 	// x1:
 	QVector<double> ticks;
 	QVector<QString> labels;
+	std::vector<std::stringstream> stream;
+	std::vector<std::string> stringVec;
+	std::stringstream mystream;
+	std::string mystring;
 
 	std::vector<double> doubleVec(scans.at(0).x.begin(), scans.at(0).x.end());
+
+	for (int index = 0; index < doubleVec.size(); index++)
+	{
+		doubleVec.at(index) = round(doubleVec.at(index) * 1000.0) / 1000.0;
+		
+		std::ostringstream mystream;
+		mystream << std::fixed << std::setprecision(2) << doubleVec.at(index);
+		mystring = mystream.str();
+		if (index % 2)
+		{
+			mystring = ("");
+		}
+		stringVec.push_back(mystring);
+	}
+
 	QVector<double> qVec = QVector<double>::fromStdVector(doubleVec);
+	
 	ticks << qVec;
 
-	std::vector<std::string> stringVec;
-	stringVec.reserve(doubleVec.size());
-	std::transform(doubleVec.begin(),
-		doubleVec.end(),
-		std::back_inserter(stringVec),
-		[](double d) { return std::to_string(d); }
-	);
 	QVector<QString> QStringvec;
 	for (int i = 0; i < stringVec.size(); i++) {
 		QStringvec.append(QString::fromStdString(stringVec.at(i)));
@@ -88,6 +151,7 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 	std::vector<double> doubleYVec2;
 	std::vector<double> doubleYVec3;
 
+	/*
 	// x2:
 	QVector<double> ticks2;
 	QVector<QString> labels2;
@@ -138,7 +202,7 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 
 		labels3 << QStringvec3;
 		std::vector<double> doubleYVec3(scans.at(2).y.begin(), scans.at(2).y.end());
-	}
+	}*/
 
 	// prepare x axis:
 	if (scans.at(0).x.empty()) {
@@ -150,7 +214,7 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 	textTicker->addTicks(ticks, labels);
 
 	customPlot->xAxis->setTicker(textTicker);
-	customPlot->xAxis->setTickLabelRotation(60);
+	customPlot->xAxis->setTickLabelRotation(45);
     customPlot->xAxis->setSubTicks(true);//modded to true
 	customPlot->xAxis->setTickLength(0, 4);
 	customPlot->xAxis->setRange(lowerrangex, upperrangex);

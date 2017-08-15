@@ -297,6 +297,9 @@ public:
         dockWidget = new QDockWidget(splitter_2);
         dockWidget->setObjectName(QStringLiteral("dockWidget"));
         dockWidget->setMinimumSize(QSize(450, 200));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/png/bar.png"), QSize(), QIcon::Normal, QIcon::Off);
+        dockWidget->setWindowIcon(icon2);
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
         horizontalLayout_2 = new QHBoxLayout(dockWidgetContents_2);

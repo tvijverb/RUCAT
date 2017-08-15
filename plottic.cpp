@@ -79,6 +79,7 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 
     QLineSeries *series3= data->getScanLineSeries();
 
+    series3->setUseOpenGL(true);
     ScanRT_i = data->getScanRT_i();
     scan_tic = data->getScanTIC();
 
@@ -108,6 +109,7 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 		chart->removeSeries(series3);
 		data->setLineSeriesOnChart(false);
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
+		chart->hasFocus();
         return chart;
 	}
 

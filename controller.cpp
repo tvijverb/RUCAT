@@ -29,43 +29,35 @@ void Controller::on_rangeChanged()
 
 void Controller::getlineChartClicked(QPointF qpoint)
 {
-    qDebug() << "Entering viewportEvent on chartview";
+    if (!mytic.getLineChartIsInit())
+    {
+        qDebug() << "LineChart is not initialized";
+        return;
+    }
+    qDebug() << "Entering getlineChartClicked on Controller";
 	// Get closest point from click to chartView
-	QList<QAbstractSeries *> myseries = mychart->series();
+    QList<QAbstractSeries *> myseries = mychart->series();
+	if (myseries.size() == 0)
+	{
+		qDebug() << "No data in plot";
+		return;
+	}
+
     int index = mytic.getClickedPointIndex(myseries[0],qpoint);
 
 	// DoubleClick on TreeWidget adds barChart to graphicsView_2
 	//QRect graphics_2ViewRect = view->ui->graphicsView_2->frameRect();
-    if (!mytic.getLineChartIsInit())
-    {
-        return;
-    }
+
+
+    qDebug() << "plotting qcustomplot";
     QCustomPlot *customPlot = view->ui->qcWidget;
     customPlot = myMS.plotsingleMS(data, index,customPlot);
-	view->ui->qcWidget = customPlot;
-	view->ui->qcWidget->repaint();
-	view->ui->qcWidget->replot();
+    view->ui->qcWidget->replot();
 }
 
 void Controller::on_splitter_moved()
 {
-	if (grpcs->isActive())
-	{
-		// Update LineSeries plotting at graphicsView
-		// Redrawing required after splitter movement
-		if (mytic.getLineChartIsInit()) {
-            //QRect graphicsViewRect = view->ui->graphicsView->frameRect();
-            //mychartView = mytic.redrawLineChart(graphicsViewRect);
-            //view->ui->graphicsView->setSceneRect(mychartView->sceneRect());
-            //grpcs->setSceneRect(mychartView->sceneRect());
-            //view->ui->graphicsView->repaint();
-		}
 
-		// Update BarSeries plotting at graphicsView
-		// Redrawing required after splitter movement
-	}
-    //view->ui->treeView->setGeometry(view->ui->tab->geometry());
-    //view->ui->treeWidget->setGeometry(view->ui->tab_2->geometry());
 }
 
 void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
@@ -76,16 +68,7 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
     mychart = mytic.plotsingleTIC(mydata,mychart);
-
-	// Add chartview to the graphicsscene 
-	// Connect clickactions on chartview
-	if (!mytic.getLineChartIsInit())
-	{
-        //grpcs->addWidget(mychartView);
-        //view->ui->graphicsView->setScene(grpcs);
-        //QObject::connect(mychartView, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
-        mytic.setLineChartIsInit(true);
-	}
+	
 }
 
 void Controller::initializeTreeWidget()
@@ -102,10 +85,6 @@ std::vector<GCData*> Controller::getGCData()
 
 void Controller::treeViewUpdate()
 {
-    //Treeview Geometry updater
-    //view->ui->treeView->updateGeometry();
-   // view->ui->treeView->resizeColumnToContents(0);
-    //view->ui->treeView->resizeColumnToContents(1);
 }
 
 void Controller::newDataLoaded(std::vector<GCData*> data)
@@ -114,7 +93,11 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     GCData * lastdata = data.back();
     std::string fileName;
     fileName = lastdata->getName();
+
+    mychart = mytic.plotsingleTIC(lastdata,mychart);
+
     treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());
+    mytic.setLineChartIsInit(true);
 }
 
 void Controller::redrawTIC()

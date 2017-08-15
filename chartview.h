@@ -53,10 +53,12 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    void mouseDoubleClickEvent( QMouseEvent * event );
 //![2]
 
 private:
     bool m_isTouching;
+    bool leftbuttondown;
 
 signals:
 	void lineChartClicked(QPointF);

@@ -3,6 +3,14 @@
 #define QCUSTOMPLOT_COMPILE_LIBRARY
 
 #include <string>
+#include <assert.h>
+#include <iterator>
+#include <iostream>
+#include <vector>
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
+#include <stdio.h>
+#include <string.h>
 
 #include <QString>
 #include <QObject>
@@ -23,6 +31,8 @@ public:
 
 	bool getBarChartIsInit();
 	void setBarChartIsInit(bool chartstate);
+
+	std::vector<int> getGCDataOnChart(std::vector<GCData*>);
 
 	ChartView * clearBarChart();
 	ChartView * redrawBarChart(QRect graphicsViewRect);
