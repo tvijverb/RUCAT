@@ -30,15 +30,16 @@
 #include "chartview.h"
 #include <QtGui/QMouseEvent>
 
-ChartView::ChartView(QChart *chart, QWidget *parent) :
-    QChartView(chart, parent),
+ChartView::ChartView(QWidget *parent) :
+    QChartView(parent),
     m_isTouching(false)
 {
-    setRubberBand(QChartView::RectangleRubberBand);
+    //setRubberBand(QChartView::RectangleRubberBand);
 }
 
 bool ChartView::viewportEvent(QEvent *event)
 {
+    qDebug() << "Entering viewportEvent on chartview";
     if (event->type() == QEvent::TouchBegin) {
         // By default touch events are converted to mouse events. So
         // after this event we will get a mouse event also but we want
@@ -59,12 +60,14 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 	
     if (m_isTouching)
         return;
-    QChartView::mousePressEvent(event);
+
     if(event->button() == Qt::RightButton)
         {
+            //m_isTouching = false;
             chart()->zoomReset();
-            chart()->zoomIn();
+            return;
         }
+    QChartView::mousePressEvent(event);
 }
 
 void ChartView::mouseMoveEvent(QMouseEvent *event)
@@ -82,7 +85,11 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
     // Because we disabled animations when touch event was detected
     // we must put them back on.
     //chart()->setAnimationOptions(QChart::SeriesAnimations);
-
+    if(event->button() == Qt::RightButton)
+        {
+            qDebug() << "Fuck release events";
+            return; //event doesn't go further
+        }
     QChartView::mouseReleaseEvent(event);
 }
 

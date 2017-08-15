@@ -73,5 +73,6 @@
         <file>plottic.cpp</file>
         <file>plottic.h</file>
         <file>ui_mainwindow.h</file>
+        <file>png/bar.png</file>
     </qresource>
 </RCC>

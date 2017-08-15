@@ -479,6 +479,9 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
           <height>300</height>
          </size>
         </property>
+        <property name="windowTitle">
+         <string>Total Ion Current Chromatogram</string>
+        </property>
         <widget class="QWidget" name="dockWidgetContents_3">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="leftMargin">
@@ -494,7 +497,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
            <number>1</number>
           </property>
           <item>
-           <widget class="QChartView" name="ticplot" native="true"/>
+           <widget class="ChartView" name="ticplot" native="true"/>
           </item>
          </layout>
         </widget>
@@ -533,6 +536,13 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
           <width>450</width>
           <height>200</height>
          </size>
+        </property>
+        <property name="windowIcon">
+         <iconset resource="toolbarresource.qrc">
+          <normaloff>:/png/bar.png</normaloff>:/png/bar.png</iconset>
+        </property>
+        <property name="windowTitle">
+         <string>Mass Spectrum</string>
         </property>
         <widget class="QWidget" name="dockWidgetContents_2">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -750,6 +760,11 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
    <extends>QWidget</extends>
    <header>../../qcustomplot.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ChartView</class>
+   <extends>QWidget</extends>
+   <header>chartview.h</header>
   </customwidget>
  </customwidgets>
  <resources>

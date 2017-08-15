@@ -29,12 +29,14 @@ public:
 public slots:
     void openFile();
     void treeViewUpdate();
+    void on_rangeChanged();
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 	void on_splitter_moved();
     void redrawTIC();
 	void getlineChartClicked(QPointF qpoint);
+
 
 private:
     void connectActions();

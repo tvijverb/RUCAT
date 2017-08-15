@@ -22,9 +22,9 @@ void plotMS::setBarChartIsInit(bool chartstate)
 
 ChartView * plotMS::clearBarChart()
 {
-	this->chart2 = new QChart();
-	this->chartView = new ChartView(chart2);
-	return chartView;
+    //this->chart2 = new QChart();
+    //this->chartView = new ChartView(chart2);
+    return chartView;
 }
 
 ChartView * plotMS::redrawBarChart(QRect graphicsViewRect)

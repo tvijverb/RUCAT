@@ -29,8 +29,8 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <qchartview.h>
 #include "qcustomplot.h"
+#include "chartview.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -63,7 +63,7 @@ public:
     QDockWidget *dockWidget_2;
     QWidget *dockWidgetContents_3;
     QHBoxLayout *horizontalLayout_3;
-    QChartView *ticplot;
+    ChartView *ticplot;
     QSplitter *splitter_2;
     QListView *listView_2;
     QDockWidget *dockWidget;
@@ -275,7 +275,7 @@ public:
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(1, 1, 1, 1);
-        ticplot = new QChartView(dockWidgetContents_3);
+        ticplot = new ChartView(dockWidgetContents_3);
         ticplot->setObjectName(QStringLiteral("ticplot"));
 
         horizontalLayout_3->addWidget(ticplot);
@@ -387,6 +387,8 @@ public:
         actionAbout->setText(QApplication::translate("MainWindow", "About", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "File Browser", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "GC-MS files", Q_NULLPTR));
+        dockWidget_2->setWindowTitle(QApplication::translate("MainWindow", "Total Ion Current Chromatogram", Q_NULLPTR));
+        dockWidget->setWindowTitle(QApplication::translate("MainWindow", "Mass Spectrum", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));

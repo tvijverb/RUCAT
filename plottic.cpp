@@ -44,9 +44,9 @@ int plotTIC::getClickedPointIndex(QAbstractSeries * myseries, QPointF clickedPoi
 
 ChartView * plotTIC::clearLineChart()
 {
-    this->chart = new QChart();
-	this->chartView = new ChartView(chart);
-	return chartView;
+    //this->chart = new QChart();
+    //this->chartView = new ChartView(chart);
+    return chartView;
 }
 
 ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)

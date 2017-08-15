@@ -7,15 +7,7 @@ Controller::Controller(MainWindow * view)
     initializeTreeWidget();
     view->ui->tabWidget->setCurrentIndex(0);
     view->ui->ticplot->setChart(mychart);
-	//view->ui->ticplot->installEventFilter(mychartView);
-
-    // TABWIDGET HORROR
-    /*
-    qDebug() << "Controller.cpp";
-    qDebug() << "tabWidget Geometry: " << view->ui->tabWidget->geometry();
-    qDebug() << "tab Geometry" << view->ui->tab->geometry();
-    qDebug() << "tab_2 Geometry" << view->ui->tab_2->geometry();
-    */
+    view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
 }
 
 void Controller::connectActions()
@@ -27,16 +19,27 @@ void Controller::connectActions()
 	QObject::connect(view->ui->splitter, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
 	QObject::connect(view->ui->splitter_2, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
 	QObject::connect(view->ui->splitter_3, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
+    QObject::connect(view->ui->ticplot, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
+}
+
+void Controller::on_rangeChanged()
+{
+    qDebug()<< "onrangechanged";
 }
 
 void Controller::getlineChartClicked(QPointF qpoint)
 {
+    qDebug() << "Entering viewportEvent on chartview";
 	// Get closest point from click to chartView
 	QList<QAbstractSeries *> myseries = mychart->series();
     int index = mytic.getClickedPointIndex(myseries[0],qpoint);
 
 	// DoubleClick on TreeWidget adds barChart to graphicsView_2
 	//QRect graphics_2ViewRect = view->ui->graphicsView_2->frameRect();
+    if (!mytic.getLineChartIsInit())
+    {
+        return;
+    }
     QCustomPlot *customPlot = view->ui->qcWidget;
     customPlot = myMS.plotsingleMS(data, index,customPlot);
 	view->ui->qcWidget = customPlot;
