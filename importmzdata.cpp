@@ -13,9 +13,12 @@
 #include <QtCore>
 #include <QtWidgets>
 
-GCData* importmzData(QString &current, Dialog *progressbar_2)  {
+GCData* importmzData(const QString current)  {
+    //  Dialog *progressbar_2, int file_count, int file_count_total
     qDebug() << QString(current);
-
+    //Dialog *progressbar_2 = new Dialog();
+    //int file_count = 1;
+    //int file_count_total = 1;
     // Start progress bar
     //progressbar->show();
     //progressbar->setZero();
@@ -52,7 +55,7 @@ GCData* importmzData(QString &current, Dialog *progressbar_2)  {
 
     qDebug() << "importmzdata.cpp";
     qDebug() << "Number of lines in xml file: " << line_count;
-    progressbar_2->setMax(line_count);
+    //progressbar_2->setMax(line_count);
 
     // Loop over entire .mzXML file line by line
     // Content pushed to var file_contents
@@ -337,10 +340,15 @@ GCData* importmzData(QString &current, Dialog *progressbar_2)  {
         }
 
         // Update gui every 100 lines
-        if(current_line%100){
+        /*if(current_line%100){
             qApp->processEvents();
+
             progressbar_2->setValue(current_line);
-        }
+            int curr_denominator = 1000 / (file_count_total);
+            double file_progress = (double(current_line) / double(line_count) * double(curr_denominator) + (double(curr_denominator) * double(file_count))) - curr_denominator;
+            //qDebug() << overall_progress;
+            progressbar_2->setValue2(int(file_progress));
+        }*/
         current_line++;
     }
     // Push msdata to gcdata class

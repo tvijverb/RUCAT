@@ -5,7 +5,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui charts widgets
+QT       += core gui charts widgets winextras concurrent
 
 QMAKE_CXXFLAGS += /MP
 

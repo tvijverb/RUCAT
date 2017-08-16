@@ -8,6 +8,9 @@
 #include <QObject>
 #include <QEvent>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QThread>
+#include <QtConcurrent\qtconcurrentmap.h>
 
 #include "gcdata.h"
 #include "mainwindow.h"
@@ -34,7 +37,7 @@ public slots:
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 	void on_splitter_moved();
-    void redrawTIC();
+    void futureReady();
 	void getlineChartClicked(QPointF qpoint);
 
 
@@ -55,8 +58,10 @@ private:
     plotTIC mytic;
 	plotMS myMS;
     treeTab_2 treetab;
-    Dialog* progressbar_2 = new Dialog();
+    Dialog* progressbar = new Dialog();
     QCustomPlot *customPlot;
+    QFutureWatcher<GCData *> futureWatcher;
+
 
 protected:
 	//void resizeEvent(QResizeEvent *event);

@@ -1,4 +1,6 @@
 #include "controller.h"
+#include <qfuturewatcher.h>
+
 
 Controller::Controller(MainWindow * view)
 {
@@ -20,6 +22,11 @@ void Controller::connectActions()
 	QObject::connect(view->ui->splitter_2, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
 	QObject::connect(view->ui->splitter_3, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
     QObject::connect(view->ui->ticplot, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
+    QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), progressbar, SLOT(setRange(int,int)));
+    QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)),progressbar, SLOT(setValue(int)));
+    QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
+    QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
+	
 }
 
 void Controller::on_rangeChanged()
@@ -100,9 +107,18 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     mytic.setLineChartIsInit(true);
 }
 
-void Controller::redrawTIC()
+void Controller::futureReady()
 {
-    qDebug() << QString("redraw TIC here");
+    QFuture<GCData*> Qfuture = futureWatcher.future();
+    qDebug() << QString("futureReady");
+    //futureWatcher.
+    for(int i = 0; i < Qfuture.resultCount();i++)
+    {
+        data.push_back(futureWatcher.resultAt(i));
+        newDataLoaded(data);
+    }
+    qDebug() << "Imported data";
+    qDebug() << "Imported data";
 }
 
 void Controller::openFile()
@@ -115,20 +131,16 @@ void Controller::openFile()
                                                     "mzXML files (*.mzXML)");
     // Import mzData from file to variable
     if(fileList.size() > 0){
-        progressbar_2->show();
-        progressbar_2->setZero();
-        progressbar_2->setMax2(fileList.size());
+        progressbar->show();
+        progressbar->setZero();
 
-        int file_count = 1;
-        for (QStringList::iterator it = fileList.begin(); it != fileList.end(); ++it)
-        {
-            QString current = *it;
-            data.push_back(importmzData(current,progressbar_2));
-            newDataLoaded(data);
-            progressbar_2->setValue2(file_count);
-            file_count++;
-        }
-        progressbar_2->closethis();
+        // Start the computation.
+       // futureWatcher.setFuture(QtConcurrent::map(vector, spin));
+        futureWatcher.setFuture(QtConcurrent::mapped(fileList,importmzData));
+        // Display the dialog and start the event loop.
+        //progressbar->exec();
+
+        //futureWatcher.waitForFinished();
     }
 	view->ui->tabWidget->setCurrentIndex(1);
 }

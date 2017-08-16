@@ -112,7 +112,6 @@ private: // Vars
     std::vector<int> scan_tic;
     QList<QPointF> scan_tic_qp;
     QLineSeries* series = new QLineSeries();
-    //QList<
 
 public slots:
 };

@@ -23,21 +23,16 @@ class Ui_Dialog
 {
 public:
     QProgressBar *progressBar;
-    QProgressBar *progressBar_2;
 
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(434, 103);
+        Dialog->resize(434, 52);
         progressBar = new QProgressBar(Dialog);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setGeometry(QRect(20, 10, 401, 23));
         progressBar->setValue(24);
-        progressBar_2 = new QProgressBar(Dialog);
-        progressBar_2->setObjectName(QStringLiteral("progressBar_2"));
-        progressBar_2->setGeometry(QRect(20, 60, 401, 23));
-        progressBar_2->setValue(24);
 
         retranslateUi(Dialog);
 

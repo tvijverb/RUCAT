@@ -9,7 +9,7 @@
 #include "gcdata.h"
 #include "dialog.h"
 
-GCData * importmzData(QString &current, Dialog*);
+GCData * importmzData(const QString current);
 
 
 
