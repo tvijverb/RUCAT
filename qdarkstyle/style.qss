@@ -930,6 +930,18 @@ QTreeView, QListView
     background-color: #232629;
 }
 
+QTreeWidget::item {
+	border-radius: 10px;
+	padding: 20px 20px 20px 20px;
+	font: sans-serif;
+	font-weight: bold;
+	font-size: 24px;	
+}
+
+QTreeWidget::item:hover {
+     border: 1px solid #3DAEE9;	
+}
+
 QTreeView:branch:selected, QTreeView:branch:hover
 {
     background: url(:/qss_icons/rc/transparent.png);

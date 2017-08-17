@@ -29,7 +29,7 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "qcustomplot.h"
+#include "../../qcustomplot.h"
 #include "chartview.h"
 
 QT_BEGIN_NAMESPACE
@@ -367,7 +367,7 @@ public:
         retranslateUi(MainWindow);
         QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

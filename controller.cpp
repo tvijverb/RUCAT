@@ -83,6 +83,10 @@ void Controller::initializeTreeWidget()
     // Qt treeWidget for displaying GC-MS files
     QTreeWidget * tree = view->ui->treeWidget;
     treetab.initializeTreeView(tree);
+    QFont fnt;
+    fnt.setPixelSize(16);
+    view->ui->treeWidget->setFont(fnt);
+    //view->ui->treeWidget->set
 }
 
 std::vector<GCData*> Controller::getGCData()
@@ -102,8 +106,10 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     fileName = lastdata->getName();
 
     mychart = mytic.plotsingleTIC(lastdata,mychart);
+    QTreeWidgetItem * twItem;
 
     treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());
+    //treetab.
     mytic.setLineChartIsInit(true);
 }
 
