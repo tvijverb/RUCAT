@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     plotms.cpp \
     qcustomplot.cpp \
     dialog.cpp \
-    treetab_2.cpp
+    treetab_2.cpp \
+    exportcsv.cpp
 
 HEADERS  += mainwindow.h \
     chartview.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     treetab_2.h \
     ui_mainwindow.h \
     ui_mainwindow.h \
-    ui_dialog.h
+    ui_dialog.h \
+    exportcsv.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

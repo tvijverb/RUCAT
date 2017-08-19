@@ -11,6 +11,10 @@
 #include <QCoreApplication>
 #include <QThread>
 #include <QtConcurrent\qtconcurrentmap.h>
+#include <QOpenGLWidget>
+#include <QHoverEvent>
+#include <QApplication>
+#include <QGraphicsLayout>
 
 #include "gcdata.h"
 #include "mainwindow.h"
@@ -21,6 +25,7 @@
 #include "plotms.h"
 #include "dialog.h"
 #include "treetab_2.h"
+#include "exportcsv.h"
 
 class Controller : public QMainWindow
 {
@@ -31,12 +36,13 @@ public:
 
 public slots:
     void openFile();
+    void TICCSVSelected_File();
+    void TICCSVALL_Files();
     void treeViewUpdate();
     void on_rangeChanged();
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-	void on_splitter_moved();
     void futureReady();
 	void getlineChartClicked(QPointF qpoint);
 
@@ -61,7 +67,7 @@ private:
     Dialog* progressbar = new Dialog();
     QCustomPlot *customPlot;
     QFutureWatcher<GCData *> futureWatcher;
-
+    exportcsv csvexporter;
 
 protected:
 	//void resizeEvent(QResizeEvent *event);

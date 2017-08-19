@@ -74,5 +74,6 @@
         <file>plottic.h</file>
         <file>ui_mainwindow.h</file>
         <file>png/bar.png</file>
+        <file>png/RUCAT.png</file>
     </qresource>
 </RCC>

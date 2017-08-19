@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent) :
         f.open(QFile::ReadOnly | QFile::Text);
         QTextStream ts(&f);
         qApp->setStyleSheet(ts.readAll());
+
+        ui->centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
     }
 
 	QDirModel * model = new QDirModel();
@@ -64,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->treeView->setAnimated(false);
     ui->treeView->setIndentation(20);
     ui->treeView->setSortingEnabled(true);
-    ui->treeView->expandToDepth(0);
+    //ui->treeView->expandToDepth(0);
     ui->treeView->resizeColumnToContents(0);
 
 }

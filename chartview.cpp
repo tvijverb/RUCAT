@@ -39,7 +39,6 @@ ChartView::ChartView(QWidget *parent) :
 
 bool ChartView::viewportEvent(QEvent *event)
 {
-    //qDebug() << "Entering viewportEvent on chartview";
     if (event->type() == QEvent::TouchBegin) {
         // By default touch events are converted to mouse events. So
         // after this event we will get a mouse event also but we want
@@ -56,7 +55,6 @@ bool ChartView::viewportEvent(QEvent *event)
 
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
-    qDebug() << "Entering mousePressEvent on chartview";
     if (m_isTouching)
         return;
 
@@ -81,7 +79,6 @@ void ChartView::mouseDoubleClickEvent( QMouseEvent * event )
 
     if ( event->button() == Qt::LeftButton )
     {
-        qDebug() << "Entering mouseDoubleClickEvent on chartview";
         emit lineChartClicked(chart()->mapToValue(mapToScene(event->pos())));
     }
     QChartView::mouseDoubleClickEvent(event);
@@ -102,7 +99,6 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
     //chart()->setAnimationOptions(QChart::SeriesAnimations);
     if(event->button() == Qt::RightButton)
         {
-            qDebug() << "Fuck release events";
             return; //event doesn't go further
         }
     QChartView::mouseReleaseEvent(event);

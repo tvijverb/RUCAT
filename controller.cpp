@@ -10,23 +10,31 @@ Controller::Controller(MainWindow * view)
     view->ui->tabWidget->setCurrentIndex(0);
     view->ui->ticplot->setChart(mychart);
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
+    mychart->layout()->setContentsMargins(0,0,0,0);
+    mychart->setBackgroundRoundness(0);
 }
 
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
-	QObject::connect(view->ui->treeView, &QTreeView::expanded, this, &Controller::treeViewUpdate);
-	QObject::connect(view->ui->treeView, &QTreeView::collapsed, this, &Controller::treeViewUpdate);
+    QObject::connect(view->ui->actionTICCSVSelected_File, &QAction::triggered, this,&Controller::TICCSVSelected_File);
+    QObject::connect(view->ui->actionTICCSVAll_Files, &QAction::triggered, this,&Controller::TICCSVALL_Files);
 	QObject::connect(view->ui->treeWidget, &QTreeWidget::itemDoubleClicked, this, &Controller::on_treeWidget_itemDoubleClicked);
-	QObject::connect(view->ui->splitter, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
-	QObject::connect(view->ui->splitter_2, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
-	QObject::connect(view->ui->splitter_3, &QSplitter::splitterMoved, this, &Controller::on_splitter_moved);
     QObject::connect(view->ui->ticplot, &ChartView::lineChartClicked, this, &Controller::getlineChartClicked);
     QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), progressbar, SLOT(setRange(int,int)));
     QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)),progressbar, SLOT(setValue(int)));
     QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
-	
+}
+
+void Controller::TICCSVSelected_File()
+{
+    csvexporter.export_single_csv(view->ui->treeWidget,data);
+}
+
+void Controller::TICCSVALL_Files()
+{
+    csvexporter.TICCSVALL_Files(view->ui->treeWidget,data);
 }
 
 void Controller::on_rangeChanged()
@@ -41,7 +49,6 @@ void Controller::getlineChartClicked(QPointF qpoint)
         qDebug() << "LineChart is not initialized";
         return;
     }
-    qDebug() << "Entering getlineChartClicked on Controller";
 	// Get closest point from click to chartView
     QList<QAbstractSeries *> myseries = mychart->series();
 	if (myseries.size() == 0)
@@ -62,20 +69,18 @@ void Controller::getlineChartClicked(QPointF qpoint)
     view->ui->qcWidget->replot();
 }
 
-void Controller::on_splitter_moved()
-{
-
-}
-
 void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
 	// Generating generic variables needed for plotting
 	QString itemclicked = item->text(1);
+
+    qDebug() << "Itemclicked:" << itemclicked;
 	GCData * mydata = data.at(itemclicked.toInt() - 1);
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
     mychart = mytic.plotsingleTIC(mydata,mychart);
-	
+    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
+    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }
 
 void Controller::initializeTreeWidget()
@@ -83,10 +88,6 @@ void Controller::initializeTreeWidget()
     // Qt treeWidget for displaying GC-MS files
     QTreeWidget * tree = view->ui->treeWidget;
     treetab.initializeTreeView(tree);
-    QFont fnt;
-    fnt.setPixelSize(16);
-    view->ui->treeWidget->setFont(fnt);
-    //view->ui->treeWidget->set
 }
 
 std::vector<GCData*> Controller::getGCData()
@@ -106,10 +107,10 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     fileName = lastdata->getName();
 
     mychart = mytic.plotsingleTIC(lastdata,mychart);
-    QTreeWidgetItem * twItem;
+    treetab.removeEmptyTop(view->ui->treeWidget);
 
-    treetab.topAddChild(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());
-    //treetab.
+    treetab.topAdd(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());
+    view->ui->treeWidget->setRootIndex(QModelIndex());
     mytic.setLineChartIsInit(true);
 }
 

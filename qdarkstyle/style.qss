@@ -48,6 +48,11 @@ QWidget:item:hover
     color: #eff0f1;
 }
 
+QTabWidget:item:selected
+{
+	
+}
+
 QWidget:item:selected
 {
     background-color: #18465d;
@@ -197,7 +202,7 @@ QRadioButton::indicator:unchecked:disabled
 
 QMenuBar
 {
-    background-color: #31363b;
+    background-color: #565A5E;
     color: #eff0f1;
 }
 
@@ -570,7 +575,7 @@ QStackedWidget
 
 QToolBar {
     border: 1px transparent #393838;
-    background: 1px solid #31363b;
+    background: 1px solid #565A5E;
     font-weight: bold;
 }
 
@@ -792,14 +797,18 @@ QTabBar::tab:top {
     border-top-right-radius: 2px;
 }
 
-QTabBar::tab:top:!selected
+QTabBar::tab:top:selected
 {
     color: #eff0f1;
     background-color: #54575B;
     border: 1px solid #76797C;
     border-bottom: 1px transparent black;
     border-top-left-radius: 2px;
-    border-top-right-radius: 2px;    
+    border-top-right-radius: 2px; 
+}
+
+QTabWidget::tab-bar {
+left: 0px; /* move to the right by 5px */
 }
 
 QTabBar::tab:top:!selected:hover {
@@ -930,12 +939,27 @@ QTreeView, QListView
     background-color: #232629;
 }
 
+QTabWidget::pane {
+    border: 0 solid white;
+    margin: -5px -5px -5px -5px;
+}
+
 QTreeWidget::item {
 	border-radius: 10px;
 	padding: 20px 20px 20px 20px;
 	font: sans-serif;
 	font-weight: bold;
-	font-size: 24px;	
+	font-size: 24px;
+	color: #eff0f1;
+}
+
+QTreeView::item {
+	border-radius: 10px;
+	padding: 10px 10px 10px 10px;
+	font: sans-serif;
+	font-weight: bold;
+	font-size: 24px;
+	color: #eff0f1;
 }
 
 QTreeWidget::item:hover {

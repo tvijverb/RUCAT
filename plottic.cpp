@@ -109,7 +109,6 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 		chart->removeSeries(series3);
 		data->setLineSeriesOnChart(false);
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
-		chart->hasFocus();
         return chart;
 	}
 
@@ -122,11 +121,10 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     chart->createDefaultAxes();
     //chart->setBackgroundVisible(false);
     //chart->setMargins(QMargins(0,0,0,0));
-    //chart->layout()->setContentsMargins(0,0,0,0);
     chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
     chart->setPlotAreaBackgroundVisible(true);
     QList<QAbstractSeries*> series2 = chart->series();
-
+    //chart->setContentsMargins(0,0,0,0);
     chart->axisY(series2.front())->setTitleText(QString("Reconstructed Ion Count (RIC)"));
     chart->axisY(series2.front())->setMin(0);
 
@@ -138,8 +136,5 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     chart->addAxis(axisX, Qt::AlignBottom);
     series2.front()->attachAxis(axisX);
 
-    //QGraphicsScene * grpcs;
-    //grpcs = new QGraphicsScene();
-    //grpcs->addWidget(chartView);
     return chart;
 }
