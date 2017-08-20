@@ -40,7 +40,36 @@ int plotTIC::getClickedPointIndex(QAbstractSeries * myseries, QPointF clickedPoi
     return k;
 }
 
+int plotTIC::numDigits(int32_t x)
+{
+    if (x == INT_MIN) return 10 + 1;
+    if (x < 0) return numDigits(-x) + 1;
 
+    if (x >= 10000) {
+        if (x >= 10000000) {
+            if (x >= 100000000) {
+                if (x >= 1000000000)
+                    return 10;
+                return 9;
+            }
+            return 8;
+        }
+        if (x >= 100000) {
+            if (x >= 1000000)
+                return 7;
+            return 6;
+        }
+        return 5;
+    }
+    if (x >= 100) {
+        if (x >= 1000)
+            return 4;
+        return 3;
+    }
+    if (x >= 10)
+        return 2;
+    return 1;
+}
 
 ChartView * plotTIC::clearLineChart()
 {
@@ -73,11 +102,7 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     int min2;
     int s2;
     int ms2;
-
-    //QChart *chart = new QChart();
-    QDateTime momentInTime;
-
-    QLineSeries *series3= data->getScanLineSeries();
+    QLineSeries * series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
     ScanRT_i = data->getScanRT_i();
@@ -96,6 +121,27 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     time.addSecs(-min*60);
     time.addSecs(-s);
     time.addMSecs(-ms);
+    int firstmin = floor(ScanRT_i.front()/60000);
+    int lastmin = floor(ScanRT_i.back()/60000);
+
+    chart->legend()->hide();
+    chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
+    chart->setPlotAreaBackgroundVisible(true);
+
+    std::vector<int>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
+    int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
+    int zeros = numDigits(max);
+    double denom = max / std::pow(10,zeros);
+    int round_to = ceil(denom*10);
+
+    axisY->setMax(std::pow(10,zeros-1)*round_to);
+    axisY->setMin(0);
+    axisY->setTickCount(round_to+1);
+    axisY->setTitleText(QString("Reconstructed Ion Count (RIC)"));
+
+    axisX->setTickCount(lastmin-firstmin);
+    axisX->setFormat("m:ss");
+    axisX->setTitleText("Retention Time (min)");
 
     if(data->getLineSeriesOnChart() == false)
     {
@@ -111,30 +157,22 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
         return chart;
 	}
+    series2 = chart->series();
 
-    //std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() <<std::endl;
-    int firstmin = floor(ScanRT_i.front()/60000);
-    int lastmin = floor(ScanRT_i.back()/60000);
+    for(int i = 0; i < series2.size(); i++)
+    {
+        QList<QAbstractAxis*> list = series2.at(i)->attachedAxes();
+        for(int j = 0; j < list.size()-1; j++)
+        {
+            //chart->removeAxis(list.at(j));
+        }
+    }
 
-    chart->setAnimationOptions(QChart::NoAnimation);
-    chart->legend()->hide();
-    chart->createDefaultAxes();
-    //chart->setBackgroundVisible(false);
-    //chart->setMargins(QMargins(0,0,0,0));
-    chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
-    chart->setPlotAreaBackgroundVisible(true);
-    QList<QAbstractSeries*> series2 = chart->series();
-    //chart->setContentsMargins(0,0,0,0);
-    chart->axisY(series2.front())->setTitleText(QString("Reconstructed Ion Count (RIC)"));
-    chart->axisY(series2.front())->setMin(0);
 
-    chart->removeAxis(chart->axisX(series2.front()));
-    QDateTimeAxis *axisX = new QDateTimeAxis;
-    axisX->setTickCount(lastmin-firstmin);
-    axisX->setFormat("m:ss");
-    axisX->setTitleText("Retention Time (min)");
+    chart->addAxis(axisY, Qt::AlignLeft);
     chart->addAxis(axisX, Qt::AlignBottom);
-    series2.front()->attachAxis(axisX);
+    series3->attachAxis(axisY);
+    series3->attachAxis(axisX);
 
     return chart;
 }

@@ -35,6 +35,9 @@
 #include <QtWidgets/QRubberBand>
 #include <QtCharts/qdatetimeaxis.h>
 #include <qdebug.h>
+#include <QLine>
+#include <QPen>
+#include <QValueAxis>
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -54,11 +57,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent( QMouseEvent * event );
+    void onSeriesHovered(QPointF point, bool state);
 //![2]
 
 private:
     bool m_isTouching;
     bool leftbuttondown;
+    QPen penLine;
+    QLine Line;
+    QLine Line2;
+    QGraphicsLineItem * item = new QGraphicsLineItem(Line);
+    QGraphicsLineItem * item2 = new QGraphicsLineItem(Line2);
 
 signals:
 	void lineChartClicked(QPointF);

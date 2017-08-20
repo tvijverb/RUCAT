@@ -5,6 +5,7 @@
 #include <vector>
 #include <chrono>
 #include <iostream>
+#include <climits>
 
 #include <QMainWindow>
 #include <QObject>
@@ -40,11 +41,17 @@ public:
     QGraphicsScene * grpcs;
 
 private:
+    int numDigits(int32_t x);
+
     bool lineChartIsInit = false;
 	ChartView *chartView;
     QLineSeries *series;
     GCData * data;
 	QChart * chart = new QChart();
+    QDateTimeAxis * axisX = new QDateTimeAxis;
+    QDateTime momentInTime;
+    QList<QAbstractSeries*> series2;
+    QValueAxis * axisY = new QValueAxis();
 };
 
 #endif // PLOTTIC_H

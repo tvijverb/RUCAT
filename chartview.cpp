@@ -37,6 +37,22 @@ ChartView::ChartView(QWidget *parent) :
     //setRubberBand(QChartView::RectangleRubberBand);
 }
 
+/*void ChartView::onSeriesHovered(QPointF point, bool state)
+{
+seriesHovered = state;
+
+
+//Updating the size of the rectangle
+if (mousePressed == 0 && seriesHovered == true)
+{
+m_lineItemX = new QGraphicsLineItem(_chart);
+m_lineItemY = new QGraphicsLineItem(_chart);
+penLine.setColor(QColor(0, 0, 0));
+penLine.setStyle(Qt::DotLine);
+m_lineItemX->setPen(penLine);
+m_lineItemY->setPen(penLine); */
+
+
 bool ChartView::viewportEvent(QEvent *event)
 {
     if (event->type() == QEvent::TouchBegin) {
@@ -69,6 +85,41 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
 void ChartView::mouseMoveEvent(QMouseEvent *event)
 {
+    qreal x = (event->pos()).x();
+    qreal y = (event->pos()).y();
+
+    qreal xVal = chart()->mapToValue(event->pos()).x();
+    qreal yVal = chart()->mapToValue(event->pos()).y();
+
+
+    QPointF Max = chart()->mapToValue(chart()->plotArea().topRight());
+    QPointF Min = chart()->mapToValue(chart()->plotArea().bottomLeft());
+
+    if(xVal != 0 && yVal != 0 && xVal > Min.x() && xVal < Max.x() && yVal > Min.y() && yVal < Max.y())
+    {
+        Line.setLine(chart()->mapToPosition(Max).x(),y,chart()->mapToPosition(Min).x(),y);
+        Line2.setLine(x,chart()->mapToPosition(Max).y(),x,chart()->mapToPosition(Min).y());
+        penLine.setColor(QColor(0, 0, 0));
+        penLine.setStyle(Qt::DotLine);
+        item->setLine(Line);
+        item2->setLine(Line2);
+        item->setPen(penLine);
+        item2->setPen(penLine);
+        if(!item->isActive())
+        {
+            chart()->scene()->addItem(item);
+            chart()->scene()->addItem(item2);
+        }
+    }
+    else
+    {
+        if(item->isActive())
+        {
+            chart()->scene()->removeItem(item);
+            chart()->scene()->removeItem(item2);
+        }
+    }
+
     if (m_isTouching)
         return;
     QChartView::mouseMoveEvent(event);
