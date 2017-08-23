@@ -90,7 +90,9 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 
 QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     // Get graphics scene from GCData file
-    
+    QDateTimeAxis * axisX = new QDateTimeAxis;
+    QValueAxis * axisY = new QValueAxis();
+
     std::vector<int> ScanRT_i;
     std::vector<int> scan_tic;
     int currtime;
@@ -127,12 +129,15 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     chart->legend()->hide();
     chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
     chart->setPlotAreaBackgroundVisible(true);
+    chart->setAnimationOptions(QChart::AllAnimations);
 
     std::vector<int>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
     int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
     int zeros = numDigits(max);
     double denom = max / std::pow(10,zeros);
     int round_to = ceil(denom*10);
+
+    qDebug() << QString::fromStdString(data->getName()) << "max:" << max << "at time:" << std::distance(std::begin(scan_tic), maxit);
 
     axisY->setMax(std::pow(10,zeros-1)*round_to);
     axisY->setMin(0);
@@ -162,13 +167,13 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     for(int i = 0; i < series2.size(); i++)
     {
         QList<QAbstractAxis*> list = series2.at(i)->attachedAxes();
-        for(int j = 0; j < list.size()-1; j++)
+        for(int j = 0; j < list.size(); j++)
         {
-            //chart->removeAxis(list.at(j));
+            chart->removeAxis(list.at(j));
+            //series2.at(i)->attachAxis(axisX);
+            //series2.at(i)->attachAxis(axisY);
         }
     }
-
-
     chart->addAxis(axisY, Qt::AlignLeft);
     chart->addAxis(axisX, Qt::AlignBottom);
     series3->attachAxis(axisY);

@@ -48,10 +48,11 @@ private:
     QLineSeries *series;
     GCData * data;
 	QChart * chart = new QChart();
-    QDateTimeAxis * axisX = new QDateTimeAxis;
+    //QDateTimeAxis * axisX = new QDateTimeAxis;
+    //QValueAxis * axisY = new QValueAxis();
     QDateTime momentInTime;
     QList<QAbstractSeries*> series2;
-    QValueAxis * axisY = new QValueAxis();
+
 };
 
 #endif // PLOTTIC_H

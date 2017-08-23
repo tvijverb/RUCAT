@@ -1,5 +1,36 @@
 #include "gcdata.h"
 
+int GCData::numDigits(int32_t x)
+{
+    if (x == INT_MIN) return 10 + 1;
+    if (x < 0) return numDigits(-x) + 1;
+
+    if (x >= 10000) {
+        if (x >= 10000000) {
+            if (x >= 100000000) {
+                if (x >= 1000000000)
+                    return 10;
+                return 9;
+            }
+            return 8;
+        }
+        if (x >= 100000) {
+            if (x >= 1000000)
+                return 7;
+            return 6;
+        }
+        return 5;
+    }
+    if (x >= 100) {
+        if (x >= 1000)
+            return 4;
+        return 3;
+    }
+    if (x >= 10)
+        return 2;
+    return 1;
+}
+
 GCData::GCData(QObject *parent) : QObject(parent)
 {
 
@@ -304,6 +335,9 @@ void GCData::ScanAddTIC(int tic)
 void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
 {
     //QLineSeries *series = new QLineSeries();
+    QDateTimeAxis * axisX = new QDateTimeAxis;
+    QValueAxis * axisY = new QValueAxis();
+
     QDateTime momentInTime;
     int currtime;
     int starttime;
@@ -311,6 +345,34 @@ void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
     int min;
     int s;
     int ms;
+    int min2;
+    int s2;
+    int ms2;
+
+    min2 = floor(endtime/60000);
+    s2 = floor((endtime-min2*60000)/1000);
+    ms2 = (endtime-min2*60000-s2*1000);
+    QTime time(0,min2,s2,ms2);
+    time.addSecs(-min*60);
+    time.addSecs(-s);
+    time.addMSecs(-ms);
+    int firstmin = floor(ScanRT_i.front()/60000);
+    int lastmin = floor(ScanRT_i.back()/60000);
+
+    std::vector<int>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
+    int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
+    int zeros = numDigits(max);
+    double denom = max / std::pow(10,zeros);
+    int round_to = ceil(denom*10);
+
+    axisY->setMax(std::pow(10,zeros-1)*round_to);
+    axisY->setMin(0);
+    axisY->setTickCount(round_to+1);
+    axisY->setTitleText(QString("Reconstructed Ion Count (RIC)"));
+
+    axisX->setTickCount(lastmin-firstmin);
+    axisX->setFormat("m:ss");
+    axisX->setTitleText("Retention Time (min)");
 
     for (int i = 0; i < ScanRT_i.size(); i++) {
         currtime = ScanRT_i.at(i);
@@ -323,6 +385,8 @@ void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
         series->append(p);
         this->scan_tic_qp.append(p);
     }
+    series->attachAxis(axisY);
+    series->attachAxis(axisX);
 }
 
 QList<QPointF> GCData::getScanLinePoints()

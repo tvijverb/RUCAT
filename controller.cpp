@@ -12,7 +12,7 @@ Controller::Controller(MainWindow * view)
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
     mychart->layout()->setContentsMargins(0,0,0,0);
     mychart->setBackgroundRoundness(0);
-    //mychartView->
+    //mychartView->set
 }
 
 void Controller::connectActions()
@@ -75,7 +75,7 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 	// Generating generic variables needed for plotting
 	QString itemclicked = item->text(1);
 
-    qDebug() << "Itemclicked:" << itemclicked;
+    //qDebug() << "Itemclicked:" << itemclicked;
 	GCData * mydata = data.at(itemclicked.toInt() - 1);
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
@@ -125,8 +125,6 @@ void Controller::futureReady()
         data.push_back(futureWatcher.resultAt(i));
         newDataLoaded(data);
     }
-    qDebug() << "Imported data";
-    qDebug() << "Imported data";
 }
 
 void Controller::openFile()
@@ -141,14 +139,7 @@ void Controller::openFile()
     if(fileList.size() > 0){
         progressbar->show();
         progressbar->setZero();
-
-        // Start the computation.
-       // futureWatcher.setFuture(QtConcurrent::map(vector, spin));
         futureWatcher.setFuture(QtConcurrent::mapped(fileList,importmzData));
-        // Display the dialog and start the event loop.
-        //progressbar->exec();
-
-        //futureWatcher.waitForFinished();
     }
 	view->ui->tabWidget->setCurrentIndex(1);
 }

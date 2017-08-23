@@ -24,6 +24,7 @@ public: // Functions
 
 	QByteArray gUncompress(std::string const& compressed_string);
 
+    int numDigits(int32_t x);
 	static inline bool is_base64(unsigned char c);
 
 	std::string base64_decode(std::string const& encoded_string);
