@@ -88,9 +88,10 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 	return chartView;
 }
 
-QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
+QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
-    QDateTimeAxis * axisX = new QDateTimeAxis;
+    chart->removeAllSeries();
+    /*QDateTimeAxis * axisX = new QDateTimeAxis;
     QValueAxis * axisY = new QValueAxis();
 
     std::vector<int> ScanRT_i;
@@ -103,14 +104,14 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     int ms;
     int min2;
     int s2;
-    int ms2;
+    int ms2;*/
     QLineSeries * series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
     ScanRT_i = data->getScanRT_i();
     scan_tic = data->getScanTIC();
 
-    starttime = ScanRT_i.front();
+    /*starttime = ScanRT_i.front();
     endtime = ScanRT_i.back();
     min = floor(starttime/60000);
     s = floor((starttime-min*60000)/1000);
@@ -126,10 +127,12 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
     int firstmin = floor(ScanRT_i.front()/60000);
     int lastmin = floor(ScanRT_i.back()/60000);
 
-    chart->legend()->hide();
+
     chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
     chart->setPlotAreaBackgroundVisible(true);
-    chart->setAnimationOptions(QChart::AllAnimations);
+    //chart->setAnimationOptions(QChart::AllAnimations);*/
+
+    chart->legend()->hide();
 
     std::vector<int>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
     int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
@@ -139,14 +142,14 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 
     qDebug() << QString::fromStdString(data->getName()) << "max:" << max << "at time:" << std::distance(std::begin(scan_tic), maxit);
 
-    axisY->setMax(std::pow(10,zeros-1)*round_to);
+    /*axisY->setMax(std::pow(10,zeros-1)*round_to);
     axisY->setMin(0);
     axisY->setTickCount(round_to+1);
     axisY->setTitleText(QString("Reconstructed Ion Count (RIC)"));
 
     axisX->setTickCount(lastmin-firstmin);
     axisX->setFormat("m:ss");
-    axisX->setTitleText("Retention Time (min)");
+    axisX->setTitleText("Retention Time (min)");*/
 
     if(data->getLineSeriesOnChart() == false)
     {
@@ -162,6 +165,21 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
         return chart;
 	}
+	
+	int max_at = 0;
+	int max_currently = 0;
+	
+	for(int i = 0; i < dataset.size(); i++)
+	{
+        if(dataset[i]->getLineSeriesOnChart())
+		{
+            if(dataset[i]->getMaxTicValue() > max_currently)
+                max_currently = dataset[i]->getMaxTicValue();
+				max_at = i;
+		}
+	}
+	
+
     series2 = chart->series();
 
     for(int i = 0; i < series2.size(); i++)
@@ -170,14 +188,24 @@ QChart * plotTIC::plotsingleTIC(GCData * data, QChart * chart){
         for(int j = 0; j < list.size(); j++)
         {
             chart->removeAxis(list.at(j));
-            //series2.at(i)->attachAxis(axisX);
-            //series2.at(i)->attachAxis(axisY);
         }
     }
-    chart->addAxis(axisY, Qt::AlignLeft);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series3->attachAxis(axisY);
-    series3->attachAxis(axisX);
-
+	
+	for(int i = 0; i < dataset.size(); i++)
+	{
+        if(dataset[i]->getLineSeriesOnChart())
+		{
+            dataset.at(i)->setXAxis(dataset.at(max_at)->XAxis());
+            dataset.at(i)->setYAxis(dataset.at(max_at)->YAxis());
+		}
+	}
+	
+	
+    chart->addAxis(dataset.at(max_at)->YAxis(), Qt::AlignLeft);
+    chart->addAxis(dataset.at(max_at)->XAxis(), Qt::AlignBottom);
+	
+	
+    series3->attachAxis(dataset.at(max_at)->XAxis());
+    series3->attachAxis(dataset.at(max_at)->YAxis());
     return chart;
 }

@@ -1,5 +1,11 @@
 #include "gcdata.h"
 
+int GCData::getMaxTicValue()
+{
+	return this->maxTicValue;
+}
+
+
 int GCData::numDigits(int32_t x)
 {
     if (x == INT_MIN) return 10 + 1;
@@ -335,9 +341,6 @@ void GCData::ScanAddTIC(int tic)
 void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
 {
     //QLineSeries *series = new QLineSeries();
-    QDateTimeAxis * axisX = new QDateTimeAxis;
-    QValueAxis * axisY = new QValueAxis();
-
     QDateTime momentInTime;
     int currtime;
     int starttime;
@@ -364,6 +367,8 @@ void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
     int zeros = numDigits(max);
     double denom = max / std::pow(10,zeros);
     int round_to = ceil(denom*10);
+	
+	maxTicValue = max;
 
     axisY->setMax(std::pow(10,zeros-1)*round_to);
     axisY->setMin(0);
@@ -397,4 +402,25 @@ QList<QPointF> GCData::getScanLinePoints()
 QLineSeries* GCData::getScanLineSeries()
 {
     return series;
+}
+
+void GCData::setXAxis(QDateTimeAxis * xaxis)
+{
+	this->axisX = xaxis;
+}
+
+
+QDateTimeAxis* GCData::XAxis()
+{
+	return axisX;
+}
+
+void GCData::setYAxis(QValueAxis * yaxis)
+{
+	this->axisY = yaxis;
+}
+
+QValueAxis* GCData::YAxis()
+{
+	return axisY;
 }

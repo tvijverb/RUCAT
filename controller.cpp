@@ -79,7 +79,7 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 	GCData * mydata = data.at(itemclicked.toInt() - 1);
 
 	// DoubleClick on TreeWidget adds Linegraph to graphicsView
-    mychart = mytic.plotsingleTIC(mydata,mychart);
+    mychart = mytic.plotsingleTIC(mydata,data,mychart);
     view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
     view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }
@@ -107,7 +107,7 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
     std::string fileName;
     fileName = lastdata->getName();
 
-    mychart = mytic.plotsingleTIC(lastdata,mychart);
+    mychart = mytic.plotsingleTIC(lastdata,data,mychart);
     treetab.removeEmptyTop(view->ui->treeWidget);
 
     treetab.topAdd(view->ui->treeWidget,QString::fromStdString(fileName),data.size(), data.back());

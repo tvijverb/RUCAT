@@ -22,6 +22,8 @@ class GCData : public QObject
 public: // Functions
     explicit GCData(QObject *parent = 0);
 
+    int getMaxTicValue();
+
 	QByteArray gUncompress(std::string const& compressed_string);
 
     int numDigits(int32_t x);
@@ -85,6 +87,12 @@ public: // Functions
     void setLinePoints(std::vector<int>,std::vector<int>);
     QList<QPointF> getScanLinePoints();
     QLineSeries* getScanLineSeries();
+	
+	void setXAxis(QDateTimeAxis *);
+	QDateTimeAxis* XAxis();
+	
+	void setYAxis(QValueAxis *);
+	QValueAxis* YAxis();
 
 private: // Functions
 
@@ -113,6 +121,9 @@ private: // Vars
     std::vector<int> scan_tic;
     QList<QPointF> scan_tic_qp;
     QLineSeries* series = new QLineSeries();
+	int maxTicValue = 0;
+	QDateTimeAxis * axisX = new QDateTimeAxis();
+    QValueAxis * axisY = new QValueAxis();
 
 public slots:
 };
