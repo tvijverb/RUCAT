@@ -5,6 +5,11 @@ int GCData::getMaxTicValue()
 	return this->maxTicValue;
 }
 
+QTime GCData::getMaxTimeValue()
+{
+    return this->maxTimeValue;
+}
+
 
 int GCData::numDigits(int32_t x)
 {
@@ -388,10 +393,12 @@ void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
         momentInTime.setTime(time);
         QPointF p(momentInTime.toMSecsSinceEpoch(),scan_tic.at(i));
         series->append(p);
+        maxTimeValue = time;
         this->scan_tic_qp.append(p);
     }
     series->attachAxis(axisY);
     series->attachAxis(axisX);
+    //QTime
 }
 
 QList<QPointF> GCData::getScanLinePoints()

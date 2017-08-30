@@ -90,47 +90,11 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
-    chart->removeAllSeries();
-    /*QDateTimeAxis * axisX = new QDateTimeAxis;
-    QValueAxis * axisY = new QValueAxis();
-
-    std::vector<int> ScanRT_i;
-    std::vector<int> scan_tic;
-    int currtime;
-    int starttime;
-    int endtime;
-    int min;
-    int s;
-    int ms;
-    int min2;
-    int s2;
-    int ms2;*/
     QLineSeries * series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
-    ScanRT_i = data->getScanRT_i();
-    scan_tic = data->getScanTIC();
-
-    /*starttime = ScanRT_i.front();
-    endtime = ScanRT_i.back();
-    min = floor(starttime/60000);
-    s = floor((starttime-min*60000)/1000);
-    ms = (starttime-min*60000-s*1000);
-
-    min2 = floor(endtime/60000);
-    s2 = floor((endtime-min2*60000)/1000);
-    ms2 = (endtime-min2*60000-s2*1000);
-    QTime time(0,min2,s2,ms2);
-    time.addSecs(-min*60);
-    time.addSecs(-s);
-    time.addMSecs(-ms);
-    int firstmin = floor(ScanRT_i.front()/60000);
-    int lastmin = floor(ScanRT_i.back()/60000);
-
-
-    chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
-    chart->setPlotAreaBackgroundVisible(true);
-    //chart->setAnimationOptions(QChart::AllAnimations);*/
+    std::vector<int> ScanRT_i = data->getScanRT_i();
+    std::vector<int>scan_tic = data->getScanTIC();
 
     chart->legend()->hide();
 
@@ -166,46 +130,57 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
         return chart;
 	}
 	
-	int max_at = 0;
+    int max_at = 0;
 	int max_currently = 0;
+    int max_time_at = 0;
+    QTime max_time_currently = QTime(0,0,0,0);
 	
 	for(int i = 0; i < dataset.size(); i++)
 	{
         if(dataset[i]->getLineSeriesOnChart())
 		{
             if(dataset[i]->getMaxTicValue() > max_currently)
+            {
                 max_currently = dataset[i]->getMaxTicValue();
 				max_at = i;
+            }
+            if(dataset[i]->getMaxTimeValue() > max_time_currently)
+            {
+                max_time_currently = dataset[i]->getMaxTimeValue();
+                max_time_at = i;
+            }
+
 		}
 	}
-	
 
+    chart->createDefaultAxes();
     series2 = chart->series();
+    chart->addAxis(dataset[max_time_at]->XAxis(), Qt::AlignBottom);
 
     for(int i = 0; i < series2.size(); i++)
     {
-        QList<QAbstractAxis*> list = series2.at(i)->attachedAxes();
-        for(int j = 0; j < list.size(); j++)
+        chart->removeAxis(chart->axisX(series2.at(i)));
+        series2.at(i)->attachAxis(dataset[max_time_at]->XAxis());
+    }
+
+    for(int i = 0; i < dataset.size(); i++)
+    {
+        if(dataset[i]->getLineSeriesOnChart())
         {
-            chart->removeAxis(list.at(j));
+            dataset[i]->setXAxis(dataset[max_time_at]->XAxis());
         }
     }
-	
-	for(int i = 0; i < dataset.size(); i++)
-	{
-        if(dataset[i]->getLineSeriesOnChart())
-		{
-            dataset.at(i)->setXAxis(dataset.at(max_at)->XAxis());
-            dataset.at(i)->setYAxis(dataset.at(max_at)->YAxis());
-		}
-	}
-	
-	
-    chart->addAxis(dataset.at(max_at)->YAxis(), Qt::AlignLeft);
-    chart->addAxis(dataset.at(max_at)->XAxis(), Qt::AlignBottom);
-	
-	
-    series3->attachAxis(dataset.at(max_at)->XAxis());
-    series3->attachAxis(dataset.at(max_at)->YAxis());
+    series3->attachAxis(dataset[max_time_at]->XAxis());
+    chart->axisY()->setMax(std::pow(10,zeros-1)*round_to);
+
+    chart->setAnimationOptions(QChart::NoAnimation);
+    chart->removeAxis(chart->axisX(series2.front()));
+    QDateTimeAxis *axisX = new QDateTimeAxis;
+    axisX->setTickCount(20);
+    axisX->setFormat("m:ss");
+    //chart->axisX()->setLabel
+    axisX->setTitleText("Retention Time (min)");
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series2.front()->attachAxis(axisX);
     return chart;
 }

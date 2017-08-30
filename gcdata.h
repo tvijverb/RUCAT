@@ -23,6 +23,7 @@ public: // Functions
     explicit GCData(QObject *parent = 0);
 
     int getMaxTicValue();
+    QTime getMaxTimeValue();
 
 	QByteArray gUncompress(std::string const& compressed_string);
 
@@ -122,6 +123,7 @@ private: // Vars
     QList<QPointF> scan_tic_qp;
     QLineSeries* series = new QLineSeries();
 	int maxTicValue = 0;
+    QTime maxTimeValue;
 	QDateTimeAxis * axisX = new QDateTimeAxis();
     QValueAxis * axisY = new QValueAxis();
 
