@@ -98,13 +98,7 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
 
     chart->legend()->hide();
 
-    std::vector<int>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
-    int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
-    int zeros = numDigits(max);
-    double denom = max / std::pow(10,zeros);
-    int round_to = ceil(denom*10);
-
-    qDebug() << QString::fromStdString(data->getName()) << "max:" << max << "at time:" << std::distance(std::begin(scan_tic), maxit);
+    //qDebug() << QString::fromStdString(data->getName()) << "max:" << max << "at time:" << std::distance(std::begin(scan_tic), maxit);
 
     /*axisY->setMax(std::pow(10,zeros-1)*round_to);
     axisY->setMin(0);
@@ -153,6 +147,10 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
 		}
 	}
 
+    int zeros = numDigits(max_currently);
+    double denom = max_currently / std::pow(10,zeros);
+    int round_to = ceil(denom*10);
+
     chart->createDefaultAxes();
     series2 = chart->series();
     chart->addAxis(dataset[max_time_at]->XAxis(), Qt::AlignBottom);
@@ -172,7 +170,7 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     }
     series3->attachAxis(dataset[max_time_at]->XAxis());
     chart->axisY()->setMax(std::pow(10,zeros-1)*round_to);
-
+    qDebug() << std::pow(10,zeros-1)*round_to;
     chart->setAnimationOptions(QChart::NoAnimation);
     chart->removeAxis(chart->axisX(series2.front()));
     QDateTimeAxis *axisX = new QDateTimeAxis;
