@@ -21,33 +21,54 @@ LIBS += -lws2_32
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    chartview.cpp \
-    importmzdata.cpp \
-    gcdata.cpp \
-    msdata.cpp \
+    UI/chartview.cpp \
+    ImportSaveExport\importmzdata.cpp \
+    DataModifier\gcdata.cpp \
+    DataModifier\msdata.cpp \
     controller.cpp \
-    plottic.cpp \
-    plotms.cpp \
+    UI/plottic.cpp \
+    UI/plotms.cpp \
     qcustomplot.cpp \
-    dialog.cpp \
-    treetab_2.cpp \
-    exportcsv.cpp
+    UI/dialog.cpp \
+    UI/treetab_2.cpp \
+    ImportSaveExport\exportcsv.cpp \
+    UI/chart.cpp \
+    UI/chartview.cpp \
+    UI/dialog.cpp \
+    UI/plotms.cpp \
+    UI/plottic.cpp \
+    UI/treetab_2.cpp \
+    controller.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
-    chartview.h \
-    importmzdata.h \
-    gcdata.h \
-    msdata.h \
+    UI/chartview.h \
+    ImportSaveExport\importmzdata.h \
+    DataModifier\gcdata.h \
+    DataModifier\msdata.h \
     controller.h \
-    plottic.h \
-    plotms.h \
+    UI/plottic.h \
+    UI/plotms.h \
     qcustomplot.h \
-    dialog.h \
-    treetab_2.h \
+    UI/dialog.h \
+    UI/treetab_2.h \
     ui_mainwindow.h \
     ui_mainwindow.h \
     ui_dialog.h \
-    exportcsv.h
+    ImportSaveExport\exportcsv.h \
+    UI/chart.h \
+    UI/chartview.h \
+    UI/dialog.h \
+    UI/plotms.h \
+    UI/plottic.h \
+    UI/treetab_2.h \
+    UI/ui_dialog.h \
+    controller.h \
+    mainwindow.h \
+    qcustomplot.h \
+    ui_mainwindow.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

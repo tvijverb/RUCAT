@@ -16,16 +16,16 @@
 #include <QApplication>
 #include <QGraphicsLayout>
 
-#include "gcdata.h"
+#include "DataModifier\gcdata.h"
 #include "mainwindow.h"
-#include "importmzdata.h"
-#include "plottic.h"
-#include "chart.h"
-#include "chartview.h"
-#include "plotms.h"
-#include "dialog.h"
-#include "treetab_2.h"
-#include "exportcsv.h"
+#include "ImportSaveExport\importmzdata.h"
+#include "UI/plottic.h"
+#include "UI/chart.h"
+#include "UI/chartview.h"
+#include "UI/plotms.h"
+#include "UI/dialog.h"
+#include "UI/treetab_2.h"
+#include "ImportSaveExport\exportcsv.h"
 
 class Controller : public QMainWindow
 {

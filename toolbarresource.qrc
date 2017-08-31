@@ -61,17 +61,17 @@
         <file>png/volume.png</file>
         <file>png/zoom-in.png</file>
         <file>png/zoom-out.png</file>
-        <file>gcdata.cpp</file>
-        <file>gcdata.h</file>
-        <file>importmzdata.cpp</file>
-        <file>importmzdata.h</file>
+        <file>DataModifier\gcdata.cpp</file>
+        <file>DataModifier\gcdata.h</file>
+        <file>ImportSaveExport\importmzdata.cpp</file>
+        <file>ImportSaveExport\importmzdata.h</file>
         <file>main.cpp</file>
         <file>mainwindow.cpp</file>
         <file>mainwindow.h</file>
-        <file>msdata.cpp</file>
-        <file>msdata.h</file>
-        <file>plottic.cpp</file>
-        <file>plottic.h</file>
+        <file>DataModifier\msdata.cpp</file>
+        <file>DataModifier\msdata.h</file>
+        <file>UI/plottic.cpp</file>
+        <file>UI/plottic.h</file>
         <file>ui_mainwindow.h</file>
         <file>png/bar.png</file>
         <file>png/RUCAT.png</file>

@@ -30,7 +30,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "../../qcustomplot.h"
-#include "chartview.h"
+#include "UI/chartview.h"
 
 QT_BEGIN_NAMESPACE
 

@@ -20,7 +20,7 @@
 #include <QFont>
 #include <QVector>
 
-#include <gcdata.h>
+#include <DataModifier\gcdata.h>
 #include "qcustomplot.h"
 
 class plotMS : public QObject

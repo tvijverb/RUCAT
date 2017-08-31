@@ -1,5 +1,5 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "UI/dialog.h"
+#include "UI/ui_dialog.h"
 
 #include <QWinTaskbarButton>
 #include <QWinTaskbarProgress>

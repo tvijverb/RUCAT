@@ -1,12 +1,12 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include <string>
+#include <vector>
+#include <chrono>
+#include <stdint.h>
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
-#include "chart.h"
-#include "chartview.h"
-#include "importmzdata.h"
 #include <QtCore/QtMath>
 #include <QtCharts/QValueAxis>
 #include <QGraphicsScene>
@@ -14,13 +14,14 @@
 #include <QDebug>
 #include <QObject>
 #include <QFileDialog>
-#include <string>
-#include <vector>
-#include <chrono>
 #include "QtCore/QByteArray"
-#include <stdint.h>
 
-#include "dialog.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "ImportSaveExport\importmzdata.h"
+#include "UI/chart.h"
+#include "UI/chartview.h"
+#include "UI/dialog.h"
 
 typedef uint32_t u_int32_t;
 

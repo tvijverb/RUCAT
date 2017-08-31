@@ -73,7 +73,12 @@ int plotTIC::numDigits(int32_t x)
 
 void plotTIC::clearLineChart(QChart * chart, std::vector<GCData *> dataset)
 {
-    chart->removeAllSeries();
+	series2 = chart->series();
+
+	for (int i = 0; i < series2.size(); i++)
+	{
+		chart->removeSeries(series2.at(i));
+	}
     for(int i = 0; i < dataset.size(); i++)
     {
         dataset[i]->setLineSeriesOnChart(false);
@@ -93,11 +98,13 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
-    QLineSeries * series3 = data->getScanLineSeries();
+    qDebug() << "Plotting TIC";
+    qDebug() << dataset.size();
+    series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
     std::vector<int> ScanRT_i = data->getScanRT_i();
-    std::vector<int>scan_tic = data->getScanTIC();
+    std::vector<int> scan_tic = data->getScanTIC();
 
     chart->legend()->hide();
 

@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-#include "chart.h"
+#include "UI/chart.h"
 #include <QtWidgets/QGesture>
 #include <QtWidgets/QGraphicsScene>
 #include <QtWidgets/QGraphicsView>

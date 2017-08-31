@@ -10,8 +10,8 @@
 #include <QtZlib/zlib.h>
 #include <QDebug>
 
-#include "chart.h"
-#include "chartview.h"
+#include "UI/chart.h"
+#include "UI/chartview.h"
 #include "msdata.h"
 
 //GCData class, 

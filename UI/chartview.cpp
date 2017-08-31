@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-#include "chartview.h"
+#include "UI/chartview.h"
 #include <QtGui/QMouseEvent>
 
 ChartView::ChartView(QWidget *parent) :

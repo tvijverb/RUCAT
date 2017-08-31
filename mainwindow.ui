@@ -849,7 +849,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   <customwidget>
    <class>ChartView</class>
    <extends>QWidget</extends>
-   <header>chartview.h</header>
+   <header>UI/chartview.h</header>
   </customwidget>
  </customwidgets>
  <resources>

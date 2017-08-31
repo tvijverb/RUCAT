@@ -20,9 +20,9 @@
 #include <QDebug>
 #include <QtMath>
 
-#include "chart.h"
-#include "chartview.h"
-#include "gcdata.h"
+#include "UI/chart.h"
+#include "UI/chartview.h"
+#include "DataModifier\gcdata.h"
 
 class plotTIC
 {
@@ -46,6 +46,7 @@ private:
     bool lineChartIsInit = false;
 	ChartView *chartView;
     QLineSeries *series;
+	QLineSeries * series3;
     GCData * data;
 	QChart * chart = new QChart();
     QDateTimeAxis * axisX = new QDateTimeAxis();

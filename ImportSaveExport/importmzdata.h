@@ -6,8 +6,8 @@
 #include <vector>
 
 //#include "mainwindow.h"
-#include "gcdata.h"
-#include "dialog.h"
+#include "DataModifier\gcdata.h"
+#include "UI/dialog.h"
 
 GCData * importmzData(const QString current);
 

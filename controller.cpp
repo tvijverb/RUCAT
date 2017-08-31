@@ -80,14 +80,13 @@ void Controller::getlineChartClicked(QPointF qpoint)
 void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
 	// Generating generic variables needed for plotting
-	QString itemclicked = item->text(1);
 
     for(int i = 0; i < data.size(); i++)
     {
         // Find selected string in dataset
         if(QString::fromStdString(data[i]->getName()) == item->text(column) )
         {
-            mychart = mytic.plotsingleTIC(data[i],data,mychart);
+            mychart = mytic.plotsingleTIC(data.at(i),data,mychart);
             view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
             view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
         }
