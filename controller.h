@@ -26,6 +26,7 @@
 #include "UI/dialog.h"
 #include "UI/treetab_2.h"
 #include "ImportSaveExport\exportcsv.h"
+#include "DataModifier/interpolatetic.h"
 
 class Controller : public QMainWindow
 {

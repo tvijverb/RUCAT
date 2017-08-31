@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     controller.cpp \
     main.cpp \
     mainwindow.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    DataModifier/interpolatetic.cpp
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -68,7 +69,8 @@ HEADERS  += mainwindow.h \
     controller.h \
     mainwindow.h \
     qcustomplot.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    DataModifier/interpolatetic.h
 
 FORMS    += mainwindow.ui \
     dialog.ui
