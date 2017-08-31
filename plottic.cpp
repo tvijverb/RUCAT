@@ -71,11 +71,14 @@ int plotTIC::numDigits(int32_t x)
     return 1;
 }
 
-ChartView * plotTIC::clearLineChart()
+void plotTIC::clearLineChart(QChart * chart, std::vector<GCData *> dataset)
 {
-    //this->chart = new QChart();
-    //this->chartView = new ChartView(chart);
-    return chartView;
+    chart->removeAllSeries();
+    for(int i = 0; i < dataset.size(); i++)
+    {
+        dataset[i]->setLineSeriesOnChart(false);
+    }
+
 }
 
 ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
@@ -97,17 +100,6 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     std::vector<int>scan_tic = data->getScanTIC();
 
     chart->legend()->hide();
-
-    //qDebug() << QString::fromStdString(data->getName()) << "max:" << max << "at time:" << std::distance(std::begin(scan_tic), maxit);
-
-    /*axisY->setMax(std::pow(10,zeros-1)*round_to);
-    axisY->setMin(0);
-    axisY->setTickCount(round_to+1);
-    axisY->setTitleText(QString("Reconstructed Ion Count (RIC)"));
-
-    axisX->setTickCount(lastmin-firstmin);
-    axisX->setFormat("m:ss");
-    axisX->setTitleText("Retention Time (min)");*/
 
     if(data->getLineSeriesOnChart() == false)
     {

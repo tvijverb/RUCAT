@@ -7,37 +7,43 @@ exportcsv::exportcsv(QObject *parent)
 
 void exportcsv::export_single_csv(QTreeWidget * treewidget,std::vector<GCData*> data)
 {
+    // Export selected TIC chromatogram to CSV
     int selectedTIC;
     QModelIndexList indexlist = treewidget->selectionModel()->selectedIndexes();
     foreach(const QModelIndex &index,treewidget->selectionModel()->selectedIndexes())
     {
-        QModelIndex parent = index.parent();
+        qDebug() << "Entering single csv export";
+        //selectedTIC = 1;
+        selectedTIC = index.row() - 1;
+        qDebug() << treewidget->model()->data(index,Qt::DisplayRole).toString();
 
-        if(!parent.isValid() && index.data(Qt::DisplayRole).toString() != "No data loaded in RUCAT")
+        // loop over all data
+        for(int i = 0; i < data.size(); i++)
         {
-            qDebug() << "Entering single csv export";
-			//selectedTIC = 1;
-			selectedTIC = index.row() - 1;
-
-            GCData * mydata = data.at(selectedTIC);
-			std::vector<int> scanrt = mydata->getScanRT_i();
-            std::vector<int> scantic = mydata->getScanTIC();
-
-			QString csvfilename = (index.data(Qt::DisplayRole).toString());
-			std::size_t found = csvfilename.toStdString().find_last_of("/\\");
-			
-			std::ofstream csvfile;
-			csvfile.open(csvfilename.toStdString().substr(found + 1) + ".csv");
-			qDebug() << QString::fromStdString(csvfilename.toStdString().substr(found + 1) + ".csv");
-			//csvfile.open("1.csv");
-            csvfile << (csvfilename.toStdString()) << ",";
-			for (std::vector<int>::size_type i = 0; i != scanrt.size(); i++)
+            // Find selected string in dataset
+            if(QString::fromStdString(data[i]->getName()) == treewidget->model()->data(index,Qt::DisplayRole).toString() )
             {
-                csvfile << scanrt[i] << "," << scantic[i] << ",";
+                // Eport to csv
+                GCData * mydata = data.at(i);
+                std::vector<int> scanrt = mydata->getScanRT_i();
+                std::vector<int> scantic = mydata->getScanTIC();
+
+                QString csvfilename = (index.data(Qt::DisplayRole).toString());
+                std::size_t found = csvfilename.toStdString().find_last_of("/\\");
+
+                std::ofstream csvfile;
+                csvfile.open(csvfilename.toStdString().substr(found + 1) + ".csv");
+                qDebug() << QString::fromStdString(csvfilename.toStdString().substr(found + 1) + ".csv");
+                //csvfile.open("1.csv");
+                csvfile << (csvfilename.toStdString()) << ",";
+                for (std::vector<int>::size_type i = 0; i != scanrt.size(); i++)
+                {
+                    csvfile << scanrt[i] << "," << scantic[i] << ",";
+                }
+                csvfile.seekp(-1, std::ios_base::end);
+                csvfile << " ";
+                csvfile.close();
             }
-			csvfile.seekp(-1, std::ios_base::end);
-            csvfile << " ";
-            csvfile.close();
         }
     }
 }

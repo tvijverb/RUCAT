@@ -51,6 +51,7 @@ public:
     QAction *actionAbout;
     QAction *actionTICCSVSelected_File;
     QAction *actionTICCSVAll_Files;
+    QAction *actionEmpty_TIC_plot;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QSplitter *splitter_3;
@@ -159,6 +160,11 @@ public:
         actionTICCSVSelected_File->setObjectName(QStringLiteral("actionTICCSVSelected_File"));
         actionTICCSVAll_Files = new QAction(MainWindow);
         actionTICCSVAll_Files->setObjectName(QStringLiteral("actionTICCSVAll_Files"));
+        actionEmpty_TIC_plot = new QAction(MainWindow);
+        actionEmpty_TIC_plot->setObjectName(QStringLiteral("actionEmpty_TIC_plot"));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/png/cancel.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEmpty_TIC_plot->setIcon(icon3);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -326,9 +332,9 @@ public:
         dockWidget->setObjectName(QStringLiteral("dockWidget"));
         dockWidget->setMinimumSize(QSize(450, 200));
         dockWidget->setFont(font);
-        QIcon icon3;
-        icon3.addFile(QStringLiteral(":/png/bar.png"), QSize(), QIcon::Normal, QIcon::Off);
-        dockWidget->setWindowIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/png/bar.png"), QSize(), QIcon::Normal, QIcon::Off);
+        dockWidget->setWindowIcon(icon4);
         dockWidget->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
@@ -384,8 +390,8 @@ public:
         menuBar->addAction(menuTools->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(actionOpen_file);
-        menuFile->addAction(menuExport->menuAction());
         menuFile->addAction(actionSave);
+        menuFile->addAction(menuExport->menuAction());
         menuFile->addAction(actionExit);
         menuExport->addAction(menuTIC_CSV->menuAction());
         menuTIC_CSV->addAction(actionTICCSVSelected_File);
@@ -400,6 +406,7 @@ public:
         menuHelp->addAction(actionAbout);
         mainToolBar->addAction(actionOpen_file);
         mainToolBar->addAction(actionSave);
+        mainToolBar->addAction(actionEmpty_TIC_plot);
 
         retranslateUi(MainWindow);
         QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
@@ -427,6 +434,7 @@ public:
         actionAbout->setText(QApplication::translate("MainWindow", "About", Q_NULLPTR));
         actionTICCSVSelected_File->setText(QApplication::translate("MainWindow", "Selected File", Q_NULLPTR));
         actionTICCSVAll_Files->setText(QApplication::translate("MainWindow", "All Files", Q_NULLPTR));
+        actionEmpty_TIC_plot->setText(QApplication::translate("MainWindow", "Empty TIC plot", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "File Browser", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "GC-MS files", Q_NULLPTR));
         dockWidget_2->setWindowTitle(QApplication::translate("MainWindow", "Total Ion Current Chromatogram", Q_NULLPTR));

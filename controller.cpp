@@ -17,6 +17,7 @@ Controller::Controller(MainWindow * view)
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
+    QObject::connect(view->ui->actionEmpty_TIC_plot, &QAction::triggered, this, &Controller::actionEmpty_TIC_plot);
     QObject::connect(view->ui->actionTICCSVSelected_File, &QAction::triggered, this,&Controller::TICCSVSelected_File);
     QObject::connect(view->ui->actionTICCSVAll_Files, &QAction::triggered, this,&Controller::TICCSVALL_Files);
 	QObject::connect(view->ui->treeWidget, &QTreeWidget::itemDoubleClicked, this, &Controller::on_treeWidget_itemDoubleClicked);
@@ -25,6 +26,13 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)),progressbar, SLOT(setValue(int)));
     QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
+}
+
+void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
+{
+    mytic.clearLineChart(mychart,data);
+    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
+    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }
 
 void Controller::TICCSVSelected_File() // Export selected file to executing dir
@@ -74,13 +82,16 @@ void Controller::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 	// Generating generic variables needed for plotting
 	QString itemclicked = item->text(1);
 
-    //qDebug() << "Itemclicked:" << itemclicked;
-	GCData * mydata = data.at(itemclicked.toInt() - 1);
-
-	// DoubleClick on TreeWidget adds Linegraph to graphicsView
-    mychart = mytic.plotsingleTIC(mydata,data,mychart);
-    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
-    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
+    for(int i = 0; i < data.size(); i++)
+    {
+        // Find selected string in dataset
+        if(QString::fromStdString(data[i]->getName()) == item->text(column) )
+        {
+            mychart = mytic.plotsingleTIC(data[i],data,mychart);
+            view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
+            view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
+        }
+    }
 }
 
 void Controller::initializeTreeWidget()

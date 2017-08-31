@@ -38,6 +38,7 @@ public slots:
     void openFile();
     void TICCSVSelected_File();
     void TICCSVALL_Files();
+    void actionEmpty_TIC_plot();
     void treeViewUpdate();
     void on_rangeChanged();
 

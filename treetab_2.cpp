@@ -55,7 +55,7 @@ void treeTab_2::topAdd (QTreeWidget * Tree, QString childName,int childData, GCD
        QString fileName = childName.mid(childName.lastIndexOf("/"));
 
        QStringList myStringList = fileName.split('_');
-       qDebug() << myStringList.front() << myStringList.at(1) << myStringList.back();
+       //qDebug() << myStringList.front() << myStringList.at(1) << myStringList.back();
 
        for( int i = 0; i < Tree->topLevelItemCount(); ++i )
 	   {
@@ -69,6 +69,7 @@ void treeTab_2::topAdd (QTreeWidget * Tree, QString childName,int childData, GCD
 
        if(topLevelOnTree)
        {
+           // Item to add already has a parent on the tree
            QTreeWidgetItem *item = new QTreeWidgetItem();
 
            item->setText(0,childName);
@@ -80,12 +81,14 @@ void treeTab_2::topAdd (QTreeWidget * Tree, QString childName,int childData, GCD
        }
        else
        {
+           // Item does not have a parent on the tree - create new toplevel item
            QTreeWidgetItem *top = new QTreeWidgetItem();
            QTreeWidgetItem *item = new QTreeWidgetItem();
 
            top->setText(0,myStringList.at(1));
            Tree->addTopLevelItem(top);
 
+           top->setFlags(Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
            item->setText(0,childName);
            item->setData(1,0,QVariant(childData));
 
@@ -136,6 +139,7 @@ void treeTab_2::addChildInfo(QTreeWidget * Tree, QTreeWidgetItem * item, GCData*
     QString gclength = QString::number(data->getScan_n());
     scans->setText(0,"chromatogram data length: " + gclength);
     scans->setData(1,0,QVariant(data->getScan_n()));
+    scans->setFlags(Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
     item->addChild(scans);
 }
 

@@ -33,7 +33,7 @@ public:
     void setLineChartIsInit(bool chartstate);
     int getClickedPointIndex(QAbstractSeries *, QPointF);
 
-	ChartView * clearLineChart();
+    void clearLineChart(QChart*, std::vector<GCData *>);
     QChart * plotsingleTIC(GCData*, std::vector<GCData *>, QChart *);
 	ChartView * redrawLineChart(QRect graphicsViewRect);
 

@@ -712,8 +712,8 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
      <addaction name="menuTIC_CSV"/>
     </widget>
     <addaction name="actionOpen_file"/>
-    <addaction name="menuExport"/>
     <addaction name="actionSave"/>
+    <addaction name="menuExport"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -747,6 +747,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
    </attribute>
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave"/>
+   <addaction name="actionEmpty_TIC_plot"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen_file">
@@ -825,6 +826,15 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   <action name="actionTICCSVAll_Files">
    <property name="text">
     <string>All Files</string>
+   </property>
+  </action>
+  <action name="actionEmpty_TIC_plot">
+   <property name="icon">
+    <iconset resource="toolbarresource.qrc">
+     <normaloff>:/png/cancel.png</normaloff>:/png/cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>Empty TIC plot</string>
    </property>
   </action>
  </widget>
