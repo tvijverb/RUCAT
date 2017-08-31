@@ -36,6 +36,7 @@ private:
 //QTreeWidget * Tree;
     bool m_isTouching;
     bool topIsRemoved = false;
+    bool optionRWS = true;
     QTreeWidgetItem * topLevel = new QTreeWidgetItem();
 
 };

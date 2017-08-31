@@ -46,13 +46,64 @@ void treeTab_2::initializeTreeView(QTreeWidget * Tree)
 
 void treeTab_2::topAdd (QTreeWidget * Tree, QString childName,int childData, GCData* data)
 {
-   // Adds childeren to the treeViewModel
-   QTreeWidgetItem *item = new QTreeWidgetItem();
-   item->setText(0,childName);
-   item->setData(1,0,QVariant(childData));
-   Tree->addTopLevelItem(item);
-   addChildInfo(Tree,item,data);
-   Tree->setExpandsOnDoubleClick(false);
+
+   if(optionRWS)
+   {
+       // Adds childeren to the treeViewModel with RWS option
+       bool topLevelOnTree = false;
+       int topLevelOnTreeIndex = 0;
+       QString fileName = childName.mid(childName.lastIndexOf("/"));
+
+       QStringList myStringList = fileName.split('_');
+       qDebug() << myStringList.front() << myStringList.at(1) << myStringList.back();
+
+       for( int i = 0; i < Tree->topLevelItemCount(); ++i )
+	   {
+            QTreeWidgetItem *topitem = Tree->topLevelItem( i );
+            if(topitem->text(0) == myStringList.at(1))
+            {
+               topLevelOnTree = true;
+               topLevelOnTreeIndex = i;
+            }
+	   }
+
+       if(topLevelOnTree)
+       {
+           QTreeWidgetItem *item = new QTreeWidgetItem();
+
+           item->setText(0,childName);
+           item->setData(1,0,QVariant(childData));
+
+           Tree->topLevelItem(topLevelOnTreeIndex)->addChild(item);
+           addChildInfo(Tree,item,data);
+           Tree->setExpandsOnDoubleClick(false);
+       }
+       else
+       {
+           QTreeWidgetItem *top = new QTreeWidgetItem();
+           QTreeWidgetItem *item = new QTreeWidgetItem();
+
+           top->setText(0,myStringList.at(1));
+           Tree->addTopLevelItem(top);
+
+           item->setText(0,childName);
+           item->setData(1,0,QVariant(childData));
+
+           top->addChild(item);
+           addChildInfo(Tree,item,data);
+           Tree->setExpandsOnDoubleClick(false);
+       }
+   }
+   else
+   {
+       // Adds childeren to the treeViewModel NORWS option
+       QTreeWidgetItem *item = new QTreeWidgetItem();
+       item->setText(0,childName);
+       item->setData(1,0,QVariant(childData));
+       Tree->addTopLevelItem(item);
+       addChildInfo(Tree,item,data);
+       Tree->setExpandsOnDoubleClick(false);
+   }
 }
 
 void treeTab_2::removeEmptyTop(QTreeWidget * Tree)

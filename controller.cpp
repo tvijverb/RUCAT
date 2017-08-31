@@ -12,7 +12,6 @@ Controller::Controller(MainWindow * view)
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
     mychart->layout()->setContentsMargins(0,0,0,0);
     mychart->setBackgroundRoundness(0);
-    //mychartView->set
 }
 
 void Controller::connectActions()
@@ -28,12 +27,12 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
 }
 
-void Controller::TICCSVSelected_File()
+void Controller::TICCSVSelected_File() // Export selected file to executing dir
 {
     csvexporter.export_single_csv(view->ui->treeWidget,data);
 }
 
-void Controller::TICCSVALL_Files()
+void Controller::TICCSVALL_Files()  //Export all tic files to csv in executing dir
 {
     csvexporter.TICCSVALL_Files(view->ui->treeWidget,data);
 }
@@ -45,6 +44,8 @@ void Controller::on_rangeChanged()
 
 void Controller::getlineChartClicked(QPointF qpoint)
 {
+    // Plotting MSData bargraph after doubleclick on ticplot - see connect statement
+    // Emitted from chartview.cpp
     if (!mytic.getLineChartIsInit())
     {
         qDebug() << "LineChart is not initialized";
@@ -63,8 +64,6 @@ void Controller::getlineChartClicked(QPointF qpoint)
 	// DoubleClick on TreeWidget adds barChart to graphicsView_2
 	//QRect graphics_2ViewRect = view->ui->graphicsView_2->frameRect();
 
-
-    qDebug() << "plotting qcustomplot";
     QCustomPlot *customPlot = view->ui->qcWidget;
     customPlot = myMS.plotsingleMS(data, index,customPlot);
     view->ui->qcWidget->replot();
@@ -91,12 +90,12 @@ void Controller::initializeTreeWidget()
     treetab.initializeTreeView(tree);
 }
 
-std::vector<GCData*> Controller::getGCData()
+std::vector<GCData*> Controller::getGCData() // Probably not needed
 {
 	return data;
 }
 
-void Controller::treeViewUpdate()
+void Controller::treeViewUpdate() // Can be removed
 {
 }
 
@@ -117,6 +116,8 @@ void Controller::newDataLoaded(std::vector<GCData*> data)
 
 void Controller::futureReady()
 {
+    // Multithreaded implementation of importdata.cpp
+    // Triggered when multithreaded function is ready - see connect statement
     QFuture<GCData*> Qfuture = futureWatcher.future();
     qDebug() << QString("futureReady");
     //futureWatcher.
