@@ -12,6 +12,7 @@ Controller::Controller(MainWindow * view)
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
     mychart->layout()->setContentsMargins(0,0,0,0);
     mychart->setBackgroundRoundness(0);
+    //mychartView->setRenderHint(QPainter::Antialiasing);
 }
 
 void Controller::connectActions()

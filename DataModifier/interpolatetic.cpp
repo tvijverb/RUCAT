@@ -6,7 +6,7 @@ interpolatetic::interpolatetic(QObject *parent)
 
 }
 
-QVector<QLineSeries*> interpolatetic::interpolateLineSeries(std::vector<GCData*>)
-{
+//QVector<QLineSeries*> interpolatetic::interpolateLineSeries(std::vector<GCData*>)
+//{
 
-}
+//}

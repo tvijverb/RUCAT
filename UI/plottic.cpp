@@ -103,11 +103,12 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
+
     std::vector<int> ScanRT_i = data->getScanRT_i();
     std::vector<int> scan_tic = data->getScanTIC();
 
     chart->legend()->hide();
-
+    //chart->a
     if(data->getLineSeriesOnChart() == false)
     {
         chart->addSeries(series3);
