@@ -87,7 +87,10 @@ public: // Functions
 
     void setLinePoints(std::vector<int>,std::vector<int>);
     QList<QPointF> getScanLinePoints();
+
     QLineSeries* getScanLineSeries();
+    QLineSeries* getEditLineSeries();
+    void setEditLineSeries(QLineSeries*);
 	
 	void setXAxis(QDateTimeAxis *);
 	QDateTimeAxis* XAxis();
@@ -122,6 +125,7 @@ private: // Vars
     std::vector<int> scan_tic;
     QList<QPointF> scan_tic_qp;
     QLineSeries* series = new QLineSeries();
+    QLineSeries* editSeries = new QLineSeries();
 	int maxTicValue = 0;
     QTime maxTimeValue;
 	QDateTimeAxis * axisX = new QDateTimeAxis();

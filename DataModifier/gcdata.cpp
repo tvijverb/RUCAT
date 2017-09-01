@@ -411,6 +411,16 @@ QLineSeries* GCData::getScanLineSeries()
     return series;
 }
 
+QLineSeries* GCData::getEditLineSeries()
+{
+    return editSeries;
+}
+
+void GCData::setEditLineSeries(QLineSeries*)
+{
+
+}
+
 void GCData::setXAxis(QDateTimeAxis * xaxis)
 {
 	this->axisX = xaxis;
