@@ -76,5 +76,8 @@
         <file>png/bar.png</file>
         <file>png/RUCAT.png</file>
         <file>png/line.png</file>
+        <file>png/interpolate.png</file>
+        <file>png/peakpick.png</file>
+        <file>png/integrate.png</file>
     </qresource>
 </RCC>

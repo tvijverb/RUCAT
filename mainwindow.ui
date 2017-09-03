@@ -720,7 +720,8 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionConcentration_Timeline"/>
+    <addaction name="actionInterpolate_Chromatogram"/>
+    <addaction name="actionAlign_Chromatogram"/>
     <addaction name="actionPeak_Pick_Chromatograms"/>
     <addaction name="actionIntegrate_Peaks"/>
     <addaction name="actionPCA_Analysis"/>
@@ -748,6 +749,10 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave"/>
    <addaction name="actionEmpty_TIC_plot"/>
+   <addaction name="actionInterpolate_Chromatogram"/>
+   <addaction name="actionAlign_Chromatogram"/>
+   <addaction name="actionPeak_Pick_Chromatograms"/>
+   <addaction name="actionIntegrate_Peaks"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen_file">
@@ -778,17 +783,29 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionConcentration_Timeline">
+  <action name="actionAlign_Chromatogram">
+   <property name="icon">
+    <iconset resource="qdarkstyle/style.qrc">
+     <normaloff>:/png/alignment.png</normaloff>:/png/alignment.png</iconset>
+   </property>
    <property name="text">
-    <string>Align Chromatograms</string>
+    <string>Align Chromatogram</string>
    </property>
   </action>
   <action name="actionPeak_Pick_Chromatograms">
+   <property name="icon">
+    <iconset resource="toolbarresource.qrc">
+     <normaloff>:/png/peakpick.png</normaloff>:/png/peakpick.png</iconset>
+   </property>
    <property name="text">
-    <string>Peak Pick Chromatograms</string>
+    <string>Peak Pick Chromatogram</string>
    </property>
   </action>
   <action name="actionIntegrate_Peaks">
+   <property name="icon">
+    <iconset resource="toolbarresource.qrc">
+     <normaloff>:/png/integrate.png</normaloff>:/png/integrate.png</iconset>
+   </property>
    <property name="text">
     <string>Integrate Peaks</string>
    </property>
@@ -837,6 +854,15 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
     <string>Empty TIC plot</string>
    </property>
   </action>
+  <action name="actionInterpolate_Chromatogram">
+   <property name="icon">
+    <iconset resource="toolbarresource.qrc">
+     <normaloff>:/png/interpolate.png</normaloff>:/png/interpolate.png</iconset>
+   </property>
+   <property name="text">
+    <string>Interpolate Chromatogram</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -853,6 +879,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="qdarkstyle/style.qrc"/>
   <include location="toolbarresource.qrc"/>
  </resources>
  <connections>
