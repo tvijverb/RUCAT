@@ -218,6 +218,7 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
     customPlot->xAxis->setSubTicks(true);//modded to true
 	customPlot->xAxis->setTickLength(0, 4);
 	customPlot->xAxis->setRange(lowerrangex, upperrangex);
+    customPlot->xAxis->setLabel("m/z");
 
 	// prepare y axis:
 	auto biggest = std::max_element(std::begin(doubleYVec), std::end(doubleYVec));

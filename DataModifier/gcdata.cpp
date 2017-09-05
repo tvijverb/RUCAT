@@ -343,6 +343,21 @@ void GCData::ScanAddTIC(int tic)
 	this->scan_tic.push_back(tic);
 }
 
+std::vector<double> GCData::getScanTIC_d()
+{
+    return this->scan_tic_d;
+}
+
+void GCData::setScanTIC_d(std::vector<double> TIC)
+{
+    this->scan_tic_d = TIC;
+}
+
+void GCData::ScanAddTIC_d(double tic)
+{
+    this->scan_tic_d.push_back(tic);
+}
+
 void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
 {
     //QLineSeries *series = new QLineSeries();

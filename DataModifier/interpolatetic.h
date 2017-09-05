@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "DataModifier\gcdata.h"
+#include "DataModifier\spline.h"
 
 class interpolatetic : public QObject
 {
@@ -15,10 +16,11 @@ class interpolatetic : public QObject
 
 public:
     interpolatetic(QObject *parent = nullptr);
-
-    QVector<QLineSeries*> interpolateLineSeries(std::vector<GCData*>);
+    std::vector<double> getInterpolatePoints(std::vector<double>,int);
+    bool interpolateLineSeries(std::vector<GCData*>,int);
 private:
-    QVector<QLineSeries*> interpolatedLineSeriesVec;
+
+    //QVector<QLineSeries*> interpolatedLineSeriesVec;
 };
 
 #endif // INTERPOLATETIC_H

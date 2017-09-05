@@ -280,6 +280,7 @@ GCData* importmzData(const QString current)  {
                 char* tab1 = strtok_s(tab2, "\"", &next_token1);
                 tab1 = strtok_s(NULL, "\"", &next_token1);
                 data->ScanAddTIC(std::stoi(tab1));
+                data->ScanAddTIC_d(std::stod(tab1));
             }
 
             // MS peaks

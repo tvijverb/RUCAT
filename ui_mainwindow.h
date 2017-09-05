@@ -396,6 +396,7 @@ public:
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        mainToolBar->setIconSize(QSize(30, 30));
         MainWindow->addToolBar(Qt::LeftToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));

@@ -18,6 +18,7 @@ Controller::Controller(MainWindow * view)
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
+    QObject::connect(view->ui->actionInterpolate_Chromatogram, &QAction::triggered, this, &Controller::actionInterpolate_Chromatogram);
     QObject::connect(view->ui->actionEmpty_TIC_plot, &QAction::triggered, this, &Controller::actionEmpty_TIC_plot);
     QObject::connect(view->ui->actionTICCSVSelected_File, &QAction::triggered, this,&Controller::TICCSVSelected_File);
     QObject::connect(view->ui->actionTICCSVAll_Files, &QAction::triggered, this,&Controller::TICCSVALL_Files);
@@ -36,14 +37,21 @@ void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
     view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }
 
+void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychart
+{
+    interpolation->interpolateLineSeries(data,dataFreq);
+    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
+    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
+}
+
 void Controller::TICCSVSelected_File() // Export selected file to executing dir
 {
-    csvexporter.export_single_csv(view->ui->treeWidget,data);
+    csvexporter->export_single_csv(view->ui->treeWidget,data);
 }
 
 void Controller::TICCSVALL_Files()  //Export all tic files to csv in executing dir
 {
-    csvexporter.TICCSVALL_Files(view->ui->treeWidget,data);
+    csvexporter->TICCSVALL_Files(view->ui->treeWidget,data);
 }
 
 void Controller::on_rangeChanged()

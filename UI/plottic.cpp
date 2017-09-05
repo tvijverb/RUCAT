@@ -99,7 +99,6 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
     qDebug() << "Plotting TIC";
-    qDebug() << dataset.size();
     series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
@@ -170,15 +169,15 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     }
     series3->attachAxis(dataset[max_time_at]->XAxis());
     chart->axisY()->setMax(std::pow(10,zeros-1)*round_to);
-    qDebug() << std::pow(10,zeros-1)*round_to;
+
     chart->setAnimationOptions(QChart::NoAnimation);
     chart->removeAxis(chart->axisX(series2.front()));
     QDateTimeAxis *axisX = new QDateTimeAxis;
     axisX->setTickCount(20);
     axisX->setFormat("m:ss");
-    //chart->axisX()->setLabel
     axisX->setTitleText("Retention Time (min)");
     chart->addAxis(axisX, Qt::AlignBottom);
     series2.front()->attachAxis(axisX);
+
     return chart;
 }

@@ -40,6 +40,7 @@ public slots:
     void TICCSVSelected_File();
     void TICCSVALL_Files();
     void actionEmpty_TIC_plot();
+    void actionInterpolate_Chromatogram();
     void treeViewUpdate();
     void on_rangeChanged();
 
@@ -69,7 +70,11 @@ private:
     Dialog* progressbar = new Dialog();
     QCustomPlot *customPlot;
     QFutureWatcher<GCData *> futureWatcher;
-    exportcsv csvexporter;
+    exportcsv *csvexporter;
+    interpolatetic *interpolation;
+
+private:
+    int dataFreq = 10;
 
 protected:
 	//void resizeEvent(QResizeEvent *event);

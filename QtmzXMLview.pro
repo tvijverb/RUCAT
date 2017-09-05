@@ -3,7 +3,7 @@
 ######################################################################
 QT       += core gui charts widgets winextras concurrent
 
-QMAKE_CXXFLAGS += /MP
+QMAKE_CXXFLAGS += -MP
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 #include (C:\qwt-6.1.3\features\qwt.prf)
@@ -80,7 +80,8 @@ HEADERS  += mainwindow.h \
     mainwindow.h \
     qcustomplot.h \
     ui_mainwindow.h \
-    DataModifier/interpolatetic.h
+    DataModifier/interpolatetic.h \
+    DataModifier/spline.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

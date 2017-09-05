@@ -85,6 +85,10 @@ public: // Functions
     void setScanTIC(std::vector<int>);
 	void ScanAddTIC(int);
 
+    std::vector<double> getScanTIC_d();
+    void setScanTIC_d(std::vector<double>);
+    void ScanAddTIC_d(double);
+
     void setLinePoints(std::vector<int>,std::vector<int>);
     QList<QPointF> getScanLinePoints();
 
@@ -123,6 +127,7 @@ private: // Vars
     std::vector<double> scan_rt_d;
     std::vector<int> scan_rt_i;
     std::vector<int> scan_tic;
+    std::vector<double> scan_tic_d;
     QList<QPointF> scan_tic_qp;
     QLineSeries* series = new QLineSeries();
     QLineSeries* editSeries = new QLineSeries();
