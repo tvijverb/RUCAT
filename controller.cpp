@@ -48,7 +48,6 @@ void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychar
             if(data.at(i)->getLineSeriesOnChart())
             {
                 mytic.plotsingleTIC(data.at(i),data,mychart);
-                mytic.plotsingleTIC(data.at(i),data,mychart);
             }
         }
     }

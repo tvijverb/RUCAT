@@ -114,7 +114,14 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     // Get graphics scene from GCData file
     qDebug() << "Plotting TIC";
 
-    series3 = data->getScanLineSeries();
+    if(data->hasUpdateCurrLineSeries())
+    {
+        series3 = data->getPreviousSeries();
+        chart->removeSeries(series3);
+        data->setLineSeriesOnChart(false);
+        data->setHasUpdateCurrLineSeries(false);
+    }
+    series3 = data->getCurrentLineSeries();
 
     series3->setUseOpenGL(true);
     chart->legend()->hide();

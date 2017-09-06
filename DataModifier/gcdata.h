@@ -97,6 +97,7 @@ public: // Functions
 
     QLineSeries* getScanLineSeries();
     QLineSeries* getCurrentLineSeries();
+    QLineSeries* getPreviousSeries();
     void setCurrentLinePoints(std::vector<double>,std::vector<double>);
     void setCurrentLineSeries(QLineSeries*);
 	
@@ -105,6 +106,9 @@ public: // Functions
 	
 	void setYAxis(QValueAxis *);
 	QValueAxis* YAxis();
+
+    bool hasUpdateCurrLineSeries();
+    void setHasUpdateCurrLineSeries(bool maybe);
 
 private: // Functions
 
@@ -116,6 +120,7 @@ private: // Vars
 
     bool onLineChart = false;
     bool hasCurrentSeriesData = false;
+    bool hasUpdateCurrentLineSeries = false;
 
     std::string xmlschema_location;
     std::string ms_scancount;

@@ -493,6 +493,7 @@ void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<doub
     }
     currentSeries->attachAxis(axisY);
     currentSeries->attachAxis(axisX);
+    hasUpdateCurrentLineSeries = true;
 }
 
 QLineSeries* GCData::getCurrentLineSeries()
@@ -500,9 +501,16 @@ QLineSeries* GCData::getCurrentLineSeries()
     return currentSeries;
 }
 
-void GCData::setCurrentLineSeries(QLineSeries*)
+QLineSeries* GCData::getPreviousSeries()
 {
+    return previousSeries;
+}
 
+void GCData::setCurrentLineSeries(QLineSeries* thisseries)
+{
+    previousSeries = currentSeries;
+    currentSeries = thisseries;
+    hasUpdateCurrentLineSeries = true;
 }
 
 void GCData::setXAxis(QDateTimeAxis * xaxis)
@@ -524,4 +532,14 @@ void GCData::setYAxis(QValueAxis * yaxis)
 QValueAxis* GCData::YAxis()
 {
 	return axisY;
+}
+
+bool GCData::hasUpdateCurrLineSeries()
+{
+    return hasUpdateCurrentLineSeries;
+}
+
+void GCData::setHasUpdateCurrLineSeries(bool maybe)
+{
+    hasUpdateCurrentLineSeries = maybe;
 }
