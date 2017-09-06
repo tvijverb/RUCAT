@@ -10,22 +10,22 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QThread>
-#include <QtConcurrent\qtconcurrentmap.h>
+#include <QtConcurrent>
 #include <QOpenGLWidget>
 #include <QHoverEvent>
 #include <QApplication>
 #include <QGraphicsLayout>
 
-#include "DataModifier\gcdata.h"
+#include "DataModifier/gcdata.h"
 #include "mainwindow.h"
-#include "ImportSaveExport\importmzdata.h"
+#include "ImportSaveExport/importmzdata.h"
 #include "UI/plottic.h"
 #include "UI/chart.h"
 #include "UI/chartview.h"
 #include "UI/plotms.h"
 #include "UI/dialog.h"
 #include "UI/treetab_2.h"
-#include "ImportSaveExport\exportcsv.h"
+#include "ImportSaveExport/exportcsv.h"
 #include "DataModifier/interpolatetic.h"
 
 class Controller : public QMainWindow
