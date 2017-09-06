@@ -39,7 +39,19 @@ void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
 
 void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychart
 {
-    interpolation->interpolateLineSeries(data,dataFreq);
+    bool succes = false;
+    succes = interpolation->interpolateLineSeries(data,dataFreq);
+    if(false)
+    {
+        for(int i = 0; i < data.size(); i++)
+        {
+            if(data.at(i)->getLineSeriesOnChart())
+            {
+                mytic.plotsingleTIC(data.at(i),data,mychart);
+                mytic.plotsingleTIC(data.at(i),data,mychart);
+            }
+        }
+    }
     view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
     view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }

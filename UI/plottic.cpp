@@ -86,6 +86,20 @@ void plotTIC::clearLineChart(QChart * chart, std::vector<GCData *> dataset)
 
 }
 
+void plotTIC::removeSeriesLineChart(QChart * chart,GCData* data)
+{
+    if(data->hasCurrentSeriesOnChart())
+    {
+        series3 = data->getCurrentLineSeries();
+    }
+    if(data->getLineSeriesOnChart())
+    {
+        series3 = data->getScanLineSeries();
+    }
+    chart->removeSeries(series3);
+    data->setLineSeriesOnChart(false);
+}
+
 ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 {
 	this->chart->setGeometry(graphicsViewRect);
@@ -99,15 +113,12 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
     qDebug() << "Plotting TIC";
+
     series3 = data->getScanLineSeries();
 
     series3->setUseOpenGL(true);
-
-    std::vector<int> ScanRT_i = data->getScanRT_i();
-    std::vector<int> scan_tic = data->getScanTIC();
-
     chart->legend()->hide();
-    //chart->a
+
     if(data->getLineSeriesOnChart() == false)
     {
         chart->addSeries(series3);

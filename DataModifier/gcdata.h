@@ -37,6 +37,9 @@ public: // Functions
     bool getLineSeriesOnChart();
     void setLineSeriesOnChart(bool chartstate);
 
+    bool hasCurrentSeriesOnChart();
+    void setCurrentSeriesOnChart(bool);
+
     std::string getName();
     void setName(std::string fileName);
 
@@ -93,8 +96,9 @@ public: // Functions
     QList<QPointF> getScanLinePoints();
 
     QLineSeries* getScanLineSeries();
-    QLineSeries* getEditLineSeries();
-    void setEditLineSeries(QLineSeries*);
+    QLineSeries* getCurrentLineSeries();
+    void setCurrentLinePoints(std::vector<double>,std::vector<double>);
+    void setCurrentLineSeries(QLineSeries*);
 	
 	void setXAxis(QDateTimeAxis *);
 	QDateTimeAxis* XAxis();
@@ -111,6 +115,7 @@ private: // Vars
 	MSData * msdata;
 
     bool onLineChart = false;
+    bool hasCurrentSeriesData = false;
 
     std::string xmlschema_location;
     std::string ms_scancount;
@@ -129,8 +134,10 @@ private: // Vars
     std::vector<int> scan_tic;
     std::vector<double> scan_tic_d;
     QList<QPointF> scan_tic_qp;
+    QList<QPointF> scan_tic_current_qp;
     QLineSeries* series = new QLineSeries();
-    QLineSeries* editSeries = new QLineSeries();
+    QLineSeries* currentSeries = new QLineSeries();
+    QLineSeries* previousSeries = new QLineSeries();
 	int maxTicValue = 0;
     QTime maxTimeValue;
 	QDateTimeAxis * axisX = new QDateTimeAxis();

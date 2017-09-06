@@ -62,6 +62,17 @@ void GCData::setLineSeriesOnChart(bool chartstate)
     this->onLineChart = chartstate;
 }
 
+bool GCData::hasCurrentSeriesOnChart()
+{
+    return this->hasCurrentSeriesData;
+}
+
+void GCData::setCurrentSeriesOnChart(bool onchart)
+{
+    this->hasCurrentSeriesData = onchart;
+}
+
+
 QByteArray GCData::gUncompress(std::string const& compressed_string)
 {
     const QByteArray data(compressed_string.c_str(), compressed_string.length());
@@ -413,7 +424,7 @@ void GCData::setLinePoints(std::vector<int> ScanRT_i, std::vector<int> scan_tic)
     }
     series->attachAxis(axisY);
     series->attachAxis(axisX);
-    //QTime
+    currentSeries = series;
 }
 
 QList<QPointF> GCData::getScanLinePoints()
@@ -426,12 +437,70 @@ QLineSeries* GCData::getScanLineSeries()
     return series;
 }
 
-QLineSeries* GCData::getEditLineSeries()
+void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<double> scan_tic)
 {
-    return editSeries;
+    previousSeries = currentSeries;
+    QLineSeries* currentSeries = new QLineSeries();
+    QDateTime momentInTime;
+    int currtime;
+    int starttime;
+    int endtime;
+    int min;
+    int s;
+    int ms;
+    int min2;
+    int s2;
+    int ms2;
+
+    min2 = floor(endtime/60000);
+    s2 = floor((endtime-min2*60000)/1000);
+    ms2 = (endtime-min2*60000-s2*1000);
+    QTime time(0,min2,s2,ms2);
+    time.addSecs(-min*60);
+    time.addSecs(-s);
+    time.addMSecs(-ms);
+    int firstmin = floor(ScanRT_i.front()/60000);
+    int lastmin = floor(ScanRT_i.back()/60000);
+
+    std::vector<double>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
+    int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
+    int zeros = numDigits(max);
+    double denom = max / std::pow(10,zeros);
+    int round_to = ceil(denom*10);
+
+    maxTicValue = max;
+
+    axisY->setMax(std::pow(10,zeros-1)*round_to);
+    axisY->setMin(0);
+    axisY->setTickCount(round_to+1);
+    axisY->setTitleText(QString("Reconstructed Ion Count (RIC)"));
+
+    axisX->setTickCount(lastmin-firstmin);
+    axisX->setFormat("m:ss");
+    axisX->setTitleText("Retention Time (min)");
+
+    for (int i = 0; i < ScanRT_i.size(); i++) {
+        currtime = ScanRT_i.at(i);
+        min = floor(currtime/60000);
+        s = floor((currtime-min*60000)/1000);
+        ms = (currtime-min*60000-s*1000);
+        QTime time(0,min,s,ms);
+        momentInTime.setTime(time);
+        QPointF p(momentInTime.toMSecsSinceEpoch(),scan_tic.at(i));
+        currentSeries->append(p);
+        maxTimeValue = time;
+        this->scan_tic_current_qp.append(p);
+    }
+    currentSeries->attachAxis(axisY);
+    currentSeries->attachAxis(axisX);
 }
 
-void GCData::setEditLineSeries(QLineSeries*)
+QLineSeries* GCData::getCurrentLineSeries()
+{
+    return currentSeries;
+}
+
+void GCData::setCurrentLineSeries(QLineSeries*)
 {
 
 }
