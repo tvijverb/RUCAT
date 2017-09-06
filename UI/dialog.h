@@ -2,8 +2,8 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include <QWinTaskbarButton>
-#include <QWinTaskbarProgress>
+//#include <QWinTaskbarButton>
+//#include <QWinTaskbarProgress>
 #include <QObject>
 
 namespace Ui {
@@ -30,8 +30,8 @@ private:
 
     void showEvent(QShowEvent *e);
 
-    QWinTaskbarButton *taskbarButton = nullptr;
-    QWinTaskbarProgress *taskbarProgress = nullptr;
+    //QWinTaskbarButton *taskbarButton = nullptr;
+    //QWinTaskbarProgress *taskbarProgress = nullptr;
 
 signals:
     void dialogMax2Changed(int);

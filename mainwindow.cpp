@@ -18,7 +18,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ImportSaveExport\importmzdata.h"
+#include "ImportSaveExport/importmzdata.h"
 #include "UI/chart.h"
 #include "UI/chartview.h"
 #include "UI/dialog.h"

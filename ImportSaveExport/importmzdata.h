@@ -3,10 +3,11 @@
 
 #include <QString>
 #include <QApplication>
+
+#include <netinet/in.h>
 #include <vector>
 
-//#include "mainwindow.h"
-#include "DataModifier\gcdata.h"
+#include "DataModifier/gcdata.h"
 #include "UI/dialog.h"
 
 GCData * importmzData(const QString current);

@@ -7,7 +7,7 @@
 #include <QTreeWidget>
 #include <QString>
 
-#include "DataModifier\gcdata.h"
+#include "DataModifier/gcdata.h"
 
 class treeTab_2 : public QTreeWidget
 {

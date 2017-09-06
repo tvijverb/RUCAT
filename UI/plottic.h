@@ -22,7 +22,7 @@
 
 #include "UI/chart.h"
 #include "UI/chartview.h"
-#include "DataModifier\gcdata.h"
+#include "DataModifier/gcdata.h"
 
 class plotTIC
 {

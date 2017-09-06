@@ -1,8 +1,8 @@
 #include "UI/dialog.h"
 #include "UI/ui_dialog.h"
 
-#include <QWinTaskbarButton>
-#include <QWinTaskbarProgress>
+//#include <QWinTaskbarButton>
+//#include <QWinTaskbarProgress>
 #include <QObject>
 #include <QShowEvent>
 #include <QDebug>
@@ -12,9 +12,9 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    taskbarButton = new QWinTaskbarButton(this);
+    //taskbarButton = new QWinTaskbarButton(this);
     //taskbarButton->setWindow(windowHandle());
-    taskbarButton->setOverlayIcon(QIcon(":/loading.png"));
+    //taskbarButton->setOverlayIcon(QIcon(":/loading.png"));
 }
 
 void Dialog::showEvent(QShowEvent *e)

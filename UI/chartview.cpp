@@ -153,6 +153,7 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
             return; //event doesn't go further
         }
     QChartView::mouseReleaseEvent(event);
+    this->repaint();
 }
 
 //![1]

@@ -7,8 +7,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "DataModifier\gcdata.h"
-#include "DataModifier\spline.h"
+#include "DataModifier/gcdata.h"
+#include "DataModifier/spline.h"
 
 class interpolatetic : public QObject
 {

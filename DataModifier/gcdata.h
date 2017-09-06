@@ -3,13 +3,14 @@
 
 #include <vector>
 #include <string>
+#include <math.h>
 
 #include <QObject>
 #include <QtCharts/QLineSeries>
 #include <QDateTime>
-#include <QtZlib/zlib.h>
 #include <QDebug>
 
+#include "zlib/include/zlib.h"
 #include "UI/chart.h"
 #include "UI/chartview.h"
 #include "msdata.h"

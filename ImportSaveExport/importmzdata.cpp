@@ -55,9 +55,9 @@ GCData* importmzData(const QString current)  {
         n = str.find("xsi:schemaLocation=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"",&next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
 			data->setXML(std::string(tab1));
         }
 
@@ -65,18 +65,18 @@ GCData* importmzData(const QString current)  {
         n = str.find("scanCount=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
         }
 
         // GC start time
         n = str.find("startTime=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setStartTime(std::string(tab1));
         }
 
@@ -84,9 +84,9 @@ GCData* importmzData(const QString current)  {
         n = str.find("endTime=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setEndTime(std::string(tab1));
         }
 
@@ -94,9 +94,9 @@ GCData* importmzData(const QString current)  {
         n = str.find("fileName=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setName(std::string(tab1));
         }
 
@@ -104,9 +104,9 @@ GCData* importmzData(const QString current)  {
         n = str.find("fileType=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setFileType(std::string(tab1));
         }
 
@@ -114,9 +114,9 @@ GCData* importmzData(const QString current)  {
         n = str.find("fileSha1=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setSHA(std::string(tab1));
         }
 
@@ -124,11 +124,11 @@ GCData* importmzData(const QString current)  {
         n = str.find("category=\"msManufacturer\" value=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setManufacturer(std::string(tab1));
         }
 
@@ -136,11 +136,11 @@ GCData* importmzData(const QString current)  {
         n = str.find("category=\"msModel\" value=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setModel(std::string(tab1));
         }
 
@@ -148,11 +148,11 @@ GCData* importmzData(const QString current)  {
         n = str.find("category=\"msIonisation\" value=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
             data->setIonisation(std::string(tab1));
         }
 
@@ -160,11 +160,11 @@ GCData* importmzData(const QString current)  {
         n = str.find("category=\"msMassAnalyzer\" value=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
             mymsdata->setMSType(std::string(tab1));
         }
 
@@ -172,11 +172,11 @@ GCData* importmzData(const QString current)  {
         n = str.find("category=\"msDetector\" value=");
         if (n != std::string::npos)
         {
-            strcpy_s(tab2, str.c_str());
-            char* tab1 = strtok_s(tab2, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
-            tab1 = strtok_s(NULL, "\"", &next_token1);
+            strcpy(tab2, str.c_str());
+            char* tab1 = strtok(tab2, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
+            tab1 = strtok(NULL, "\"");
             mymsdata->setMSDetector(std::string(tab1));
         }
         // Read scans
@@ -186,9 +186,9 @@ GCData* importmzData(const QString current)  {
             // Find scan number and keep in this loop
             if(inscan == 0) {
                 inscan = 1;
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.push_back(new Scan());
                 try {
                     //data.scan_n.push_back(std::stoi(tab1));
@@ -204,9 +204,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("msLevel=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_mslvl = std::stoi(tab1);
             }
 
@@ -214,9 +214,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("peaksCount=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
                 myscans.back()->scan_peakc = std::stoi(tab1);
             }
 
@@ -224,9 +224,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("retentionTime=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
                 data->addScanRT_s(tab1);
                 data->addScanRT_d(std::stod(data->getScanRT_s().back()));
                 data->addScanRT_i(data->getScanRT_d().back()*1000);
@@ -236,9 +236,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("lowMz=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_lowmz = std::stod(tab1);
             }
 
@@ -246,9 +246,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("highMz=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_highmz = std::stod(tab1);
             }
 
@@ -256,9 +256,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("basePeakMz=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_basepeakmz = std::stod(tab1);
             }
 
@@ -266,9 +266,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("basePeakIntensity=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_basepeakintensity = std::stod(tab1);
             }
 
@@ -276,9 +276,9 @@ GCData* importmzData(const QString current)  {
             n = str.find("totIonCurrent=");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
                 data->ScanAddTIC(std::stoi(tab1));
                 data->ScanAddTIC_d(std::stod(tab1));
             }
@@ -287,10 +287,10 @@ GCData* importmzData(const QString current)  {
             n = str.find("pairOrder=\"m/z-int\">");
             if (n != std::string::npos)
             {
-                strcpy_s(tab2, str.c_str());
-                char* tab1 = strtok_s(tab2, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
-                tab1 = strtok_s(NULL, "\"", &next_token1);
+                strcpy(tab2, str.c_str());
+                char* tab1 = strtok(tab2, "\"");
+                tab1 = strtok(NULL, "\"");
+                tab1 = strtok(NULL, "\"");
 				myscans.back()->scan_mspeaks = tab1;
 				myscans.back()->scan_mspeaks.erase(0, 1);
                 int sz = myscans.back()->scan_mspeaks.size();

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "DataModifier\gcdata.h"
+#include "DataModifier/gcdata.h"
 
 class exportcsv : public QObject
 {

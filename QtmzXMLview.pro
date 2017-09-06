@@ -4,10 +4,12 @@
 QT       += core gui charts widgets concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
-#include (C:\qwt-6.1.3\features\qwt.prf)
 
-LIBS += C:\Qt\Tools\mingw530_32\i686-w64-mingw32\lib\libws2_32.a
-LIBS += -lws2_32
+QMAKE_CXXFLAGS += -std=c++14
+QMAKE_CXXFLAGS += -lm
+
+LIBS += /home/thomas/Documents/RUCAT/zlib/lib/libz.a
+#LIBS += -lws2_32
 TEMPLATE = app
 TARGET = QtmzXMLview
 INCLUDEPATH += .
@@ -24,8 +26,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-LIBS += C:\Qt\Tools\mingw530_32\i686-w64-mingw32\lib\libws2_32.a
-LIBS += -lws2_32
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -41,15 +41,7 @@ SOURCES += main.cpp\
     UI/treetab_2.cpp \
     ImportSaveExport\exportcsv.cpp \
     UI/chart.cpp \
-    UI/chartview.cpp \
-    UI/dialog.cpp \
-    UI/plotms.cpp \
-    UI/plottic.cpp \
-    UI/treetab_2.cpp \
-    controller.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    qcustomplot.cpp \
+    #qcustomplot.cpp \
     DataModifier/interpolatetic.cpp
 
 HEADERS  += mainwindow.h \
@@ -64,20 +56,10 @@ HEADERS  += mainwindow.h \
     UI/dialog.h \
     UI/treetab_2.h \
     ui_mainwindow.h \
-    ui_mainwindow.h \
     ui_dialog.h \
     ImportSaveExport\exportcsv.h \
     UI/chart.h \
-    UI/chartview.h \
-    UI/dialog.h \
-    UI/plotms.h \
-    UI/plottic.h \
-    UI/treetab_2.h \
     UI/ui_dialog.h \
-    controller.h \
-    mainwindow.h \
-    qcustomplot.h \
-    ui_mainwindow.h \
     DataModifier/interpolatetic.h \
     DataModifier/spline.h
 

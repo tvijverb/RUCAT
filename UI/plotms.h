@@ -15,12 +15,12 @@
 #include <QString>
 #include <QObject>
 #include <QBarSeries>
-#include <QBarset>
+//#include <QBarset>
 #include <QBarCategoryAxis>
 #include <QFont>
 #include <QVector>
 
-#include <DataModifier\gcdata.h>
+#include <DataModifier/gcdata.h>
 #include "qcustomplot.h"
 
 class plotMS : public QObject
