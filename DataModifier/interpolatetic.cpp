@@ -56,14 +56,26 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> data,int dataFre
         std::vector<double> interpolateTIC;
         std::vector<double> ScanRT = dataOnChart[i]->getScanRT_d();
         std::vector<double> TIC = dataOnChart[i]->getScanTIC_d();
-        ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end() );
-        TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end() );
+
+        //ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end() );
+        //TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end() );
+
+        qDebug() << ScanRT.size();
+        qDebug() << TIC.size();
+        qDebug() << pointsToInterpolate.size();
 
         for(int i = 0; i < pointsToInterpolate.size(); i++)
         {
-            TIC.push_back(s(pointsToInterpolate[i]));
+            interpolateTIC.push_back(s(pointsToInterpolate[i]));
         }
-        dataOnChart.at(i)->setCurrentLinePoints(ScanRT,TIC);
+
+        ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end() );
+        TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end() );
+
+        qDebug() << ScanRT.size();
+        qDebug() << TIC.size();
+
+        dataOnChart.at(i)->setCurrentLinePoints(pointsToInterpolate,interpolateTIC);
     }
     return false;
 }

@@ -110,6 +110,8 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 	return chartView;
 }
 
+
+
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
     qDebug() << "Plotting TIC";
@@ -120,12 +122,14 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
         chart->removeSeries(series3);
         data->setLineSeriesOnChart(false);
         data->setHasUpdateCurrLineSeries(false);
+        //return chart;
     }
     series3 = data->getCurrentLineSeries();
 
     series3->setUseOpenGL(true);
     chart->legend()->hide();
 
+    qDebug() << series3->points();
     if(data->getLineSeriesOnChart() == false)
     {
         chart->addSeries(series3);
@@ -138,7 +142,6 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
 		chart->removeSeries(series3);
 		data->setLineSeriesOnChart(false);
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
-        return chart;
 	}
 	
     int max_at = 0;

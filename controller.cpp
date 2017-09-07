@@ -41,12 +41,13 @@ void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychar
 {
     bool succes = false;
     succes = interpolation->interpolateLineSeries(data,dataFreq);
-    if(false)
+    if(succes == false)
     {
         for(int i = 0; i < data.size(); i++)
         {
             if(data.at(i)->getLineSeriesOnChart())
             {
+                mytic.plotsingleTIC(data.at(i),data,mychart);
                 mytic.plotsingleTIC(data.at(i),data,mychart);
             }
         }
