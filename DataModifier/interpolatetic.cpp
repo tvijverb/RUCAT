@@ -27,55 +27,70 @@ std::vector<double> interpolatetic::getInterpolatePoints(std::vector<double> sca
     return interpolatePoints;
 }
 
-bool interpolatetic::interpolateLineSeries(std::vector<GCData*> data,int dataFrequency)
+bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFrequency)
 {
     QList<QPointF> chromatogramTIC;
     QList<QPointF> pointList;
-    std::vector<GCData*> dataOnChart;
-
 
     if(data.size() == 0) // Abort if we have no data loaded
         return true;
 
+    // Add interpolation points to currentLinePoints
     for(int i = 0; i < data.size(); i++)
     {
         if(data[i]->getLineSeriesOnChart())
         {
-            dataOnChart.push_back(data.at(i));
+            // Spline fitting
+			tk::spline s;
+            std::vector<double> interpolateTIC;
+            std::vector<double> ScanRT = data[i]->getScanRT_d();
+            std::vector<double> TIC = data[i]->getScanTIC_d();
+            std::vector<double> x;
+            std::vector<double> y(ScanRT.size());
+            std::vector<Scan*> sortscans;
+
+			s.set_points(data[i]->getScanRT_d(), data[i]->getScanTIC_d());
+
+            // Calculate Interpolation points
+			std::vector<double> pointsToInterpolate = getInterpolatePoints(data[i]->getScanRT_d(), dataFrequency);
+
+            // MSData appending and spline y point calculation
+            MSData * mymsdata = data[i]->getMSData();
+            std::vector<Scan*> myscans = mymsdata->getScans();
+			for (int i = 0; i < pointsToInterpolate.size(); i++)
+			{
+				interpolateTIC.push_back(s(pointsToInterpolate[i]));
+                myscans.push_back(new Scan());                          // WE LEAVE THE INTERPOLATED MSDATA EMPTY FOR NOW
+			}
+
+			ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end());
+			TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end());
+
+            // Sorting algorithm to have x-points in increasing order
+            std::size_t n(0);
+            std::generate(std::begin(y), std::end(y), [&]{ return n++; });
+
+            std::sort(  std::begin(y),
+                        std::end(y),
+                        [&](int i1, int i2) { return ScanRT[i1] < ScanRT[i2]; } );
+
+
+            // Index positions of ordering sequence
+            for (auto v : y)
+            {
+                x.push_back(TIC.at(v));
+                sortscans.push_back(myscans.at(v));
+            }
+
+            // Set new MSData and update currentLinePoints
+            mymsdata->setScans(sortscans);
+            data[i]->setMSData(mymsdata);
+            std::sort (ScanRT.begin(),ScanRT.end());
+            data[i]->setCurrentLinePoints(ScanRT, x);
         }
     }
 
-    if(dataOnChart.size() == 0) // Abort if no data is on linechart
+    if(data.size() == 0) // Abort if no data is on linechart
         return true;
-
-    for(int i = 0; i < dataOnChart.size(); i++)
-    {
-        tk::spline s;
-        s.set_points(dataOnChart[i]->getScanRT_d(),dataOnChart[i]->getScanTIC_d());
-        std::vector<double> pointsToInterpolate = getInterpolatePoints(dataOnChart[i]->getScanRT_d(),dataFrequency);
-        std::vector<double> interpolateTIC;
-        std::vector<double> ScanRT = dataOnChart[i]->getScanRT_d();
-        std::vector<double> TIC = dataOnChart[i]->getScanTIC_d();
-
-        //ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end() );
-        //TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end() );
-
-        qDebug() << ScanRT.size();
-        qDebug() << TIC.size();
-        qDebug() << pointsToInterpolate.size();
-
-        for(int i = 0; i < pointsToInterpolate.size(); i++)
-        {
-            interpolateTIC.push_back(s(pointsToInterpolate[i]));
-        }
-
-        ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end() );
-        TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end() );
-
-        qDebug() << ScanRT.size();
-        qDebug() << TIC.size();
-
-        dataOnChart.at(i)->setCurrentLinePoints(pointsToInterpolate,interpolateTIC);
-    }
     return false;
 }

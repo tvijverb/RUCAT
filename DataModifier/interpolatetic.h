@@ -17,7 +17,7 @@ class interpolatetic : public QObject
 public:
     interpolatetic(QObject *parent = nullptr);
     std::vector<double> getInterpolatePoints(std::vector<double>,int);
-    bool interpolateLineSeries(std::vector<GCData*>,int);
+    bool interpolateLineSeries(std::vector<GCData*>&,int);
 private:
 
     //QVector<QLineSeries*> interpolatedLineSeriesVec;

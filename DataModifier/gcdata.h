@@ -67,7 +67,7 @@ public: // Functions
 	std::string getIonisation();
 	void setIonisation(std::string ionisation);
 
-	MSData getMSData();
+    MSData * getMSData();
 	void setMSData(MSData * msdata);
 
     int getScan_n();

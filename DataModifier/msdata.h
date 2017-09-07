@@ -39,6 +39,8 @@ public:
     Scan getScan(int num = 0);
     void addScan(Scan * myscan);
 
+    void setScans(std::vector<Scan *>);
+
 	std::string getMSType();
 	void setMSType(std::string ms_type);
 

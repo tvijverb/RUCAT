@@ -273,9 +273,9 @@ void GCData::setIonisation(std::string ionisation)
 	this->ionisation = ionisation;
 }
 
-MSData GCData::getMSData()
+MSData *GCData::getMSData()
 {
-	return *msdata;
+    return msdata;
 }
 
 void GCData::setMSData(MSData * msdata)
@@ -440,7 +440,7 @@ QLineSeries* GCData::getScanLineSeries()
 void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<double> scan_tic)
 {
     previousSeries = currentSeries;
-    QLineSeries* currentSeries = new QLineSeries();
+    this->currentSeries = new QLineSeries();
     QDateTime momentInTime;
     int currtime;
     int starttime;
@@ -459,8 +459,8 @@ void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<doub
     time.addSecs(-min*60);
     time.addSecs(-s);
     time.addMSecs(-ms);
-    int firstmin = floor(ScanRT_i.front()/60000);
-    int lastmin = floor(ScanRT_i.back()/60000);
+    int firstmin = floor(ScanRT_i.front() * 1000 /60000);
+    int lastmin = floor(ScanRT_i.back() * 1000 /60000);
 
     std::vector<double>::iterator maxit = std::max_element(std::begin(scan_tic), std::end(scan_tic));
     int max = scan_tic[std::distance(std::begin(scan_tic), maxit)];
@@ -480,30 +480,32 @@ void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<doub
     axisX->setTitleText("Retention Time (min)");
 
     for (int i = 0; i < ScanRT_i.size(); i++) {
-        currtime = ScanRT_i.at(i);
+        currtime = ScanRT_i.at(i) * 1000;
         min = floor(currtime/60000);
         s = floor((currtime-min*60000)/1000);
         ms = (currtime-min*60000-s*1000);
         QTime time(0,min,s,ms);
         momentInTime.setTime(time);
         QPointF p(momentInTime.toMSecsSinceEpoch(),scan_tic.at(i));
-        currentSeries->append(p);
+        this->currentSeries->append(p);
         maxTimeValue = time;
         this->scan_tic_current_qp.append(p);
     }
-    currentSeries->attachAxis(axisY);
-    currentSeries->attachAxis(axisX);
+    this->currentSeries->attachAxis(axisY);
+    this->currentSeries->attachAxis(axisX);
+    QList<QPointF> nom = this->currentSeries->points();
+    qDebug() << "currentSeries:" << nom.size();
     hasUpdateCurrentLineSeries = true;
 }
 
 QLineSeries* GCData::getCurrentLineSeries()
 {
-    return currentSeries;
+    return this->currentSeries;
 }
 
 QLineSeries* GCData::getPreviousSeries()
 {
-    return previousSeries;
+    return this->previousSeries;
 }
 
 void GCData::setCurrentLineSeries(QLineSeries* thisseries)

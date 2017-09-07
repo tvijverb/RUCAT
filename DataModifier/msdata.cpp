@@ -18,6 +18,10 @@ void MSData::addScan(Scan * myscan)
 
 }
 
+void MSData::setScans(std::vector<Scan *> myscans)
+{
+    this->scans = myscans;
+}
 Scan MSData::getScan(int num)
 {
     if (num >= scans.size())

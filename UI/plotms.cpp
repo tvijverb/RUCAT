@@ -96,12 +96,12 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
     // Clear MS plot
 	customPlot->clearPlottables();
 
-	QVector<MSData> mymsdata;
+    QVector<MSData*> mymsdata;
 	QVector<Scan> scans;
 
     mymsdata.append(data.at(first_plotted_data)->getMSData());
-    MSData d = (mymsdata.at(0));
-    scans.append(d.getScan(clickedPoints_index));
+    MSData *d = (mymsdata.at(0));
+    scans.append(d->getScan(clickedPoints_index));
 
 	// create empty bar chart objects:
 	QCPBars *bar1 = new QCPBars(customPlot->xAxis, customPlot->yAxis);
@@ -146,63 +146,8 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 		QStringvec.append(QString::fromStdString(stringVec.at(i)));
 	}
 
-	labels << QStringvec;
+
 	std::vector<double> doubleYVec(scans.at(0).y.begin(), scans.at(0).y.end());
-	std::vector<double> doubleYVec2;
-	std::vector<double> doubleYVec3;
-
-	/*
-	// x2:
-	QVector<double> ticks2;
-	QVector<QString> labels2;
-
-	if (data.size() > 1)
-	{
-		std::vector<double> doubleVec2(scans.at(1).x.begin(), scans.at(1).x.end());
-		QVector<double> qVec2 = QVector<double>::fromStdVector(doubleVec2);
-		ticks2 << qVec2;
-
-		std::vector<std::string> stringVec2;
-		stringVec2.reserve(doubleVec2.size());
-		std::transform(doubleVec2.begin(),
-			doubleVec2.end(),
-			std::back_inserter(stringVec2),
-			[](double d) { return std::to_string(d); }
-		);
-		QVector<QString> QStringvec2;
-		for (int i = 0; i < stringVec2.size(); i++) {
-			QStringvec2.append(QString::fromStdString(stringVec2.at(i)));
-		}
-
-		labels2 << QStringvec2;
-		std::vector<double> doubleYVec2(scans.at(1).y.begin(), scans.at(1).y.end());
-	}
-
-	// x3:
-	QVector<double> ticks3;
-	QVector<QString> labels3;
-
-	if (data.size() > 2)
-	{
-		std::vector<double> doubleVec3(scans.at(2).x.begin(), scans.at(2).x.end());
-		QVector<double> qVec3 = QVector<double>::fromStdVector(doubleVec3);
-		ticks3 << qVec3;
-
-		std::vector<std::string> stringVec3;
-		stringVec3.reserve(doubleVec3.size());
-		std::transform(doubleVec3.begin(),
-			doubleVec3.end(),
-			std::back_inserter(stringVec3),
-			[](double d) { return std::to_string(d); }
-		);
-		QVector<QString> QStringvec3;
-		for (int i = 0; i < stringVec3.size(); i++) {
-			QStringvec3.append(QString::fromStdString(stringVec3.at(i)));
-		}
-
-		labels3 << QStringvec3;
-		std::vector<double> doubleYVec3(scans.at(2).y.begin(), scans.at(2).y.end());
-	}*/
 
 	// prepare x axis:
 	if (scans.at(0).x.empty()) {

@@ -110,26 +110,16 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 	return chartView;
 }
 
-
+//void plotTIC::plot
 
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
     qDebug() << "Plotting TIC";
 
-    if(data->hasUpdateCurrLineSeries())
-    {
-        series3 = data->getPreviousSeries();
-        chart->removeSeries(series3);
-        data->setLineSeriesOnChart(false);
-        data->setHasUpdateCurrLineSeries(false);
-        //return chart;
-    }
     series3 = data->getCurrentLineSeries();
-
     series3->setUseOpenGL(true);
     chart->legend()->hide();
 
-    qDebug() << series3->points();
     if(data->getLineSeriesOnChart() == false)
     {
         chart->addSeries(series3);
