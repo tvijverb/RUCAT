@@ -46,7 +46,6 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
             std::vector<double> ScanRT = data[i]->getScanRT_d();
             std::vector<double> TIC = data[i]->getScanTIC_d();
             std::vector<double> x;
-            std::vector<double> y(ScanRT.size());
             std::vector<Scan*> sortscans;
 
 			s.set_points(data[i]->getScanRT_d(), data[i]->getScanTIC_d());
@@ -66,6 +65,8 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
 			ScanRT.insert(ScanRT.end(), pointsToInterpolate.begin(), pointsToInterpolate.end());
 			TIC.insert(TIC.end(), interpolateTIC.begin(), interpolateTIC.end());
 
+            std::vector<double> y(ScanRT.size());
+
             // Sorting algorithm to have x-points in increasing order
             std::size_t n(0);
             std::generate(std::begin(y), std::end(y), [&]{ return n++; });
@@ -82,11 +83,19 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
                 sortscans.push_back(myscans.at(v));
             }
 
+
+            qDebug() << "I go";
+
             // Set new MSData and update currentLinePoints
             mymsdata->setScans(sortscans);
             data[i]->setMSData(mymsdata);
+            qDebug() << "Everywhere";
             std::sort (ScanRT.begin(),ScanRT.end());
+            qDebug() << "Everywhere" << ScanRT.size() << x.size() << sortscans.size();
             data[i]->setCurrentLinePoints(ScanRT, x);
+
+
+
         }
     }
 

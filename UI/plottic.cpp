@@ -180,6 +180,7 @@ QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QCh
     }
     series3->attachAxis(dataset[max_time_at]->XAxis());
     chart->axisY()->setMax(std::pow(10,zeros-1)*round_to);
+    chart->axisY()->setMin(0);
 
     chart->setAnimationOptions(QChart::NoAnimation);
     chart->removeAxis(chart->axisX(series2.front()));

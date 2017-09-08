@@ -439,6 +439,12 @@ QLineSeries* GCData::getScanLineSeries()
 
 void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<double> scan_tic)
 {
+    if(ScanRT_i.size() != scan_tic.size())
+    {
+        qDebug() << "setCurrentLinePoints: size of inputs do not match";
+        return;
+    }
+
     previousSeries = currentSeries;
     this->currentSeries = new QLineSeries();
     QDateTime momentInTime;
