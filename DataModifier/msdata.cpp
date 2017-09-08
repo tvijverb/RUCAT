@@ -15,7 +15,6 @@ int MSData::getScanSize()
 void MSData::addScan(Scan * myscan)
 {
 	this->scans.push_back(myscan);
-
 }
 
 void MSData::setScans(std::vector<Scan *> myscans)

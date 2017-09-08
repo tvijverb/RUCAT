@@ -39,8 +39,10 @@ void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
 
 void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychart
 {
+    progressbar->show();
+    progressbar->setZero();
     bool succes = false;
-    succes = interpolation->interpolateLineSeries(data,dataFreq);
+    succes = interpolation->interpolateLineSeries(data,dataFreq,progressbar);
     if(succes == false)
     {
         for(int i = 0; i < data.size(); i++)
