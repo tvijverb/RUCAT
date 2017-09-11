@@ -5,7 +5,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 QMAKE_CXXFLAGS += /MP
 
 LIBS += zlib/lib/libz.a
-TEMPLATE = apps
+TEMPLATE = app
 TARGET = RUCAT
 INCLUDEPATH += .
 LIBS += C:\Qt\Tools\mingw530_32\i686-w64-mingw32\lib\libws2_32.a
