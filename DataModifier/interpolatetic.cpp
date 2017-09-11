@@ -21,9 +21,6 @@ std::vector<double> interpolatetic::getInterpolatePoints(std::vector<double> sca
             interpolatePoints.push_back(interPolationPoint);
     }
 
-
-    qDebug() << interpolatePoints.front() << interpolatePoints.back() << interpolatePoints.size();
-
     return interpolatePoints;
 }
 
@@ -37,7 +34,7 @@ Scan * interpolatetic::scanInterpolate(Scan * newScan, std::vector<double> ScanR
 
     for(int i = 0; i < ScanRT.size(); i++)
     {
-        if((ScanRT[i] - pointToInterPolate) > 0)
+        if((ScanRT[i] - pointToInterPolate) >= 0)
             upper.push_back(ScanRT[i] - pointToInterPolate);
         else
             lower.push_back(ScanRT[i] - pointToInterPolate);
@@ -147,6 +144,13 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
 
             // Calculate Interpolation points
 			std::vector<double> pointsToInterpolate = getInterpolatePoints(data[i]->getScanRT_d(), dataFrequency);
+
+            // Check interpolation points bounds
+            if(pointsToInterpolate[0] < ScanRT[0] || pointsToInterpolate.back() > ScanRT.back())
+            {
+                qDebug() << "interpolatetic, pointsToInterpolate out of bounds.";
+                return true;
+            }
 
             // MSData appending and spline y point calculation
             MSData * mymsdata = data[i]->getMSData();
