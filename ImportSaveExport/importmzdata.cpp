@@ -32,7 +32,8 @@ GCData* importmzData(const QString current)  {
 
     // Open filestream on QString current which was passed to this function
     fs.open(c_str2, std::fstream::in | std::fstream::out | std::fstream::app);
-
+    char LocalBuffer[4096];
+    fs.rdbuf()->pubsetbuf(LocalBuffer, 4096);
     // new lines will be skipped unless we stop it from happening:
     fs.unsetf(std::ios_base::skipws);
 

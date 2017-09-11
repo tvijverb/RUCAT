@@ -28,6 +28,7 @@ Scan MSData::getScan(int num)
         qDebug() << "Incorrect scan number specified";
 		qDebug() << "Requested Scan num: " << num;
 		qDebug() << "We only store: " << scans.size() << "scans for this TIC curve";
+        return(*scans[scans.size()-1]);
     }
     else
     {

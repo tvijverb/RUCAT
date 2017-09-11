@@ -114,7 +114,6 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 
 QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
     // Get graphics scene from GCData file
-    qDebug() << "Plotting TIC";
 
     series3 = data->getCurrentLineSeries();
     series3->setUseOpenGL(true);

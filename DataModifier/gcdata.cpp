@@ -500,7 +500,6 @@ void GCData::setCurrentLinePoints(std::vector<double> ScanRT_i, std::vector<doub
     this->currentSeries->attachAxis(axisY);
     this->currentSeries->attachAxis(axisX);
     QList<QPointF> nom = this->currentSeries->points();
-    qDebug() << "currentSeries:" << nom.size();
     hasUpdateCurrentLineSeries = true;
 }
 

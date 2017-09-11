@@ -40,14 +40,17 @@ Scan * interpolatetic::scanInterpolate(Scan * newScan, std::vector<double> ScanR
             lower.push_back(ScanRT[i] - pointToInterPolate);
     }
 
-    int lowend = lower.size();
-    int highend = lower.size()+1;
+    int lowend = lower.size()-1;
+    int highend = lower.size();
 
     if(lower.size() == 0 || upper.size() == 0)
     {
         qDebug() << "interpolatetic/scanInterpolate TIC out of bounds";
         return newScan;
     }
+
+
+	std::vector<Scan*> durr = mymsdata->getScans();
 
     Scan lowerScan = mymsdata->getScan(lowend);
     Scan higherScan = mymsdata->getScan(highend);
@@ -88,7 +91,7 @@ Scan * interpolatetic::scanInterpolate(Scan * newScan, std::vector<double> ScanR
     {
         if(i != 0)
         {
-            if(lowScanX[i] == lowScanX[i-1])
+            if(abs(lowScanX[i] - lowScanX[i-1]) < (float)0.3)
             {
                 double xx = abs(lower.back()) + abs(upper.front());
                 double lowerfrac = abs(lower.back()) / xx;
@@ -109,6 +112,7 @@ Scan * interpolatetic::scanInterpolate(Scan * newScan, std::vector<double> ScanR
 
 bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFrequency, Dialog* progressbar)
 {
+	qApp->processEvents();
     QList<QPointF> chromatogramTIC;
     QList<QPointF> pointList;
     int j = 0;
@@ -132,6 +136,7 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
     {
         if(data[i]->getLineSeriesOnChart())
         {
+            std::string name = data[i]->getName();
             // Spline fitting
 			tk::spline s;
             std::vector<double> interpolateTIC;
