@@ -3,6 +3,7 @@ QT       += core gui charts widgets concurrent winextras
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 
 QMAKE_CXXFLAGS += /MP
+CONFIG   += C++17
 
 LIBS += zlib/lib/libz.a
 TEMPLATE = app
@@ -54,7 +55,11 @@ SOURCES += main.cpp\
     #qcustomplot.cpp \
     DataModifier/interpolatetic.cpp \
     UI/advanceddialog.cpp \
-    DataModifier/peakpick.cpp
+    DataModifier/peakpick.cpp \
+    Extra/CpuWidget.cpp \
+    Extra/MemoryWidget.cpp \
+    Extra/SysInfo.cpp \
+    Extra/SysInfoWidget.cpp \
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -75,7 +80,26 @@ HEADERS  += mainwindow.h \
     DataModifier/interpolatetic.h \
     DataModifier/spline.h \
     UI/advanceddialog.h \
-    DataModifier/peakpick.h
+    DataModifier/peakpick.h \
+    Extra/CpuWidget.h \
+    Extra/MemoryWidget.h \
+    Extra/SysInfo.h \
+    Extra/SysInfoWidget.h \
+
+windows {
+    SOURCES += Extra/SysInfoWindowsImpl.cpp
+    HEADERS += Extra/SysInfoWindowsImpl.h
+}
+
+linux {
+    SOURCES += Extra/SysInfoLinuxImpl.cpp
+    HEADERS += Extra/SysInfoLinuxImpl.h
+}
+
+macx {
+    SOURCES += Extra/SysInfoMacImpl.cpp
+    HEADERS += Extra/SysInfoMacImpl.h
+}
 
 FORMS    += mainwindow.ui \
     dialog.ui \

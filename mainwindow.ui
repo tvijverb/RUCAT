@@ -564,7 +564,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
         <number>2</number>
        </property>
        <widget class="QTabWidget" name="tabWidget_2">
-	    <property name="baseSize">
+        <property name="baseSize">
          <size>
           <width>200</width>
           <height>0</height>
@@ -579,9 +579,9 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
-		        <widget class="QWidget" name="tab_CLI">
+        <widget class="QWidget" name="tab_CLI">
          <property name="font">
           <font>
            <stylestrategy>PreferAntialias</stylestrategy>
@@ -623,7 +623,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
           </item>
          </layout>
         </widget>
-				        <widget class="QWidget" name="tab_CommandHistory">
+        <widget class="QWidget" name="tab_CommandHistory">
          <property name="font">
           <font>
            <stylestrategy>PreferAntialias</stylestrategy>
@@ -665,7 +665,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
           </item>
          </layout>
         </widget>
-						        <widget class="QWidget" name="tab_Profiler">
+        <widget class="QWidget" name="tab_Profiler">
          <property name="font">
           <font>
            <stylestrategy>PreferAntialias</stylestrategy>
@@ -693,18 +693,6 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <widget class="QTreeWidget" name="treeWidgetProfiler">
-            <attribute name="headerVisible">
-             <bool>false</bool>
-            </attribute>
-            <column>
-             <property name="text">
-              <string notr="true">1</string>
-             </property>
-            </column>
-           </widget>
-          </item>
          </layout>
         </widget>
        </widget>

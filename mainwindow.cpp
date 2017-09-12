@@ -23,6 +23,7 @@
 #include "UI/chartview.h"
 #include "UI/dialog.h"
 
+
 typedef uint32_t u_int32_t;
 
 QT_CHARTS_USE_NAMESPACE
@@ -35,7 +36,8 @@ void MainWindow::drawBarChart()
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),    mCpuWidget(this),
+    mMemoryWidget(this)
 {
     ui->setupUi(this);
     readSettings();
@@ -75,13 +77,18 @@ MainWindow::MainWindow(QWidget *parent) :
     buf.append(BUILDTIME);
     buf.append(" - ");
     buf.append(BUILDDATE);
+    buf.append(" - Qt version ");
+    buf.append(QT_VERSION_STR);
     buf.append(" - ");
     buf.append(COMPUTERNAME);
     buf.append(" - ");
     buf.append("Thomas Vijverberg");
     QLabel *stat = new QLabel(QString::fromStdString(buf));
     stat->setAlignment(Qt::AlignRight);
-    statusBar()->addWidget(stat, 1);
+    ui->statusBar->addWidget(stat, 1);
+
+    ui->tab_Profiler->layout()->addWidget(&mCpuWidget);
+    //ui->tab_Profiler->layout()->addWidget(&mMemoryWidget);
 }
 void MainWindow::resizeEvent(QResizeEvent *event)
 {

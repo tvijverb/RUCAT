@@ -26,6 +26,10 @@
 #include <QObject>
 #include <string>
 #include <QString>
+#include <QtGlobal>
+
+#include "Extra/CpuWidget.h"
+#include "Extra/MemoryWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -74,6 +78,8 @@ private:
     QStringListModel *model;
     //QAbstractAxis *axisX;
     QValueAxis *axisY;
+    CpuWidget mCpuWidget;
+    MemoryWidget mMemoryWidget;
 
 signals:
 	void MainWindowResized(QResizeEvent *event);

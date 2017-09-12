@@ -23,6 +23,7 @@
     #include <QMouseEvent>
     #include <QStyle>
     #include <QTimer>
+	#include <QtGlobal>
 
     #include <QApplication>
     #include <QVariant>

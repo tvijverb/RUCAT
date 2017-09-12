@@ -77,7 +77,6 @@ public:
     QTreeWidget *treeWidgetActions;
     QWidget *tab_Profiler;
     QVBoxLayout *verticalLayout_23;
-    QTreeWidget *treeWidgetProfiler;
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents_2;
     QHBoxLayout *horizontalLayout_2;
@@ -398,15 +397,6 @@ public:
         verticalLayout_23->setObjectName(QStringLiteral("verticalLayout_23"));
         verticalLayout_23->setSizeConstraint(QLayout::SetNoConstraint);
         verticalLayout_23->setContentsMargins(0, 0, 0, 0);
-        treeWidgetProfiler = new QTreeWidget(tab_Profiler);
-        QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem();
-        __qtreewidgetitem3->setText(0, QStringLiteral("1"));
-        treeWidgetProfiler->setHeaderItem(__qtreewidgetitem3);
-        treeWidgetProfiler->setObjectName(QStringLiteral("treeWidgetProfiler"));
-        treeWidgetProfiler->header()->setVisible(false);
-
-        verticalLayout_23->addWidget(treeWidgetProfiler);
-
         tabWidget_2->addTab(tab_Profiler, QString());
         splitter_2->addWidget(tabWidget_2);
         dockWidget = new QDockWidget(splitter_2);
@@ -499,7 +489,7 @@ public:
         QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
 
         tabWidget->setCurrentIndex(1);
-        tabWidget_2->setCurrentIndex(1);
+        tabWidget_2->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
