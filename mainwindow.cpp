@@ -70,6 +70,18 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->treeView->expandToDepth(0);
     ui->treeView->resizeColumnToContents(0);
 
+    std::string ru = "RUCAT Compiled At: ";
+    std::string buf(ru);
+    buf.append(BUILDTIME);
+    buf.append(" - ");
+    buf.append(BUILDDATE);
+    buf.append(" - ");
+    buf.append(COMPUTERNAME);
+    buf.append(" - ");
+    buf.append("Thomas Vijverberg");
+    QLabel *stat = new QLabel(QString::fromStdString(buf));
+    stat->setAlignment(Qt::AlignRight);
+    statusBar()->addWidget(stat, 1);
 }
 void MainWindow::resizeEvent(QResizeEvent *event)
 {

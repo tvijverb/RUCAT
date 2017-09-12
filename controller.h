@@ -25,8 +25,10 @@
 #include "UI/plotms.h"
 #include "UI/dialog.h"
 #include "UI/treetab_2.h"
+#include "UI/advanceddialog.h"
 #include "ImportSaveExport\exportcsv.h"
 #include "DataModifier/interpolatetic.h"
+
 
 class Controller : public QMainWindow
 {
@@ -43,7 +45,8 @@ public slots:
     void actionInterpolate_Chromatogram();
     void treeViewUpdate();
     void on_rangeChanged();
-    void peakPick();
+    void peakPick(int);
+    void peakPickSetup();
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
@@ -68,6 +71,7 @@ private:
     plotTIC mytic;
 	plotMS myMS;
     treeTab_2 treetab;
+    advanceddialog* advancedDialog = new advanceddialog();
     Dialog* progressbar = new Dialog();
     QCustomPlot *customPlot;
     QFutureWatcher<GCData *> futureWatcher;

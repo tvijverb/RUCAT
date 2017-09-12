@@ -17,7 +17,6 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -69,7 +68,16 @@ public:
     QHBoxLayout *horizontalLayout_3;
     ChartView *ticplot;
     QSplitter *splitter_2;
-    QListView *listView_2;
+    QTabWidget *tabWidget_2;
+    QWidget *tab_CLI;
+    QVBoxLayout *verticalLayout_21;
+    QTreeWidget *treeWidgetCLI;
+    QWidget *tab_CommandHistory;
+    QVBoxLayout *verticalLayout_22;
+    QTreeWidget *treeWidgetActions;
+    QWidget *tab_Profiler;
+    QVBoxLayout *verticalLayout_23;
+    QTreeWidget *treeWidgetProfiler;
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents_2;
     QHBoxLayout *horizontalLayout_2;
@@ -339,10 +347,68 @@ public:
         splitter_2->setAutoFillBackground(true);
         splitter_2->setOrientation(Qt::Horizontal);
         splitter_2->setHandleWidth(2);
-        listView_2 = new QListView(splitter_2);
-        listView_2->setObjectName(QStringLiteral("listView_2"));
-        listView_2->setBaseSize(QSize(200, 0));
-        splitter_2->addWidget(listView_2);
+        tabWidget_2 = new QTabWidget(splitter_2);
+        tabWidget_2->setObjectName(QStringLiteral("tabWidget_2"));
+        tabWidget_2->setBaseSize(QSize(200, 0));
+        tabWidget_2->setFont(font);
+        tab_CLI = new QWidget();
+        tab_CLI->setObjectName(QStringLiteral("tab_CLI"));
+        tab_CLI->setFont(font2);
+        verticalLayout_21 = new QVBoxLayout(tab_CLI);
+        verticalLayout_21->setSpacing(0);
+        verticalLayout_21->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_21->setObjectName(QStringLiteral("verticalLayout_21"));
+        verticalLayout_21->setSizeConstraint(QLayout::SetNoConstraint);
+        verticalLayout_21->setContentsMargins(0, 0, 0, 0);
+        treeWidgetCLI = new QTreeWidget(tab_CLI);
+        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
+        __qtreewidgetitem1->setText(0, QStringLiteral("1"));
+        treeWidgetCLI->setHeaderItem(__qtreewidgetitem1);
+        treeWidgetCLI->setObjectName(QStringLiteral("treeWidgetCLI"));
+        treeWidgetCLI->header()->setVisible(false);
+
+        verticalLayout_21->addWidget(treeWidgetCLI);
+
+        tabWidget_2->addTab(tab_CLI, QString());
+        tab_CommandHistory = new QWidget();
+        tab_CommandHistory->setObjectName(QStringLiteral("tab_CommandHistory"));
+        tab_CommandHistory->setFont(font2);
+        verticalLayout_22 = new QVBoxLayout(tab_CommandHistory);
+        verticalLayout_22->setSpacing(0);
+        verticalLayout_22->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_22->setObjectName(QStringLiteral("verticalLayout_22"));
+        verticalLayout_22->setSizeConstraint(QLayout::SetNoConstraint);
+        verticalLayout_22->setContentsMargins(0, 0, 0, 0);
+        treeWidgetActions = new QTreeWidget(tab_CommandHistory);
+        QTreeWidgetItem *__qtreewidgetitem2 = new QTreeWidgetItem();
+        __qtreewidgetitem2->setText(0, QStringLiteral("1"));
+        treeWidgetActions->setHeaderItem(__qtreewidgetitem2);
+        treeWidgetActions->setObjectName(QStringLiteral("treeWidgetActions"));
+        treeWidgetActions->header()->setVisible(false);
+
+        verticalLayout_22->addWidget(treeWidgetActions);
+
+        tabWidget_2->addTab(tab_CommandHistory, QString());
+        tab_Profiler = new QWidget();
+        tab_Profiler->setObjectName(QStringLiteral("tab_Profiler"));
+        tab_Profiler->setFont(font2);
+        verticalLayout_23 = new QVBoxLayout(tab_Profiler);
+        verticalLayout_23->setSpacing(0);
+        verticalLayout_23->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_23->setObjectName(QStringLiteral("verticalLayout_23"));
+        verticalLayout_23->setSizeConstraint(QLayout::SetNoConstraint);
+        verticalLayout_23->setContentsMargins(0, 0, 0, 0);
+        treeWidgetProfiler = new QTreeWidget(tab_Profiler);
+        QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem();
+        __qtreewidgetitem3->setText(0, QStringLiteral("1"));
+        treeWidgetProfiler->setHeaderItem(__qtreewidgetitem3);
+        treeWidgetProfiler->setObjectName(QStringLiteral("treeWidgetProfiler"));
+        treeWidgetProfiler->header()->setVisible(false);
+
+        verticalLayout_23->addWidget(treeWidgetProfiler);
+
+        tabWidget_2->addTab(tab_Profiler, QString());
+        splitter_2->addWidget(tabWidget_2);
         dockWidget = new QDockWidget(splitter_2);
         dockWidget->setObjectName(QStringLiteral("dockWidget"));
         dockWidget->setMinimumSize(QSize(450, 200));
@@ -433,6 +499,7 @@ public:
         QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
 
         tabWidget->setCurrentIndex(1);
+        tabWidget_2->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -460,6 +527,9 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "File Browser", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "GC-MS files", Q_NULLPTR));
         dockWidget_2->setWindowTitle(QApplication::translate("MainWindow", "Total Ion Current Chromatogram", Q_NULLPTR));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_CLI), QApplication::translate("MainWindow", "CLI", Q_NULLPTR));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_CommandHistory), QApplication::translate("MainWindow", "Actions", Q_NULLPTR));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_Profiler), QApplication::translate("MainWindow", "Profiler", Q_NULLPTR));
         dockWidget->setWindowTitle(QApplication::translate("MainWindow", "Mass Spectrum", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuExport->setTitle(QApplication::translate("MainWindow", "Export", Q_NULLPTR));

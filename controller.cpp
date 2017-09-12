@@ -18,7 +18,7 @@ Controller::Controller(MainWindow * view)
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
-    QObject::connect(view->ui->actionPeak_Pick_Chromatograms, &QAction::triggered, this, &Controller::peakPick);
+    QObject::connect(view->ui->actionPeak_Pick_Chromatograms, &QAction::triggered, this, &Controller::peakPickSetup);
     QObject::connect(view->ui->actionInterpolate_Chromatogram, &QAction::triggered, this, &Controller::actionInterpolate_Chromatogram);
     QObject::connect(view->ui->actionEmpty_TIC_plot, &QAction::triggered, this, &Controller::actionEmpty_TIC_plot);
     QObject::connect(view->ui->actionTICCSVSelected_File, &QAction::triggered, this,&Controller::TICCSVSelected_File);
@@ -29,28 +29,20 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)),progressbar, SLOT(setValue(int)));
     QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
+    QObject::connect(advancedDialog,&QDialog::finished,this,&Controller::peakPick);
 }
 
-void Controller::peakPick()
+void Controller::peakPickSetup()
 {
-    progressbar->setTitle("Interpolating Data");
-    progressbar->show();
-    progressbar->setZero();
-    bool succes = false;
-    succes = interpolation->interpolateLineSeries(data,dataFreq,progressbar);
-    if(succes == false)
-    {
-        for(int i = 0; i < data.size(); i++)
-        {
-            if(data.at(i)->getLineSeriesOnChart())
-            {
-                mytic.removeSeriesLineChart(mychart,data.at(i));
-                mytic.plotsingleTIC(data.at(i),data,mychart);
-            }
-        }
-    }
-    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
-    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
+    advancedDialog->show();
+    advancedDialog->setWindowTitle("Peak Picking Settings");
+    advancedDialog->setSlidersRange(1,50,1,50,1,50);
+    advancedDialog->setSlidersvalue(5,5,5);
+}
+
+void Controller::peakPick(int status)
+{
+
 }
 
 void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
@@ -78,6 +70,7 @@ void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychar
             }
         }
     }
+	progressbar->closethis();
     view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
     view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
 }

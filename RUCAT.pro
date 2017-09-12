@@ -13,6 +13,16 @@ LIBS += -lws2_32
 PRECOMPILED_HEADER = precompiled_header.pch
 CONFIG += precompile_header
 
+win32 {
+DEFINES += BUILDTIME=\\\"$$system('echo %time%')\\\"
+DEFINES += BUILDDATE=\\\"$$system('echo %date%')\\\"
+DEFINES += COMPUTERNAME=\\\"$$system('echo %computername%')\\\"
+} else {
+DEFINES += BUILDTIME=\\\"$$system(date '+%H:%M.%s')\\\"
+DEFINES += BUILDDATE=\\\"$$system(date '+%d/%m/%y')\\\"
+DEFINES += COMPUTERNAME=\\\"$$system('echo %computername%')\\\"
+}
+
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
@@ -42,7 +52,9 @@ SOURCES += main.cpp\
     ImportSaveExport\exportcsv.cpp \
     UI/chart.cpp \
     #qcustomplot.cpp \
-    DataModifier/interpolatetic.cpp
+    DataModifier/interpolatetic.cpp \
+    UI/advanceddialog.cpp \
+    DataModifier/peakpick.cpp
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -61,10 +73,13 @@ HEADERS  += mainwindow.h \
     UI/chart.h \
     UI/ui_dialog.h \
     DataModifier/interpolatetic.h \
-    DataModifier/spline.h
+    DataModifier/spline.h \
+    UI/advanceddialog.h \
+    DataModifier/peakpick.h
 
 FORMS    += mainwindow.ui \
-    dialog.ui
+    dialog.ui \
+    UI/advanceddialog.ui
 
 RESOURCES += \
     toolbarresource.qrc \
