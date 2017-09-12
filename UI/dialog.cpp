@@ -17,6 +17,11 @@ Dialog::Dialog(QWidget *parent) :
     taskbarButton->setOverlayIcon(QIcon(":/loading.png"));
 }
 
+void Dialog::setTitle(const QString title)
+{
+    this->setWindowTitle(title);
+}
+
 void Dialog::showEvent(QShowEvent *e)
 {
 #ifdef Q_OS_WIN32
@@ -68,3 +73,5 @@ void Dialog::closethis()
 {
     close();
 }
+
+#include "moc_dialog.cpp"

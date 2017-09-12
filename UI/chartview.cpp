@@ -183,3 +183,4 @@ void ChartView::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
+#include "moc_chartview.cpp"

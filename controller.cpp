@@ -18,6 +18,7 @@ Controller::Controller(MainWindow * view)
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
+    QObject::connect(view->ui->actionPeak_Pick_Chromatograms, &QAction::triggered, this, &Controller::peakPick);
     QObject::connect(view->ui->actionInterpolate_Chromatogram, &QAction::triggered, this, &Controller::actionInterpolate_Chromatogram);
     QObject::connect(view->ui->actionEmpty_TIC_plot, &QAction::triggered, this, &Controller::actionEmpty_TIC_plot);
     QObject::connect(view->ui->actionTICCSVSelected_File, &QAction::triggered, this,&Controller::TICCSVSelected_File);
@@ -30,6 +31,28 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
 }
 
+void Controller::peakPick()
+{
+    progressbar->setTitle("Interpolating Data");
+    progressbar->show();
+    progressbar->setZero();
+    bool succes = false;
+    succes = interpolation->interpolateLineSeries(data,dataFreq,progressbar);
+    if(succes == false)
+    {
+        for(int i = 0; i < data.size(); i++)
+        {
+            if(data.at(i)->getLineSeriesOnChart())
+            {
+                mytic.removeSeriesLineChart(mychart,data.at(i));
+                mytic.plotsingleTIC(data.at(i),data,mychart);
+            }
+        }
+    }
+    view->ui->ticplot->resize(view->ui->ticplot->size() + QSize(1, 1));
+    view->ui->ticplot->resize(view->ui->ticplot->size() - QSize(1, 1));
+}
+
 void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
 {
     mytic.clearLineChart(mychart,data);
@@ -39,6 +62,7 @@ void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart
 
 void Controller::actionInterpolate_Chromatogram() // Delete lineseries on mychart
 {
+    progressbar->setTitle("Interpolating Data");
     progressbar->show();
     progressbar->setZero();
     bool succes = false;
@@ -171,10 +195,11 @@ void Controller::openFile()
                                                     "mzXML files (*.mzXML)");
     // Import mzData from file to variable
     if(fileList.size() > 0){
+        progressbar->setTitle("Importing Data");
         progressbar->show();
         progressbar->setZero();
         futureWatcher.setFuture(QtConcurrent::mapped(fileList,importmzData));
     }
 	view->ui->tabWidget->setCurrentIndex(1);
 }
-
+#include "moc_controller.cpp"

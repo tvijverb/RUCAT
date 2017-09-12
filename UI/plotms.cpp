@@ -181,3 +181,5 @@ QCustomPlot * plotMS::plotsingleMS(std::vector<GCData*> data, int clickedPoints_
 
 return customPlot;
 }
+
+#include "moc_plotms.cpp"

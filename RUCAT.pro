@@ -10,6 +10,9 @@ TARGET = RUCAT
 INCLUDEPATH += .
 LIBS += C:\Qt\Tools\mingw530_32\i686-w64-mingw32\lib\libws2_32.a
 LIBS += -lws2_32
+PRECOMPILED_HEADER = precompiled_header.pch
+CONFIG += precompile_header
+
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings

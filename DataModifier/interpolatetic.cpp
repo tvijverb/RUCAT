@@ -204,3 +204,5 @@ bool interpolatetic::interpolateLineSeries(std::vector<GCData*> &data,int dataFr
         return true;
     return false;
 }
+
+#include "moc_interpolatetic.cpp"

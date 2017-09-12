@@ -73,3 +73,5 @@ void exportcsv::TICCSVALL_Files(QTreeWidget * treewidget,std::vector<GCData*> da
         csvfile.close();
     }
 }
+
+#include "moc_exportcsv.cpp"

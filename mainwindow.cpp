@@ -131,3 +131,4 @@ void MainWindow::openProgressbar()
     Dialog progressbar;
 
 }
+#include "moc_mainwindow.cpp"

@@ -413,8 +413,8 @@ public:
         menuTIC_CSV->addAction(actionTICCSVSelected_File);
         menuTIC_CSV->addAction(actionTICCSVAll_Files);
         menuTools->addAction(actionInterpolate_Chromatogram);
-        menuTools->addAction(actionAlign_Chromatogram);
         menuTools->addAction(actionPeak_Pick_Chromatograms);
+        menuTools->addAction(actionAlign_Chromatogram);
         menuTools->addAction(actionIntegrate_Peaks);
         menuTools->addAction(actionPCA_Analysis);
         menuTools->addAction(actionGenerate_CSV_integrated_peaklist);
@@ -425,8 +425,8 @@ public:
         mainToolBar->addAction(actionSave);
         mainToolBar->addAction(actionEmpty_TIC_plot);
         mainToolBar->addAction(actionInterpolate_Chromatogram);
-        mainToolBar->addAction(actionAlign_Chromatogram);
         mainToolBar->addAction(actionPeak_Pick_Chromatograms);
+        mainToolBar->addAction(actionAlign_Chromatogram);
         mainToolBar->addAction(actionIntegrate_Peaks);
 
         retranslateUi(MainWindow);

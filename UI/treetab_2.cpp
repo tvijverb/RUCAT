@@ -144,3 +144,4 @@ void treeTab_2::addChildInfo(QTreeWidget * Tree, QTreeWidgetItem * item, GCData*
 }
 
 
+#include "moc_treetab_2.cpp"

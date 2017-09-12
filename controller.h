@@ -43,6 +43,7 @@ public slots:
     void actionInterpolate_Chromatogram();
     void treeViewUpdate();
     void on_rangeChanged();
+    void peakPick();
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);

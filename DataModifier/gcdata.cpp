@@ -550,3 +550,5 @@ void GCData::setHasUpdateCurrLineSeries(bool maybe)
 {
     hasUpdateCurrentLineSeries = maybe;
 }
+
+#include "moc_gcdata.cpp"

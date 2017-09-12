@@ -27,8 +27,7 @@ struct Scan
 };
 
 // MSData class, stores MSinformation from GC-MS file
-class MSData
-{
+class MSData{
 
 public:
     MSData();

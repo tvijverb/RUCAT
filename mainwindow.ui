@@ -587,7 +587,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
          </font>
         </property>
         <property name="windowIcon">
-         <iconset resource="toolbarresource.qrc">
+         <iconset>
           <normaloff>:/png/bar.png</normaloff>:/png/bar.png</iconset>
         </property>
         <property name="features">
@@ -721,8 +721,8 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
      <string>Tools</string>
     </property>
     <addaction name="actionInterpolate_Chromatogram"/>
-    <addaction name="actionAlign_Chromatogram"/>
     <addaction name="actionPeak_Pick_Chromatograms"/>
+    <addaction name="actionAlign_Chromatogram"/>
     <addaction name="actionIntegrate_Peaks"/>
     <addaction name="actionPCA_Analysis"/>
     <addaction name="actionGenerate_CSV_integrated_peaklist"/>
@@ -756,8 +756,8 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
    <addaction name="actionSave"/>
    <addaction name="actionEmpty_TIC_plot"/>
    <addaction name="actionInterpolate_Chromatogram"/>
-   <addaction name="actionAlign_Chromatogram"/>
    <addaction name="actionPeak_Pick_Chromatograms"/>
+   <addaction name="actionAlign_Chromatogram"/>
    <addaction name="actionIntegrate_Peaks"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -885,8 +885,8 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="toolbarresource.qrc"/>
   <include location="qdarkstyle/style.qrc"/>
+  <include location="toolbarresource.qrc"/>
  </resources>
  <connections>
   <connection>

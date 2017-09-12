@@ -5,6 +5,7 @@
 #include <QWinTaskbarButton>
 #include <QWinTaskbarProgress>
 #include <QObject>
+#include <QString>
 
 namespace Ui {
 class Dialog;
@@ -24,6 +25,7 @@ public:
     void setValue(int);
     void setRange(int,int);
     void closethis();
+    void setTitle(const QString);
 
 private:
     Ui::Dialog *ui;
