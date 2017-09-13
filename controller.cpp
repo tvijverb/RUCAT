@@ -34,15 +34,35 @@ void Controller::connectActions()
 
 void Controller::peakPickSetup()
 {
-    advancedDialog->show();
-    advancedDialog->setWindowTitle("Peak Picking Settings");
-    advancedDialog->setSlidersRange(1,50,1,50,1,50);
-    advancedDialog->setSlidersvalue(5,5,5);
+    bool dataonchart = false;
+    for(int i = 0; i < data.size(); i++)
+    {
+        if(data.at(i)->getLineSeriesOnChart())
+        {
+            dataonchart = true;
+        }
+    }
+    if(dataonchart)
+    {
+        advancedDialog->show();
+        advancedDialog->setWindowTitle("Peak Picking Settings");
+        advancedDialog->setSlidersRange(1,50,1,50,1,50);
+        advancedDialog->setSlidersvalue(5,5,5);
+    }
 }
 
 void Controller::peakPick(int status)
 {
-
+    if(status)
+    {
+        for(int i = 0; i < data.size(); i++)
+        {
+            if(data.at(i)->getLineSeriesOnChart())
+            {
+                peakpickdata->peakpickTIC(data.at(i)->getCurrentLineSeries());
+            }
+        }
+    }
 }
 
 void Controller::actionEmpty_TIC_plot() // Delete lineseries on mychart

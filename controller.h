@@ -28,6 +28,7 @@
 #include "UI/advanceddialog.h"
 #include "ImportSaveExport\exportcsv.h"
 #include "DataModifier/interpolatetic.h"
+#include "DataModifier/peakpick.h"
 
 
 class Controller : public QMainWindow
@@ -77,6 +78,7 @@ private:
     QFutureWatcher<GCData *> futureWatcher;
     exportcsv *csvexporter;
     interpolatetic *interpolation;
+    peakpick *peakpickdata;
 
 private:
     int dataFreq = 10;

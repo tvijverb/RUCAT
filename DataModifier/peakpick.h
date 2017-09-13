@@ -1,11 +1,15 @@
 #ifndef PEAKPICK_H
 #define PEAKPICK_H
 
+#include <QLineSeries>
+#include <QDebug>
 
-class peakpick
+class peakpick: public QObject
 {
+    Q_OBJECT
 public:
-    peakpick();
+    explicit peakpick( QObject *parent = 0);
+    std::vector<int> * peakpickTIC(QtCharts::QLineSeries*);
 };
 
 #endif // PEAKPICK_H

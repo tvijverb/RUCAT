@@ -14,7 +14,9 @@ QT_CHARTS_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::addLibraryPath(".");
+    QCoreApplication::addLibraryPath("plugins");
+    QCoreApplication::addLibraryPath("png");
+    QCoreApplication::addLibraryPath("qdarkstyle");
     QApplication a(argc, argv);
     QCoreApplication::setOrganizationName("Thomas Vijverberg");
     QCoreApplication::setOrganizationDomain("thomas.vijverb.nl");

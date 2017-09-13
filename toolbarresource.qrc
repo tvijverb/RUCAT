@@ -67,5 +67,6 @@
         <file>png/interpolate2.png</file>
         <file>png/line.png</file>
         <file>png/peakpick.png</file>
+        <file>png/RUico.ico</file>
     </qresource>
 </RCC>
