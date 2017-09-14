@@ -9,9 +9,10 @@
 #include <QDateTime>
 #include <QtZlib/zlib.h>
 #include <QDebug>
+#include <QDateTimeAxis>
+#include <QValueAxis>
 
 #include "UI/chart.h"
-#include "UI/chartview.h"
 #include "msdata.h"
 
 //GCData class, 
@@ -137,6 +138,7 @@ private: // Vars
     std::vector<double> scan_rt_d;
     std::vector<int> scan_rt_i;
     std::vector<int> scan_tic;
+
     std::vector<double> scan_tic_d;
     QList<QPointF> scan_tic_qp;
     QList<QPointF> scan_tic_current_qp;

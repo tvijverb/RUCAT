@@ -37,21 +37,6 @@ ChartView::ChartView(QWidget *parent) :
     //setRubberBand(QChartView::RectangleRubberBand);
 }
 
-/*void ChartView::onSeriesHovered(QPointF point, bool state)
-{
-seriesHovered = state;
-
-
-//Updating the size of the rectangle
-if (mousePressed == 0 && seriesHovered == true)
-{
-m_lineItemX = new QGraphicsLineItem(_chart);
-m_lineItemY = new QGraphicsLineItem(_chart);
-penLine.setColor(QColor(0, 0, 0));
-penLine.setStyle(Qt::DotLine);
-m_lineItemX->setPen(penLine);
-m_lineItemY->setPen(penLine); */
-
 
 bool ChartView::viewportEvent(QEvent *event)
 {
@@ -76,7 +61,6 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
     if(event->button() == Qt::RightButton)
         {
-            //m_isTouching = false;
             chart()->zoomReset();
             return;
         }
@@ -183,4 +167,26 @@ void ChartView::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
+
+ void ChartView::drawPeaks(GCData *currData,std::vector<int> peakList)
+ {
+    //this->myPeakItems.push_back(new peakitem());
+    for (auto it = begin (peakList); it != end (peakList); ++it)
+    {
+        int iteratorIndex = std::distance(begin (peakList), it);
+        if(*it == 1)
+        {
+            //myPeakItems.push_back(new peakitem());
+            QLineSeries * currSeries = currData->getCurrentLineSeries();
+            QList<QPointF> currPoints = currSeries->points();
+            QPointF thisPoint = currPoints.at(iteratorIndex);
+            thisPoint.setX(thisPoint.x()-5);
+            thisPoint.setY(thisPoint.y()-5);
+            qDebug() << thisPoint;
+            //myPeakItems.back()->setPos(thisPoint);
+            //chart()->scene()->addItem(myPeakItems.back());
+        }
+    }
+ }
+
 #include "moc_chartview.cpp"

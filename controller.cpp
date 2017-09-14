@@ -59,7 +59,8 @@ void Controller::peakPick(int status)
         {
             if(data.at(i)->getLineSeriesOnChart())
             {
-                peakpickdata->peakpickTIC(data.at(i)->getCurrentLineSeries());
+                std::vector<int> peakList = peakpickdata->peakpickTIC(data.at(i)->getCurrentLineSeries(),advancedDialog->getSlidersvalue());
+                mychartView->drawPeaks(data.at(i),peakList);
             }
         }
     }

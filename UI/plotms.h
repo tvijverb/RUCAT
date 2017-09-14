@@ -22,6 +22,7 @@
 
 #include <DataModifier\gcdata.h>
 #include "qcustomplot.h"
+#include "UI/chartview.h"
 
 class plotMS : public QObject
 {

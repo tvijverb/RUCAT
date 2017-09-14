@@ -61,6 +61,7 @@ SOURCES += main.cpp\
     Extra/MemoryWidget.cpp \
     Extra/SysInfo.cpp \
     Extra/SysInfoWidget.cpp \
+    UI/peakitem.cpp
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -86,6 +87,7 @@ HEADERS  += mainwindow.h \
     Extra/MemoryWidget.h \
     Extra/SysInfo.h \
     Extra/SysInfoWidget.h \
+    UI/peakitem.h
 
 windows {
     SOURCES += Extra/SysInfoWindowsImpl.cpp

@@ -39,6 +39,9 @@
 #include <QPen>
 #include <QValueAxis>
 
+#include "DataModifier/gcdata.h"
+#include "UI/peakitem.h"
+
 QT_CHARTS_USE_NAMESPACE
 
 //![1]
@@ -48,6 +51,7 @@ class ChartView : public QChartView
     Q_OBJECT
 public:
     ChartView(QWidget *parent = 0);
+    void drawPeaks(GCData *,std::vector<int>);
 
 //![2]
 protected:
@@ -58,6 +62,7 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent( QMouseEvent * event );
     void onSeriesHovered(QPointF point, bool state);
+
 //![2]
 
 private:
@@ -68,6 +73,8 @@ private:
     QLine Line2;
     QGraphicsLineItem * item = new QGraphicsLineItem(Line);
     QGraphicsLineItem * item2 = new QGraphicsLineItem(Line2);
+    std::vector<peakitem*> myPeakItems;
+    //QGraphicsItem * item3 = new QGraphicsItem(myPeakItem);
 
 signals:
 	void lineChartClicked(QPointF);
