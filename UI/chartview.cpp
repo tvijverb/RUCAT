@@ -34,6 +34,7 @@ ChartView::ChartView(QWidget *parent) :
     QChartView(parent),
     m_isTouching(false)
 {
+    //this->myPeakItems.push_back(new peakitem());
     //setRubberBand(QChartView::RectangleRubberBand);
 }
 
@@ -62,6 +63,11 @@ void ChartView::mousePressEvent(QMouseEvent *event)
     if(event->button() == Qt::RightButton)
         {
             chart()->zoomReset();
+			peakitem * rightClickItem = new peakitem();
+			rightClickItem->setPos(event->localPos());
+            chart()->scene()->addItem(rightClickItem);
+            qDebug() << event->localPos() << chart()->mapToPosition(event->localPos()) << event->pos();
+
             return;
         }
     QChartView::mousePressEvent(event);
@@ -170,21 +176,23 @@ void ChartView::keyPressEvent(QKeyEvent *event)
 
  void ChartView::drawPeaks(GCData *currData,std::vector<int> peakList)
  {
-    //this->myPeakItems.push_back(new peakitem());
+    QLineSeries * currSeries = currData->getCurrentLineSeries();
+    QList<QPointF> currPoints = currSeries->points();
+
     for (auto it = begin (peakList); it != end (peakList); ++it)
     {
         int iteratorIndex = std::distance(begin (peakList), it);
         if(*it == 1)
         {
-            //myPeakItems.push_back(new peakitem());
-            QLineSeries * currSeries = currData->getCurrentLineSeries();
-            QList<QPointF> currPoints = currSeries->points();
+			peakitem * newItem = new peakitem();
+			
             QPointF thisPoint = currPoints.at(iteratorIndex);
             thisPoint.setX(thisPoint.x()-5);
             thisPoint.setY(thisPoint.y()-5);
-            qDebug() << thisPoint;
-            //myPeakItems.back()->setPos(thisPoint);
-            //chart()->scene()->addItem(myPeakItems.back());
+            qDebug() << chart()->mapToPosition(thisPoint);
+            myPeakItems.back()->setPos(thisPoint);
+            chart()->scene()->addItem(myPeakItems.back());
+			this->myPeakItems.push_back(newItem);
         }
     }
  }

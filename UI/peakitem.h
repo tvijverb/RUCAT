@@ -1,5 +1,5 @@
-#ifndef peakitem_H
-#define peakitem_H
+#ifndef PEAKITEM_H
+#define PEAKITEM_H
 
 #include <QPainter>
 #include <QGraphicsItem>
@@ -25,4 +25,4 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
 
-#endif // peakitem_H
+#endif // PEAKITEM_H

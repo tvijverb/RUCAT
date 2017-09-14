@@ -30,6 +30,8 @@
 #ifndef CHARTVIEW_H
 #define CHARTVIEW_H
 
+#include <vector>
+
 #include <QObject>
 #include <QtCharts/QChartView>
 #include <QtWidgets/QRubberBand>
@@ -74,6 +76,7 @@ private:
     QGraphicsLineItem * item = new QGraphicsLineItem(Line);
     QGraphicsLineItem * item2 = new QGraphicsLineItem(Line2);
     std::vector<peakitem*> myPeakItems;
+    //peakitem * mypeakitem = new peakitem();
     //QGraphicsItem * item3 = new QGraphicsItem(myPeakItem);
 
 signals:

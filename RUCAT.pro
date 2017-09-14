@@ -3,7 +3,7 @@ QT       += core gui charts widgets concurrent winextras
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 
 QMAKE_CXXFLAGS += /MP
-CONFIG   += C++11
+CONFIG   += C++17
 RC_FILE = icon.rc
 
 LIBS += C:\Users\Thomas\Documents\QtProjects\QtmzXMLview\zlib/lib/libz.a
