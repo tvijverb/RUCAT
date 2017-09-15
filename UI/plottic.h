@@ -35,7 +35,7 @@ public:
 
     void clearLineChart(QChart*, std::vector<GCData *>);
     void removeSeriesLineChart(QChart *,GCData*);
-    QChart * plotsingleTIC(GCData*, std::vector<GCData *>, QChart *);
+    Chart * plotsingleTIC(GCData*, std::vector<GCData *>, Chart *);
 	ChartView * redrawLineChart(QRect graphicsViewRect);
 
 public:

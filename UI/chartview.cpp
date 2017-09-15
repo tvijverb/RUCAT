@@ -34,7 +34,6 @@ ChartView::ChartView(QWidget *parent) :
     QChartView(parent),
     m_isTouching(false)
 {
-    //this->myPeakItems.push_back(new peakitem());
     //setRubberBand(QChartView::RectangleRubberBand);
 }
 
@@ -62,12 +61,32 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
     if(event->button() == Qt::RightButton)
         {
-            chart()->zoomReset();
-			peakitem * rightClickItem = new peakitem();
-			rightClickItem->setPos(event->localPos());
-            chart()->scene()->addItem(rightClickItem);
-            qDebug() << event->localPos() << chart()->mapToPosition(event->localPos()) << event->pos();
+            /*std::vector<QPointF> chartValues;
+			
+			for (auto it = begin(myPeakItems); it != end(myPeakItems); ++it)
+			{
+				int iteratorIndex = std::distance(begin(myPeakItems), it);
+				QPointF sceneValue = myPeakItems.at(iteratorIndex)->pos();
+				sceneValue.setX(sceneValue.x() + 5);
+				sceneValue.setY(sceneValue.y() + 15);
 
+				chartValues.push_back(chart()->mapToValue(sceneValue));
+			}
+
+			
+
+			for (auto it = begin(myPeakItems); it != end(myPeakItems); ++it)
+			{
+				int iteratorIndex = std::distance(begin(myPeakItems), it);
+
+				QPointF mapValue = chart()->mapToPosition(chartValues.at(iteratorIndex));
+				mapValue.setX(mapValue.x() - 5);
+				mapValue.setY(mapValue.y() - 15);
+
+				myPeakItems.at(iteratorIndex)->setPos(mapValue);
+			}*/
+
+			chart()->zoomReset();
             return;
         }
     QChartView::mousePressEvent(event);
@@ -178,6 +197,7 @@ void ChartView::keyPressEvent(QKeyEvent *event)
  {
     QLineSeries * currSeries = currData->getCurrentLineSeries();
     QList<QPointF> currPoints = currSeries->points();
+	//this->set
 
     for (auto it = begin (peakList); it != end (peakList); ++it)
     {
@@ -185,13 +205,18 @@ void ChartView::keyPressEvent(QKeyEvent *event)
         if(*it == 1)
         {
 			peakitem * newItem = new peakitem();
-			
+			//newItem.set
+
             QPointF thisPoint = currPoints.at(iteratorIndex);
+
+			//qDebug() << thisPoint << chart()->mapToPosition(thisPoint) << chart()->mapToValue(chart()->mapToPosition(thisPoint)) << chart()->scene()->sceneRect();
+
+			thisPoint = chart()->mapToPosition(thisPoint);
             thisPoint.setX(thisPoint.x()-5);
-            thisPoint.setY(thisPoint.y()-5);
-            qDebug() << chart()->mapToPosition(thisPoint);
-            myPeakItems.back()->setPos(thisPoint);
-            chart()->scene()->addItem(myPeakItems.back());
+            thisPoint.setY(thisPoint.y()-15);
+			
+			newItem->setPos(thisPoint);
+            chart()->scene()->addItem(newItem);			
 			this->myPeakItems.push_back(newItem);
         }
     }

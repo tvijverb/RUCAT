@@ -112,7 +112,7 @@ ChartView * plotTIC::redrawLineChart(QRect graphicsViewRect)
 
 //void plotTIC::plot
 
-QChart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, QChart * chart){
+Chart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, Chart * chart){
     // Get graphics scene from GCData file
 
     series3 = data->getCurrentLineSeries();

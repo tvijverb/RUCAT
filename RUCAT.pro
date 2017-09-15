@@ -3,7 +3,7 @@ QT       += core gui charts widgets concurrent winextras
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
 
 QMAKE_CXXFLAGS += /MP
-CONFIG   += C++17
+CONFIG   += C++14
 RC_FILE = icon.rc
 
 LIBS += C:\Users\Thomas\Documents\QtProjects\QtmzXMLview\zlib/lib/libz.a
@@ -111,5 +111,3 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     toolbarresource.qrc \
 qdarkstyle/style.qrc
-
-QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,6.01

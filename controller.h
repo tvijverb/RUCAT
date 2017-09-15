@@ -68,7 +68,7 @@ private:
     QLineSeries * series = new QLineSeries();
 	ChartView * mychartView;
     QGraphicsScene * grpcs = new QGraphicsScene(this);
-    QChart * mychart = new QChart();
+    Chart * mychart = new Chart();
     plotTIC mytic;
 	plotMS myMS;
     treeTab_2 treetab;

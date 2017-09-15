@@ -5,7 +5,7 @@
 #include <QGraphicsItem>
 
 // class for customization
-class peakitem :public QGraphicsPolygonItem
+class peakitem :public QGraphicsPathItem
 {
 public:
     peakitem();
