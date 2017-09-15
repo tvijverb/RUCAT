@@ -9,6 +9,8 @@ class peakitem :public QGraphicsPathItem
 {
 public:
     peakitem();
+    void setDataValue(QPointF);
+    QPointF getDataValue();
 
     QRectF boundingRect() const;
 
@@ -19,6 +21,10 @@ public:
 
     // item state
     bool Pressed;
+
+private:
+    QPointF dataValue;
+
 protected:
     // overriding mouse events
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -43,7 +43,6 @@ Chart::Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags)
 
 Chart::~Chart()
 {
-
 }
 
 //![1]

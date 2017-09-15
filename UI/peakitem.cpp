@@ -8,6 +8,16 @@ peakitem::peakitem()
     //setFlag(ItemIsMovable);
 }
 
+void peakitem::setDataValue(QPointF inputDataValue)
+{
+    this->dataValue = inputDataValue;
+}
+QPointF peakitem::getDataValue()
+{
+    return this->dataValue;
+}
+
+
 QRectF peakitem::boundingRect() const
 {
     // outer most edges

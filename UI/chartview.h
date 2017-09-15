@@ -64,6 +64,8 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void mouseDoubleClickEvent( QMouseEvent * event );
     void onSeriesHovered(QPointF point, bool state);
+    void resizeEvent(QResizeEvent* );
+    void updatePeaks();
 
 //![2]
 
@@ -76,6 +78,8 @@ private:
     QGraphicsLineItem * item = new QGraphicsLineItem(Line);
     QGraphicsLineItem * item2 = new QGraphicsLineItem(Line2);
     std::vector<peakitem*> myPeakItems;
+
+
 
 signals:
 	void lineChartClicked(QPointF);

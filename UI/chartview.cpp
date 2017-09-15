@@ -37,6 +37,21 @@ ChartView::ChartView(QWidget *parent) :
     //setRubberBand(QChartView::RectangleRubberBand);
 }
 
+void ChartView::updatePeaks()
+{
+    for (auto it = begin(myPeakItems); it != end(myPeakItems); ++it)
+    {
+        int iteratorIndex = std::distance(begin(myPeakItems), it);
+
+        QPointF thisPoint = myPeakItems.at(iteratorIndex)->getDataValue();
+
+        thisPoint = chart()->mapToPosition(thisPoint);
+        thisPoint.setX(thisPoint.x()-5);
+        thisPoint.setY(thisPoint.y()-15);
+
+        myPeakItems.at(iteratorIndex)->setPos(thisPoint);
+    }
+}
 
 bool ChartView::viewportEvent(QEvent *event)
 {
@@ -54,6 +69,12 @@ bool ChartView::viewportEvent(QEvent *event)
     return QChartView::viewportEvent(event);
 }
 
+void ChartView::resizeEvent(QResizeEvent *event)
+{
+    QChartView::resizeEvent(event);
+    updatePeaks();
+}
+
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
     if (m_isTouching)
@@ -61,32 +82,20 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
     if(event->button() == Qt::RightButton)
         {
-            /*std::vector<QPointF> chartValues;
+            chart()->zoomReset();
 			
 			for (auto it = begin(myPeakItems); it != end(myPeakItems); ++it)
 			{
 				int iteratorIndex = std::distance(begin(myPeakItems), it);
-				QPointF sceneValue = myPeakItems.at(iteratorIndex)->pos();
-				sceneValue.setX(sceneValue.x() + 5);
-				sceneValue.setY(sceneValue.y() + 15);
 
-				chartValues.push_back(chart()->mapToValue(sceneValue));
+                QPointF thisPoint = myPeakItems.at(iteratorIndex)->getDataValue();
+
+                thisPoint = chart()->mapToPosition(thisPoint);
+                thisPoint.setX(thisPoint.x()-5);
+                thisPoint.setY(thisPoint.y()-15);
+
+                myPeakItems.at(iteratorIndex)->setPos(thisPoint);
 			}
-
-			
-
-			for (auto it = begin(myPeakItems); it != end(myPeakItems); ++it)
-			{
-				int iteratorIndex = std::distance(begin(myPeakItems), it);
-
-				QPointF mapValue = chart()->mapToPosition(chartValues.at(iteratorIndex));
-				mapValue.setX(mapValue.x() - 5);
-				mapValue.setY(mapValue.y() - 15);
-
-				myPeakItems.at(iteratorIndex)->setPos(mapValue);
-			}*/
-
-			chart()->zoomReset();
             return;
         }
     QChartView::mousePressEvent(event);
@@ -162,6 +171,7 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
             return; //event doesn't go further
         }
     QChartView::mouseReleaseEvent(event);
+    updatePeaks();
 }
 
 //![1]
@@ -209,7 +219,7 @@ void ChartView::keyPressEvent(QKeyEvent *event)
 
             QPointF thisPoint = currPoints.at(iteratorIndex);
 
-			//qDebug() << thisPoint << chart()->mapToPosition(thisPoint) << chart()->mapToValue(chart()->mapToPosition(thisPoint)) << chart()->scene()->sceneRect();
+            newItem->setDataValue(thisPoint);
 
 			thisPoint = chart()->mapToPosition(thisPoint);
             thisPoint.setX(thisPoint.x()-5);
