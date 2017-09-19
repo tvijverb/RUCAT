@@ -130,6 +130,10 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush);
         palette.setBrush(QPalette::Disabled, QPalette::NoRole, brush2);
         MainWindow->setPalette(palette);
+        QFont font;
+        font.setFamily(QStringLiteral("Titillium Web"));
+        font.setPointSize(10);
+        MainWindow->setFont(font);
         QIcon icon;
         icon.addFile(QStringLiteral("png/RU.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -216,19 +220,19 @@ public:
         splitter->setOrientation(Qt::Horizontal);
         tabWidget = new QTabWidget(splitter);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        QFont font;
-        font.setFamily(QStringLiteral("MS Sans Serif"));
-        font.setPointSize(12);
-        font.setBold(true);
-        font.setWeight(75);
-        tabWidget->setFont(font);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Titillium Web"));
+        font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
+        tabWidget->setFont(font1);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("MS Sans Serif"));
-        font1.setPointSize(16);
-        font1.setStyleStrategy(QFont::PreferAntialias);
-        tab->setFont(font1);
+        QFont font2;
+        font2.setFamily(QStringLiteral("MS Sans Serif"));
+        font2.setPointSize(16);
+        font2.setStyleStrategy(QFont::PreferAntialias);
+        tab->setFont(font2);
         verticalLayout = new QVBoxLayout(tab);
         verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -299,9 +303,9 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        QFont font2;
-        font2.setStyleStrategy(QFont::PreferAntialias);
-        tab_2->setFont(font2);
+        QFont font3;
+        font3.setStyleStrategy(QFont::PreferAntialias);
+        tab_2->setFont(font3);
         verticalLayout_2 = new QVBoxLayout(tab_2);
         verticalLayout_2->setSpacing(0);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -322,7 +326,7 @@ public:
         dockWidget_2 = new QDockWidget(splitter);
         dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
         dockWidget_2->setMinimumSize(QSize(450, 300));
-        dockWidget_2->setFont(font);
+        dockWidget_2->setFont(font1);
         dockWidget_2->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidgetContents_3 = new QWidget();
         dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
@@ -349,10 +353,10 @@ public:
         tabWidget_2 = new QTabWidget(splitter_2);
         tabWidget_2->setObjectName(QStringLiteral("tabWidget_2"));
         tabWidget_2->setBaseSize(QSize(200, 0));
-        tabWidget_2->setFont(font);
+        tabWidget_2->setFont(font1);
         tab_CLI = new QWidget();
         tab_CLI->setObjectName(QStringLiteral("tab_CLI"));
-        tab_CLI->setFont(font2);
+        tab_CLI->setFont(font3);
         verticalLayout_21 = new QVBoxLayout(tab_CLI);
         verticalLayout_21->setSpacing(0);
         verticalLayout_21->setContentsMargins(11, 11, 11, 11);
@@ -371,7 +375,7 @@ public:
         tabWidget_2->addTab(tab_CLI, QString());
         tab_CommandHistory = new QWidget();
         tab_CommandHistory->setObjectName(QStringLiteral("tab_CommandHistory"));
-        tab_CommandHistory->setFont(font2);
+        tab_CommandHistory->setFont(font3);
         verticalLayout_22 = new QVBoxLayout(tab_CommandHistory);
         verticalLayout_22->setSpacing(0);
         verticalLayout_22->setContentsMargins(11, 11, 11, 11);
@@ -390,7 +394,7 @@ public:
         tabWidget_2->addTab(tab_CommandHistory, QString());
         tab_Profiler = new QWidget();
         tab_Profiler->setObjectName(QStringLiteral("tab_Profiler"));
-        tab_Profiler->setFont(font2);
+        tab_Profiler->setFont(font3);
         verticalLayout_23 = new QVBoxLayout(tab_Profiler);
         verticalLayout_23->setSpacing(0);
         verticalLayout_23->setContentsMargins(11, 11, 11, 11);
@@ -402,7 +406,7 @@ public:
         dockWidget = new QDockWidget(splitter_2);
         dockWidget->setObjectName(QStringLiteral("dockWidget"));
         dockWidget->setMinimumSize(QSize(450, 200));
-        dockWidget->setFont(font);
+        dockWidget->setFont(font1);
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/png/bar.png"), QSize(), QIcon::Normal, QIcon::Off);
         dockWidget->setWindowIcon(icon8);
@@ -428,7 +432,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 823, 21));
+        menuBar->setGeometry(QRect(0, 0, 823, 29));
         QPalette palette3;
         QBrush brush6(QColor(160, 160, 160, 255));
         brush6.setStyle(Qt::SolidPattern);
@@ -439,6 +443,10 @@ public:
         palette3.setBrush(QPalette::Disabled, QPalette::Light, brush6);
         palette3.setBrush(QPalette::Disabled, QPalette::Base, brush5);
         menuBar->setPalette(palette3);
+        QFont font4;
+        font4.setFamily(QStringLiteral("Titillium Web"));
+        font4.setPointSize(11);
+        menuBar->setFont(font4);
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuExport = new QMenu(menuFile);
@@ -456,6 +464,9 @@ public:
         MainWindow->addToolBar(Qt::LeftToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
+        QFont font5;
+        font5.setFamily(QStringLiteral("Tempus Sans ITC"));
+        statusBar->setFont(font5);
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuFile->menuAction());
@@ -480,6 +491,7 @@ public:
         mainToolBar->addAction(actionOpen_file);
         mainToolBar->addAction(actionSave);
         mainToolBar->addAction(actionEmpty_TIC_plot);
+        mainToolBar->addSeparator();
         mainToolBar->addAction(actionInterpolate_Chromatogram);
         mainToolBar->addAction(actionPeak_Pick_Chromatograms);
         mainToolBar->addAction(actionAlign_Chromatogram);
@@ -488,7 +500,7 @@ public:
         retranslateUi(MainWindow);
         QObject::connect(tabWidget, SIGNAL(currentChanged(int)), tabWidget, SLOT(update()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         tabWidget_2->setCurrentIndex(2);
 
 

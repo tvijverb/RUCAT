@@ -43,9 +43,19 @@ advanceddialog::~advanceddialog()
     delete ui;
 }
 
-void advanceddialog::on_horizontalSlider_2_sliderMoved(int position)
+void advanceddialog::on_horizontalSlider_2_valueChanged(int position)
 {
+    emit QDialog::finished(1);
+}
 
+void advanceddialog::on_horizontalSlider_3_valueChanged(int value)
+{
+    emit QDialog::finished(1);
+}
+
+void advanceddialog::on_horizontalSlider_valueChanged(int value)
+{
+    emit QDialog::finished(1);
 }
 
 

@@ -209,6 +209,12 @@
     </disabled>
    </palette>
   </property>
+  <property name="font">
+   <font>
+    <family>Titillium Web</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -294,14 +300,14 @@
        <widget class="QTabWidget" name="tabWidget">
         <property name="font">
          <font>
-          <family>MS Sans Serif</family>
+          <family>Titillium Web</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <property name="font">
@@ -508,7 +514,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
         </property>
         <property name="font">
          <font>
-          <family>MS Sans Serif</family>
+          <family>Titillium Web</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
@@ -572,7 +578,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
         </property>
         <property name="font">
          <font>
-          <family>MS Sans Serif</family>
+          <family>Titillium Web</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
@@ -705,7 +711,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
         </property>
         <property name="font">
          <font>
-          <family>MS Sans Serif</family>
+          <family>Titillium Web</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
@@ -752,7 +758,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
      <x>0</x>
      <y>0</y>
      <width>823</width>
-     <height>21</height>
+     <height>29</height>
     </rect>
    </property>
    <property name="palette">
@@ -819,6 +825,12 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
      </disabled>
     </palette>
    </property>
+   <property name="font">
+    <font>
+     <family>Titillium Web</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
@@ -880,12 +892,19 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave"/>
    <addaction name="actionEmpty_TIC_plot"/>
+   <addaction name="separator"/>
    <addaction name="actionInterpolate_Chromatogram"/>
    <addaction name="actionPeak_Pick_Chromatograms"/>
    <addaction name="actionAlign_Chromatogram"/>
    <addaction name="actionIntegrate_Peaks"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="font">
+    <font>
+     <family>Tempus Sans ITC</family>
+    </font>
+   </property>
+  </widget>
   <action name="actionOpen_file">
    <property name="icon">
     <iconset resource="toolbarresource.qrc">
@@ -916,7 +935,7 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   </action>
   <action name="actionAlign_Chromatogram">
    <property name="icon">
-    <iconset resource="qdarkstyle/style.qrc">
+    <iconset resource="toolbarresource.qrc">
      <normaloff>:/png/alignment.png</normaloff>:/png/alignment.png</iconset>
    </property>
    <property name="text">
@@ -1010,7 +1029,6 @@ QTreeView#TreeWithBranches::branch:open:has-children:!has-siblings:adjoins-item 
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="qdarkstyle/style.qrc"/>
   <include location="toolbarresource.qrc"/>
  </resources>
  <connections>

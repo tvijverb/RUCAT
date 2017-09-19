@@ -26,10 +26,10 @@
 #include "UI/dialog.h"
 #include "UI/treetab_2.h"
 #include "UI/advanceddialog.h"
+#include "UI/alignmentdialog.h"
 #include "ImportSaveExport\exportcsv.h"
 #include "DataModifier/interpolatetic.h"
 #include "DataModifier/peakpick.h"
-
 
 class Controller : public QMainWindow
 {
@@ -48,6 +48,7 @@ public slots:
     void on_rangeChanged();
     void peakPick(int);
     void peakPickSetup();
+    void actionAlign_Chromatogram();
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
@@ -79,6 +80,9 @@ private:
     exportcsv *csvexporter;
     interpolatetic *interpolation;
     peakpick *peakpickdata;
+    AlignmentDialog * alignmentdialog = new AlignmentDialog();
+    QLabel *imageLabel = new QLabel();
+    QImage * image = new QImage();
 
 private:
     int dataFreq = 10;

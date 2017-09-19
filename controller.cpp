@@ -12,12 +12,29 @@ Controller::Controller(MainWindow * view)
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
     mychart->layout()->setContentsMargins(0,0,0,0);
     mychart->setBackgroundRoundness(0);
-    //mychartView->setRenderHint(QPainter::Antialiasing);
+
+    QImageReader reader("png/RUCAT_TIC_BG.png");
+    reader.setAutoTransform(true);
+    const QImage newImage = reader.read();
+
+    imageLabel->setBackgroundRole(QPalette::Base);
+    imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    imageLabel->setScaledContents(true);
+    QPixmap pix = QPixmap::fromImage(newImage);
+    QPainter painter( &pix );
+    QFont titillium = QFont("Titillium Web");
+    titillium.setPointSize(20);
+    painter.setFont( titillium);
+    painter.drawText( QPoint(100, 100), "Welcome to RUCAT - No Data Loaded - Click Open File to start" );
+    imageLabel->setPixmap(pix);
+    imageLabel->adjustSize();
+    view->ui->dockWidget_2->setWidget(imageLabel);
 }
 
 void Controller::connectActions()
 {
 	QObject::connect(view->ui->actionOpen_file, &QAction::triggered, this, &Controller::openFile);
+    QObject::connect(view->ui->actionAlign_Chromatogram, &QAction::triggered, this, &Controller::actionAlign_Chromatogram);
     QObject::connect(view->ui->actionPeak_Pick_Chromatograms, &QAction::triggered, this, &Controller::peakPickSetup);
     QObject::connect(view->ui->actionInterpolate_Chromatogram, &QAction::triggered, this, &Controller::actionInterpolate_Chromatogram);
     QObject::connect(view->ui->actionEmpty_TIC_plot, &QAction::triggered, this, &Controller::actionEmpty_TIC_plot);
@@ -30,6 +47,11 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
     QObject::connect(advancedDialog,&QDialog::finished,this,&Controller::peakPick);
+}
+
+void Controller::actionAlign_Chromatogram()
+{
+    alignmentdialog->show();
 }
 
 void Controller::peakPickSetup()
@@ -197,6 +219,7 @@ void Controller::futureReady()
         data.push_back(futureWatcher.resultAt(i));
         newDataLoaded(data);
     }
+    view->ui->dockWidget_2->setWidget(view->ui->dockWidgetContents_3);
 }
 
 void Controller::openFile()

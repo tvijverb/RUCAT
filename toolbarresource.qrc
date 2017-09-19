@@ -68,5 +68,6 @@
         <file>png/line.png</file>
         <file>png/peakpick.png</file>
         <file>png/RUico.ico</file>
+        <file>png/RUCAT_TIC_BG.png</file>
     </qresource>
 </RCC>

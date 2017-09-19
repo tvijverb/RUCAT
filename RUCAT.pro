@@ -61,7 +61,8 @@ SOURCES += main.cpp\
     Extra/MemoryWidget.cpp \
     Extra/SysInfo.cpp \
     Extra/SysInfoWidget.cpp \
-    UI/peakitem.cpp
+    UI/peakitem.cpp \
+    UI/alignmentdialog.cpp
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -87,7 +88,8 @@ HEADERS  += mainwindow.h \
     Extra/MemoryWidget.h \
     Extra/SysInfo.h \
     Extra/SysInfoWidget.h \
-    UI/peakitem.h
+    UI/peakitem.h \
+    UI/alignmentdialog.h
 
 windows {
     SOURCES += Extra/SysInfoWindowsImpl.cpp
@@ -106,7 +108,8 @@ macx {
 
 FORMS    += mainwindow.ui \
     dialog.ui \
-    UI/advanceddialog.ui
+    UI/advanceddialog.ui \
+    UI/alignmentdialog.ui
 
 RESOURCES += \
     toolbarresource.qrc \
