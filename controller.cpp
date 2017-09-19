@@ -12,7 +12,6 @@ Controller::Controller(MainWindow * view)
     view->ui->ticplot->setRubberBand( QChartView::HorizontalRubberBand );
     mychart->layout()->setContentsMargins(0,0,0,0);
     mychart->setBackgroundRoundness(0);
-    //mychartView->setRenderHint(QPainter::Antialiasing);
 }
 
 void Controller::connectActions()
@@ -47,7 +46,7 @@ void Controller::peakPickSetup()
         advancedDialog->show();
         advancedDialog->setWindowTitle("Peak Picking Settings");
         advancedDialog->setSlidersRange(1,50,1,50,1,50);
-        advancedDialog->setSlidersvalue(5,5,5);
+        advancedDialog->setSlidersvalue(5,5,15);
     }
 }
 
@@ -60,6 +59,7 @@ void Controller::peakPick(int status)
             if(data.at(i)->getLineSeriesOnChart())
             {
                 std::vector<int> peakList = peakpickdata->peakpickTIC(data.at(i)->getCurrentLineSeries(),advancedDialog->getSlidersvalue());
+                view->ui->ticplot->setGData(data);
                 view->ui->ticplot->drawPeaks(data.at(i),peakList);
             }
         }

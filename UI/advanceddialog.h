@@ -21,6 +21,10 @@ public:
 private slots:
     void on_horizontalSlider_2_sliderMoved(int position);
 
+    void on_horizontalSlider_3_valueChanged(int value);
+
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::advanceddialog *ui;
 };

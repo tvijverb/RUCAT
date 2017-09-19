@@ -54,6 +54,8 @@ class ChartView : public QChartView
 public:
     ChartView(QWidget *parent = 0);
     void drawPeaks(GCData *,std::vector<int>);
+    void setGData(std::vector<GCData *>);
+
 
 //![2]
 protected:
@@ -77,9 +79,7 @@ private:
     QLine Line2;
     QGraphicsLineItem * item = new QGraphicsLineItem(Line);
     QGraphicsLineItem * item2 = new QGraphicsLineItem(Line2);
-    std::vector<peakitem*> myPeakItems;
-
-
+    std::vector<GCData *> data;
 
 signals:
 	void lineChartClicked(QPointF);

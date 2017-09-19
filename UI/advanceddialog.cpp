@@ -45,9 +45,19 @@ advanceddialog::~advanceddialog()
 
 void advanceddialog::on_horizontalSlider_2_sliderMoved(int position)
 {
-
+    emit QDialog::finished(1);
 }
 
 
 #include "moc_advanceddialog.cpp";
 
+
+void advanceddialog::on_horizontalSlider_3_valueChanged(int value)
+{
+    emit QDialog::finished(1);
+}
+
+void advanceddialog::on_horizontalSlider_valueChanged(int value)
+{
+    emit QDialog::finished(1);
+}

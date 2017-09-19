@@ -66,7 +66,6 @@ private:
     QTreeWidgetItem * topLevel;
     QTreeWidget * tree;
     QLineSeries * series = new QLineSeries();
-	ChartView * mychartView;
     QGraphicsScene * grpcs = new QGraphicsScene(this);
     Chart * mychart = new Chart();
     plotTIC mytic;
