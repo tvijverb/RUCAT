@@ -14,6 +14,7 @@
 
 #include "UI/chart.h"
 #include "msdata.h"
+#include "UI/peakitem.h"
 
 //GCData class, 
 class GCData : public QObject
@@ -111,6 +112,9 @@ public: // Functions
     bool hasUpdateCurrLineSeries();
     void setHasUpdateCurrLineSeries(bool maybe);
 
+    void setPeakItems(std::vector<peakitem*>);
+    std::vector<peakitem*> getPeakItems();
+
 private: // Functions
 
 signals:
@@ -140,6 +144,7 @@ private: // Vars
     std::vector<int> scan_tic;
 
     std::vector<double> scan_tic_d;
+    std::vector<peakitem*> myPeakItems;
     QList<QPointF> scan_tic_qp;
     QList<QPointF> scan_tic_current_qp;
     QLineSeries* series = new QLineSeries();

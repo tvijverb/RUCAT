@@ -551,4 +551,13 @@ void GCData::setHasUpdateCurrLineSeries(bool maybe)
     hasUpdateCurrentLineSeries = maybe;
 }
 
+void GCData::setPeakItems(std::vector<peakitem*> myItem)
+{
+    this->myPeakItems = myItem;
+}
+std::vector<peakitem*> GCData::getPeakItems()
+{
+    return this->myPeakItems;
+}
+
 #include "moc_gcdata.cpp"

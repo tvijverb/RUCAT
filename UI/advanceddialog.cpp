@@ -59,5 +59,4 @@ void advanceddialog::on_horizontalSlider_valueChanged(int value)
 }
 
 
-#include "moc_advanceddialog.cpp";
-
+#include "moc_advanceddialog.cpp"
