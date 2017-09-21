@@ -47,11 +47,31 @@ void Controller::connectActions()
     QObject::connect(&futureWatcher, SIGNAL(finished()),progressbar, SLOT(closethis()));
     QObject::connect(&futureWatcher,&QFutureWatcher<GCData *>::finished,this,&Controller::futureReady);
     QObject::connect(advancedDialog,&QDialog::finished,this,&Controller::peakPick);
+    QObject::connect(alignmentdialog,&QDialog::finished,this,&Controller::alignment);
+}
+
+void Controller::alignment(int status)
+{
+    if(status)
+    {
+
+    }
 }
 
 void Controller::actionAlign_Chromatogram()
 {
-    alignmentdialog->show();
+    bool dataonchart = false;
+    for(int i = 0; i < data.size(); i++)
+    {
+        if(data.at(i)->getLineSeriesOnChart())
+        {
+            dataonchart = true;
+        }
+    }
+    if(dataonchart)
+    {
+        alignmentdialog->show();
+    }
 }
 
 void Controller::peakPickSetup()

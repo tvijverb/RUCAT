@@ -6,7 +6,7 @@ QMAKE_CXXFLAGS += /MP
 CONFIG   += C++14
 RC_FILE = icon.rc
 
-LIBS += C:\Users\Thomas\Documents\QtProjects\QtmzXMLview\zlib/lib/libz.a
+#LIBS += C:\Users\Thomas\Documents\QtProjects\QtmzXMLview\zlib/lib/libz.a
 TEMPLATE = app
 TARGET = RUCAT
 INCLUDEPATH += .
@@ -62,7 +62,8 @@ SOURCES += main.cpp\
     Extra/SysInfo.cpp \
     Extra/SysInfoWidget.cpp \
     UI/peakitem.cpp \
-    UI/alignmentdialog.cpp
+    UI/alignmentdialog.cpp \
+    DataModifier/alignment.cpp
 
 HEADERS  += mainwindow.h \
     UI/chartview.h \
@@ -89,7 +90,8 @@ HEADERS  += mainwindow.h \
     Extra/SysInfo.h \
     Extra/SysInfoWidget.h \
     UI/peakitem.h \
-    UI/alignmentdialog.h
+    UI/alignmentdialog.h \
+    DataModifier/alignment.h
 
 windows {
     SOURCES += Extra/SysInfoWindowsImpl.cpp

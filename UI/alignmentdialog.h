@@ -21,6 +21,8 @@ public:
 private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
+    void on_buttonBox_accepted();
+
 private:
     Ui::AlignmentDialog *ui;
     QLabel *labelPeakShift = new QLabel(this);

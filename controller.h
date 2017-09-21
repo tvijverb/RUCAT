@@ -49,6 +49,7 @@ public slots:
     void peakPick(int);
     void peakPickSetup();
     void actionAlign_Chromatogram();
+    void alignment(int);
 
 private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
