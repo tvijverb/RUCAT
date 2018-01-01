@@ -131,6 +131,7 @@ Chart * plotTIC::plotsingleTIC(GCData* data, std::vector<GCData *> dataset, Char
 		chart->removeSeries(series3);
 		data->setLineSeriesOnChart(false);
 		qDebug() << QString("ERROR: this series was already on the chart, removing QLineSeries");
+        return chart;
 	}
 	
     int max_at = 0;

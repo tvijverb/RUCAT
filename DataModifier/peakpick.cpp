@@ -86,6 +86,7 @@ std::vector<int> peakpick::peakpickTIC(QtCharts::QLineSeries * lineseries, std::
         double stdev = std::sqrt(sq_sum / diff.size());
 
         upper.at(i) = imean + threshold * stdev;
+        upper.at(i) = threshold * stdev;
         if(Y.at(i) > upper.at(i) && mystd.at(i) > tstdev*cutoff)
         {
             x.at(i) = 1;

@@ -1,6 +1,6 @@
 QT       += core gui charts widgets concurrent winextras
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts printsupport
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 QMAKE_CXXFLAGS += /MP
 CONFIG   += C++14
